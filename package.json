@@ -1,0 +1,38 @@
+{
+  "name": "hubot-hockey",
+  "description": "Get the latest hockey playoff odds and light the lamp",
+  "version": "1.0.0",
+  "author": "Stephen Yeargin <stephen@yearg.in>",
+  "license": "MIT",
+  "keywords": [
+    "hubot",
+    "hubot-scripts",
+    "hockey",
+    "hue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stephenyeargin/hubot-hockey.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stephenyeargin/hubot-hockey/issues"
+  },
+  "dependencies": {
+    "coffee-script": "~1.6",
+    "htmlparser": "^1.7.7",
+    "node-hue-api": "^1.0.5",
+    "soupselect": "^0.2.0",
+    "underscore": "^1.8.3",
+    "underscore.string": "^3.0.3"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "sinon-chai": "*",
+    "sinon": "*"
+  },
+  "main": "index.coffee",
+  "scripts": {
+    "test": "script/test"
+  }
+}
