@@ -27,7 +27,8 @@ hockey_teams = [
     scs_url: 'http://www.sportsclubstats.com/NHL/Western/Pacific/Anaheim.html',
     colors: [
       {hue: 13, saturation: 78, brightness: 94},
-      {hue: 0, saturation: 2, brightness: 24}
+      {hue: 0, saturation: 2, brightness: 24},
+      {hue: 150, saturation: 2, brightness: 70}
     ]
   },
   {
@@ -36,7 +37,8 @@ hockey_teams = [
     scs_url: 'http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Boston.html',
     colors: [
       {hue: 0, saturation: 2, brightness: 24},
-      {hue: 35, saturation: 76, brightness: 98}
+      {hue: 35, saturation: 76, brightness: 98},
+      {hue: 60, saturation: 1, brightness: 92}
     ]
   },
   {
@@ -45,7 +47,8 @@ hockey_teams = [
     scs_url: 'http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Buffalo.html',
     colors: [
       {hue: 213, saturation: 42, brightness: 42},
-      {hue: 35, saturation: 76, brightness: 98}
+      {hue: 35, saturation: 76, brightness: 98},
+      {hue: 150, saturation: 2, brightness: 70}
     ]
   },
   {
@@ -162,7 +165,8 @@ hockey_teams = [
     scs_url: 'http://www.sportsclubstats.com/NHL/Western/Central/Nashville.html',
     colors: [
       {hue: 35, saturation: 76, brightness: 98},
-      {hue: 60, saturation: 1, brightness: 92}
+      {hue: 60, saturation: 1, brightness: 92},
+      {hue: 213, saturation: 42, brightness: 42}
     ]
   },
   {
@@ -212,7 +216,7 @@ hockey_teams = [
   },
   {
     name: 'Arizona Coyotes',
-    regex: '(arizona coyotes|arizona|coyotes|ari|phoenix coyotes|phoenix|phx)',
+    regex: '(arizona coyotes|arizona|coyotes|ari|phoenix coyotes|phoenix|phx|yotes)',
     scs_url: 'http://www.sportsclubstats.com/NHL/Western/Pacific/Arizona.html',
     colors: [
       {hue: 0, saturation: 2, brightness: 24},
@@ -311,6 +315,11 @@ module.exports = (robot) ->
     robot.respond new RegExp(statsregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
       getSCSData(team, msg)
 
+  registerLightListener = (team) ->
+    goallightregex = '_team_regex_ (lights|colors)$'
+    robot.respond new RegExp(goallightregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
+      showTeamLights(team, msg)
+
   registerGoalListener = (team) ->
     goallightregex = '_team_regex_ goal[\!+]?$'
     robot.respond new RegExp(goallightregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
@@ -345,6 +354,24 @@ module.exports = (robot) ->
         else
           msg.send "Could not retrieve standings."
 
+  showTeamLights = (team, msg) ->
+    base_url = process.env.PHILIPS_HUE_IP
+    hash  = process.env.PHILIPS_HUE_HASH
+    unless base_url && hash
+      return msg.send "You do not have the hue bridge configured with Hubot. :("
+    api = new HueApi(base_url, hash)
+    state = lightState.create();
+    msg.send "Go #{team.name}!"
+    api.lights (err, lights) ->
+      return msg.send err if err
+      for light, i in lights.lights
+        # Set each light based on team color array
+        color = adjustColor(team.colors[i%team.colors.length])
+        robot.logger.debug color
+        state = lightState.create().on(true).bri(color.brightness).hue(color.hue).sat(color.saturation)
+        api.setLightState light.id, state, (err, status) ->
+          return msg.send err if err
+
   showGoalLights = (team, msg) ->
     base_url = process.env.PHILIPS_HUE_IP
     hash  = process.env.PHILIPS_HUE_HASH
@@ -354,23 +381,28 @@ module.exports = (robot) ->
     state = lightState.create();
     msg.send "Goal #{team.name}!"
     api.lights (err, lights) ->
+      return err if err
       for light, i in lights.lights
         # Save current light state
         originalLightState = light.state
+        robot.logger.debug originalLightState
         # Set each light based on team color array
-        color = team.colors[i%team.colors.length]
-        # Adjust hue for Philips scale [0-360] scaled to [0-65535]
-        color.hue = Math.round(color.hue * (65535/360))
-        # Adjust saturation/brightness scale [0-100] scaled to [0-255]
-        color.saturation = Math.round(color.saturation * (255/100))
-        color.brightness = Math.round(color.brightness * (255/100))
+        color = adjustColor(_.clone(team.colors[i%team.colors.length]))
         robot.logger.debug color
-        state = lightState.create().bri(color.brightness).hue(color.hue).sat(color.saturation).alertLong()
+        state = lightState.create().on(true).bri(color.brightness).hue(color.hue).sat(color.saturation).alertLong()
         api.setLightState light.id, state, (err, status) ->
           robot.logger.debug status
           api.setLightState light.id, originalLightState, (err, status) ->
             robot.logger.debug status
 
+  adjustColor = (color) ->
+    newColor = _.clone(color)
+    # Adjust hue for Philips scale [0-360] scaled to [0-65535]
+    newColor.hue = Math.round(newColor.hue * (65535/360))
+    # Adjust saturation/brightness scale [0-100] scaled to [0-255]
+    newColor.saturation = Math.round(newColor.saturation * (255/100))
+    newColor.brightness = Math.round(newColor.brightness * (255/100))
+    return newColor
 
   parseHTML = (html, selector) ->
     handler = new HTMLParser.DefaultHandler((() ->),
@@ -386,4 +418,5 @@ module.exports = (robot) ->
   # Loop through teams and create multiple listeners
   for team_item in hockey_teams
     registerSCSListener team_item
+    registerLightListener team_item
     registerGoalListener team_item
