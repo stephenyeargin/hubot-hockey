@@ -18,7 +18,6 @@
     "url": "https://github.com/stephenyeargin/hubot-hockey/issues"
   },
   "dependencies": {
-    "coffee-script": "~1.6",
     "htmlparser": "^1.7.7",
     "moment": "^2.10.3",
     "node-hue-api": "^1.0.5",
