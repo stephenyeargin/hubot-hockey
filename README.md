@@ -27,6 +27,16 @@ export PHILIPS_HUE_HASH="secrets"
 export PHILIPS_HUE_IP="xxx.xxx.xxx.xxx"
 ```
 
+You can also set the Twitter credentials (if not already set for another plugin) to get the latest team news.
+
+```
+export HUBOT_TWITTER_CONSUMER_KEY="secret stuff"
+export HUBOT_TWITTER_CONSUMER_SECRET="secret stuff"
+export HUBOT_TWITTER_ACCESS_TOKEN="secret stuff"
+export HUBOT_TWITTER_ACCESS_TOKEN_SECRET="secret stuff"
+
+```
+
 If you are using Heroku to host your bot, replace `export ...` with `heroku set:config ...`. Note that the IP address/hostname specified will need to be accessible (or routed) through the public Internet for the configuration to work with Heroku or any other host.
 
 ## Adding to Your Hubot
@@ -40,3 +50,5 @@ See full instructions [here](https://github.com/github/hubot/blob/master/docs/sc
 
 - `hubot predators` - Show your team's current playoff odds
 - `hubot predators goal` - Run the light show in your team's colors
+- `hubot predators colors - Set the Hue lights to your team's colors
+- `hubot predators twitter` - Get the latest news from your team on Twitter
