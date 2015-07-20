@@ -1,11 +1,11 @@
 # Hubot Hockey
 
+[![npm version](https://badge.fury.io/js/hubot-hockey.svg)](http://badge.fury.io/js/hubot-hockey) [![Build Status](https://travis-ci.org/stephenyeargin/hubot-hockey.png)](https://travis-ci.org/stephenyeargin/hubot-hockey)
+
 This package serves two purposes:
 
 - Get the latest odds for the selected team from the very useful [Sports Club Stats](http://sportsclubstats.com).
 - Allow you to celebrate your team scoring with a custom light show (requires a [Philips hue](http://meethue.com) setup)
-
-[![Build Status](https://travis-ci.org/stephenyeargin/hubot-hockey.png)](https://travis-ci.org/stephenyeargin/hubot-hockey)
 
 ## Suggested Setup
 
