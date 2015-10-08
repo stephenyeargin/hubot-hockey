@@ -381,7 +381,7 @@ module.exports = (robot) ->
 
   getSCSData = (team, msg) ->
     robot.logger.debug team
-    if moment().month() in [6, 7, 8, 9]
+    if moment().month() in [5, 6, 7, 8]
       msg.send "It is the off-season until October. :-("
       msg.send "Use `#{robot.name} #{team.name} twitter` to get the latest news."
       return
