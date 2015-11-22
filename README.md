@@ -50,5 +50,5 @@ See full instructions [here](https://github.com/github/hubot/blob/master/docs/sc
 
 - `hubot predators` - Show your team's current playoff odds
 - `hubot predators goal` - Run the light show in your team's colors
-- `hubot predators colors - Set the Hue lights to your team's colors
+- `hubot predators colors` - Set the Hue lights to your team's colors
 - `hubot predators twitter` - Get the latest news from your team on Twitter
