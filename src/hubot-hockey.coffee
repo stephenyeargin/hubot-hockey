@@ -10,6 +10,7 @@
 #   "underscore.string": "^3.0.3"
 #   "moment": "^2.10.3"
 #   "twitter": "^1.2.5"
+#   "seatgeek": "^0.3.8"
 #
 # Configuration:
 #   PHILIPS_HUE_HASH - Optional; Secret hash value representing a Hubot account on the hue bridge
@@ -20,7 +21,7 @@
 #   HUBOT_TWITTER_ACCESS_TOKEN_SECRET - Optional; Twitter access token secret
 #
 # Commands:
-#   hubot <team or city> - Get the lastest playoff odds and result from SportsClubStats
+#   hubot <team or city> - Get the lastest playoff odds and result from SportsClubStats and schedule from SeatGeek
 #   hubot <team or city> goal! - Light up a connected Hue bridge with a goal color sequence (requires configuraiton)
 #   hubot <team or city> colors - Set your Hues to your team's colors (requires configuraiton)
 #   hubot <team or city> twitter - Get the latest news from Twitter (requires configuraiton)
@@ -344,6 +345,9 @@ _s = require("underscore.string")
 Select = require("soupselect").select
 HTMLParser = require("htmlparser")
 
+# seatgeek
+seatgeek = require('seatgeek')
+
 # Philips Hue integration
 hue = require("node-hue-api")
 HueApi = hue.HueApi
@@ -358,11 +362,11 @@ twitter_client = new Twitter
   access_token_secret: process.env.HUBOT_TWITTER_ACCESS_TOKEN_SECRET
 
 module.exports = (robot) ->
-  
-  registerSCSListener = (team) ->
+  registerDefaultListener = (team) ->
     statsregex = '_team_regex_$'
     robot.respond new RegExp(statsregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
       getSCSData(team, msg)
+      getSeatGeekData(team, msg)
 
   registerLightListener = (team) ->
     goallightregex = '_team_regex_ (lights|colors)$'
@@ -379,16 +383,29 @@ module.exports = (robot) ->
     robot.respond new RegExp(twitterregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
       showLatestTweet(team, msg)
 
+  getSeatGeekData = (team, msg) ->
+    robot.logger.debug team
+    team_name = (team.name).toLowerCase().replace(/\s/, '-')
+    robot.logger.debug team_name
+    seatgeek.events { 'performers.slug': team_name }, (err, apiresponse) ->
+      if err
+        robot.logger.error err
+        msg.send '(An error ocurred retrieving next game)'
+      if apiresponse['events'].length > 0
+        nextEvent = apiresponse['events'][0]
+        datetime = moment(nextEvent.datetime_local).format('LLL')
+        robot.logger.debug nextEvent
+        msg.send "Next Game: #{nextEvent.title} - #{datetime}"
+
   getSCSData = (team, msg) ->
     robot.logger.debug team
     if moment().month() in [5, 6, 7, 8]
       msg.send "It is the off-season until October. :-("
-      msg.send "Use `#{robot.name} #{team.name} twitter` to get the latest news."
-      return
+      if process.env.HUBOT_TWITTER_CONSUMER_KEY
+        msg.send "Use `#{robot.name} #{team.name} twitter` to get the latest news."
 
     msg.http(team.scs_url)
       .get() (err,res,body) ->
-
         # Catch errors
         if res.statusCode != 200
           msg.send "Got a HTTP/" + res.statusCode
@@ -400,8 +417,8 @@ module.exports = (robot) ->
 
         # Data we want
         if _.isArray(result) && result.length > 0 && _.isArray(result[0].children)
-          last_game = result[0].children[0].data
-          standings = result[1].children[0].data
+          last_game = "Last Game: #{result[0].children[0].data}"
+          standings = "Standings: #{result[1].children[0].data}"
 
           # Sanitize standings
           standings = _s.unescapeHTML(standings)
@@ -414,7 +431,6 @@ module.exports = (robot) ->
           msg.send "Could not retrieve standings."
 
   showTeamLights = (team, msg) ->
-
     base_url = process.env.PHILIPS_HUE_IP
     hash  = process.env.PHILIPS_HUE_HASH
     api = new HueApi(base_url, hash)
@@ -488,7 +504,7 @@ module.exports = (robot) ->
     Select handler.dom, selector
 
   strCapitalize = (str) ->
-    return str.charAt(0).toUpperCase() + str.substring(1);
+    return str.charAt(0).toUpperCase() + str.substring(1)
 
   # Check for Twitter config
   missingEnvironmentForTwitterApi = (msg) ->
@@ -520,7 +536,7 @@ module.exports = (robot) ->
 
   # Loop through teams and create multiple listeners
   for team_item in hockey_teams
-    registerSCSListener team_item
+    registerDefaultListener team_item
     registerLightListener team_item
     registerGoalListener team_item
     registerTweetListener team_item
