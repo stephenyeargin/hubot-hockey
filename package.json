@@ -21,7 +21,7 @@
     "htmlparser": "^1.7.7",
     "moment": "^2.10.3",
     "node-hue-api": "^1.0.5",
-    "seatgeek": "^0.3.8",
+    "seatgeek": "stephenyeargin/seatgeek.js#fix-https",
     "soupselect": "^0.2.0",
     "twitter": "^1.2.5",
     "underscore": "^1.8.3",
