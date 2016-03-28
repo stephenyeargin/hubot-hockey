@@ -1,7 +1,7 @@
 {
   "name": "hubot-hockey",
   "description": "Get the latest hockey playoff odds and light the lamp",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Stephen Yeargin <stephen@yearg.in>",
   "license": "MIT",
   "keywords": [
