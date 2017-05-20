@@ -9,31 +9,45 @@ This package serves two purposes:
 
 ## Suggested Setup
 
-There is no additional configuration if you simply wish to get the latest playoff odds and next game.
+There is no additional configuration if you simply wish to get the latest playoff odds.
+
+### SeatGeek (Next Game)
+
+1. Register for a SeatGeek developer account.
+2. Create an application
+3. Set the `Client ID` as `HUBOT_SEATGEEK_CLIENT_ID`
+
+```
+export HUBOT_SEATGEEK_CLIENT_ID=xxxxxxxxxxxxxxx
+```
+
+### Hue
 
 To set up the hue integration, you can either:
 
-1. Install the [hubot-philipshue](https://github.com/kingbin/hubot-philipshue) package using their instructions for getting a username hash.
-2. Run the command below to obtain the necessary hash value.
+- Install the [hubot-philipshue](https://github.com/kingbin/hubot-philipshue) package using their instructions for getting a username hash.
+- Run the command below to obtain the necessary hash value.
 
 ```
-curl -v -H "Content-Type: application/json" -X POST 'http://YourHueHub/api' -d '{"username": "YourHash", "devicetype": "YourAppName"}'
+curl -v -H "Content-Type: application/json" -X POST 'http://YourHueHubIPAddress/api' -d '{"username": "YourHash", "devicetype": "YourAppName"}'
 ```
 
 The two configuration values to add match the above scripts, so they can be shared.
 
 ```
-export PHILIPS_HUE_HASH="secrets"
+export PHILIPS_HUE_HASH="xxxxxxxxxx"
 export PHILIPS_HUE_IP="xxx.xxx.xxx.xxx"
 ```
+
+### Twitter
 
 You can also set the Twitter credentials (if not already set for another plugin) to get the latest team news.
 
 ```
-export HUBOT_TWITTER_CONSUMER_KEY="secret stuff"
-export HUBOT_TWITTER_CONSUMER_SECRET="secret stuff"
-export HUBOT_TWITTER_ACCESS_TOKEN="secret stuff"
-export HUBOT_TWITTER_ACCESS_TOKEN_SECRET="secret stuff"
+export HUBOT_TWITTER_CONSUMER_KEY="xxxxxxxxxxxx"
+export HUBOT_TWITTER_CONSUMER_SECRET="xxxxxxxxxxxx"
+export HUBOT_TWITTER_ACCESS_TOKEN="xxxxxxxxxxxx"
+export HUBOT_TWITTER_ACCESS_TOKEN_SECRET="xxxxxxxxxxxx"
 
 ```
 
