@@ -99,11 +99,15 @@ module.exports = (robot) ->
       robot.logger.debug apiresponse
       if apiresponse['events'].length > 0
         nextEvent = apiresponse['events'][0]
-        datetime = moment(nextEvent.datetime_local).format('LLL')
+        dateTime = moment(nextEvent.datetime_local).format('LLL')
+        if nextEvent.date_tbd
+          dateTime = 'TBD'
+        if nextEvent.time_tbd
+          dateTime = moment(nextEvent.datetime_local).format('LL')
         robot.logger.debug nextEvent
-        msg.send "Next Game: #{nextEvent.title} - #{datetime} (local time)"
+        msg.send "Next Game: #{nextEvent.title} - #{dateTime}"
     .catch (error) ->
-      robot.logger.error err
+      robot.logger.error error
       msg.send '(An error ocurred retrieving next game)'
 
   getSCSData = (team, msg) ->
