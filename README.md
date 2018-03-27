@@ -2,42 +2,11 @@
 
 [![npm version](https://badge.fury.io/js/hubot-hockey.svg)](http://badge.fury.io/js/hubot-hockey) [![Build Status](https://travis-ci.org/stephenyeargin/hubot-hockey.png)](https://travis-ci.org/stephenyeargin/hubot-hockey)
 
-This package serves two purposes:
-
-- Get the latest odds for the selected team from the very useful [Sports Club Stats](http://sportsclubstats.com).
-- Allow you to celebrate your team scoring with a custom light show (requires a [Philips hue](http://meethue.com) setup)
+Get the latest odds for the selected team from the very useful [Sports Club Stats](http://sportsclubstats.com).
 
 ## Suggested Setup
 
 There is no additional configuration if you simply wish to get the latest playoff odds.
-
-### SeatGeek (Next Game)
-
-1. Register for a SeatGeek developer account.
-2. Create an application
-3. Set the `Client ID` as `HUBOT_SEATGEEK_CLIENT_ID`
-
-```
-export HUBOT_SEATGEEK_CLIENT_ID=xxxxxxxxxxxxxxx
-```
-
-### Hue
-
-To set up the hue integration, you can either:
-
-- Install the [hubot-philipshue](https://github.com/kingbin/hubot-philipshue) package using their instructions for getting a username hash.
-- Run the command below to obtain the necessary hash value.
-
-```
-curl -v -H "Content-Type: application/json" -X POST 'http://YourHueHubIPAddress/api' -d '{"username": "YourHash", "devicetype": "YourAppName"}'
-```
-
-The two configuration values to add match the above scripts, so they can be shared.
-
-```
-export PHILIPS_HUE_HASH="xxxxxxxxxx"
-export PHILIPS_HUE_IP="xxx.xxx.xxx.xxx"
-```
 
 ### Twitter
 
@@ -62,7 +31,5 @@ See full instructions [here](https://github.com/github/hubot/blob/master/docs/sc
 
 ## Commands
 
-- `hubot predators` - Show your team's current playoff odds and next game
-- `hubot predators goal` - Run the light show in your team's colors
-- `hubot predators colors` - Set the Hue lights to your team's colors
-- `hubot predators twitter` - Get the latest news from your team on Twitter
+- `hubot <team>` - Show your team's current playoff odds and next game
+- `hubot <team> twitter` - Get the latest news from your team on Twitter
