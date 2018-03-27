@@ -3,560 +3,186 @@
       "name": "Anaheim Ducks",
       "regex": "(anaheim ducks|anaheim|ducks|ana)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/Anaheim.html",
-      "twitter_handle": "AnaheimDucks",
-      "colors": [
-         {
-            "hue": 13,
-            "saturation": 78,
-            "brightness": 94
-         },
-         {
-            "hue": 0,
-            "saturation": 2,
-            "brightness": 24
-         },
-         {
-            "hue": 150,
-            "saturation": 2,
-            "brightness": 70
-         }
-      ]
+      "twitter_handle": "AnaheimDucks"
    },
    {
       "name": "Boston Bruins",
       "regex": "(boston bruins|boston|bruins|bos)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Boston.html",
-      "twitter_handle": "NHLBruins",
-      "colors": [
-         {
-            "hue": 0,
-            "saturation": 2,
-            "brightness": 24
-         },
-         {
-            "hue": 35,
-            "saturation": 76,
-            "brightness": 98
-         },
-         {
-            "hue": 60,
-            "saturation": 1,
-            "brightness": 92
-         }
-      ]
+      "twitter_handle": "NHLBruins"
    },
    {
       "name": "Buffalo Sabres",
       "regex": "(buffalo sabres|bufalo|sabres|buf)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Buffalo.html",
-      "twitter_handle": "BuffaloSabres",
-      "colors": [
-         {
-            "hue": 213,
-            "saturation": 42,
-            "brightness": 42
-         },
-         {
-            "hue": 35,
-            "saturation": 76,
-            "brightness": 98
-         },
-         {
-            "hue": 150,
-            "saturation": 2,
-            "brightness": 70
-         }
-      ]
+      "twitter_handle": "BuffaloSabres"
    },
    {
       "name": "Calgary Flames",
       "regex": "(calgary flames|calgary|flames|cal)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/Calgary.html",
-      "twitter_handle": "NHLFlames",
-      "colors": [
-         {
-            "hue": 0,
-            "saturation": 2,
-            "brightness": 24
-         },
-         {
-            "hue": 37,
-            "saturation": 63,
-            "brightness": 99
-         }
-      ]
+      "twitter_handle": "NHLFlames"
    },
    {
       "name": "Carolina Hurricanes",
       "regex": "(carolina hurricanes|carolina|hurricanes|car|canes)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/Carolina.html",
-      "twitter_handle": "NHLCanes",
-      "colors": [
-         {
-            "hue": 0,
-            "saturation": 2,
-            "brightness": 24
-         },
-         {
-            "hue": 1,
-            "saturation": 69,
-            "brightness": 76
-         }
-      ]
+      "twitter_handle": "NHLCanes"
    },
    {
       "name": "Chicago Blackhawks",
       "regex": "(chicago blackhawks|chicago|blackhawks|chi|hawks)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/Chicago.html",
-      "twitter_handle": "NHLBlackhawks",
-      "colors": [
-         {
-            "hue": 255,
-            "saturation": 59,
-            "brightness": 52
-         },
-         {
-            "hue": 35,
-            "saturation": 75,
-            "brightness": 80
-         }
-      ]
+      "twitter_handle": "NHLBlackhawks"
    },
    {
       "name": "Colorado Avalanche",
       "regex": "(colorado avalanche|colorado|avalanche|col|avs|denver)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/Colorado.html",
-      "twitter_handle": "Avalanche",
-      "colors": [
-         {
-            "hue": 348,
-            "saturation": 53,
-            "brightness": 48
-         },
-         {
-            "hue": 0,
-            "saturation": 1,
-            "brightness": 23
-         }
-      ]
+      "twitter_handle": "Avalanche"
    },
    {
       "name": "Columbus Blue Jackets",
       "regex": "(columbus blue jackets|columbus|blue jackets|cbj|bluejackets)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/Columbus.html",
-      "twitter_handle": "BlueJacketsNHL",
-      "colors": [
-         {
-            "hue": 213,
-            "saturation": 42,
-            "brightness": 42
-         },
-         {
-            "hue": 1,
-            "saturation": 69,
-            "brightness": 76
-         }
-      ]
+      "twitter_handle": "BlueJacketsNHL"
    },
    {
       "name": "Dallas Stars",
       "regex": "(dallas stars|dallas|stars|dal)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/Dallas.html",
-      "twitter_handle": "DallasStars",
-      "colors": [
-         {
-            "hue": 0,
-            "saturation": 2,
-            "brightness": 24
-         },
-         {
-            "hue": 154,
-            "saturation": 54,
-            "brightness": 43
-         }
-      ]
+      "twitter_handle": "DallasStars"
    },
    {
       "name": "Detroit Red Wings",
       "regex": "(detroit red wings|detroit|red wings|det|redwings|wings)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Detroit.html",
-      "twitter_handle": "DetroitRedWings",
-      "colors": [
-         {
-            "hue": 1,
-            "saturation": 69,
-            "brightness": 76
-         },
-         {
-            "hue": 60,
-            "saturation": 1,
-            "brightness": 92
-         }
-      ]
+      "twitter_handle": "DetroitRedWings"
    },
    {
       "name": "Edmonton Oilers",
       "regex": "(edmonton oilers|edmonton|oilers|edm|oil)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/Edmonton.html",
-      "twitter_handle": "EdmontonOilers",
-      "colors": [
-         {
-            "hue": 210,
-            "saturation": 61,
-            "brightness": 47
-         },
-         {
-            "hue": 15,
-            "saturation": 74,
-            "brightness": 81
-         }
-      ]
+      "twitter_handle": "EdmontonOilers"
    },
    {
       "name": "Florida Panthers",
       "regex": "(florida panthers|florida|panthers|fla|cats)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Florida.html",
-      "twitter_handle": "FlaPanthers",
-      "colors": [
-         {
-            "hue": 39,
-            "saturation": 82,
-            "brightness": 77
-         },
-         {
-            "hue": 35,
-            "saturation": 76,
-            "brightness": 98
-         }
-      ]
+      "twitter_handle": "FlaPanthers"
    },
    {
       "name": "Los Angeles Kings",
       "regex": "(los angeles kings|los angeles|kings|lak|losangeles)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/LosAngeles.html",
-      "twitter_handle": "LAKings",
-      "colors": [
-         {
-            "hue": 0,
-            "saturation": 2,
-            "brightness": 24
-         },
-         {
-            "hue": 228,
-            "saturation": 45,
-            "brightness": 44
-         }
-      ]
+      "twitter_handle": "LAKings"
    },
    {
       "name": "Minnesota Wild",
       "regex": "(minnesota wild|minnesota|wild|min)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/Minnesota.html",
-      "twitter_handle": "mnwild",
-      "colors": [
-         {
-            "hue": 36,
-            "saturation": 20,
-            "brightness": 88
-         },
-         {
-            "hue": 153,
-            "saturation": 49,
-            "brightness": 36
-         }
-      ]
+      "twitter_handle": "mnwild"
    },
    {
       "name": "Montreal Canadiens",
       "regex": "(montreal canadiens|montreal|canadiens|mtl|habs)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Montreal.html",
-      "twitter_handle": "CanadiensMTL",
-      "colors": [
-         {
-            "hue": 355,
-            "saturation": 62,
-            "brightness": 64
-         },
-         {
-            "hue": 218,
-            "saturation": 58,
-            "brightness": 47
-         }
-      ]
+      "twitter_handle": "CanadiensMTL"
    },
    {
       "name": "Nashville Predators",
       "regex": "(nashville predators|nashville|predators|nas|preds)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/Nashville.html",
-      "twitter_handle": "predsnhl",
-      "colors": [
-         {
-            "hue": 35,
-            "saturation": 76,
-            "brightness": 98
-         },
-         {
-            "hue": 60,
-            "saturation": 1,
-            "brightness": 92
-         },
-         {
-            "hue": 213,
-            "saturation": 42,
-            "brightness": 42
-         }
-      ]
-   },
+      "twitter_handle": "predsnhl"
+    },
    {
       "name": "New Jersey Devils",
       "regex": "(new jersey devils|new jersey|devils|njd)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/NewJersey.html",
-      "twitter_handle": "NHLDevils",
-      "colors": [
-         {
-            "hue": 1,
-            "saturation": 69,
-            "brightness": 76
-         },
-         {
-            "hue": 0,
-            "saturation": 2,
-            "brightness": 24
-         }
-      ]
+      "twitter_handle": "NHLDevils"
    },
    {
       "name": "New York Islanders",
       "regex": "(new york islanders|islanders|nyi|isles)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/NYIslanders.html",
-      "twitter_handle": "NYIslanders",
-      "colors": [
-         {
-            "hue": 210,
-            "saturation": 70,
-            "brightness": 49
-         },
-         {
-            "hue": 13,
-            "saturation": 79,
-            "brightness": 94
-         }
-      ]
+      "twitter_handle": "NYIslanders"
    },
    {
       "name": "New York Rangers",
       "regex": "(new york rangers|rangers|nyr|blue shirts|blueshirts)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/NYRangers.html",
-      "twitter_handle": "NYRangers",
-      "colors": [
-         {
-            "hue": 1,
-            "saturation": 69,
-            "brightness": 76
-         },
-         {
-            "hue": 213,
-            "saturation": 42,
-            "brightness": 42
-         }
-      ]
+      "twitter_handle": "NYRangers"
    },
    {
       "name": "Ottawa Senators",
       "regex": "(ottawa senators|ottawa|senators|ott|sens)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Ottawa.html",
-      "twitter_handle": "Senators",
-      "colors": [
-         {
-            "hue": 1,
-            "saturation": 69,
-            "brightness": 76
-         },
-         {
-            "hue": 39,
-            "saturation": 82,
-            "brightness": 77
-         }
-      ]
+      "twitter_handle": "Senators"
    },
    {
       "name": "Philidelphia Flyers",
       "regex": "(philidelphia flyers|philidelphia|flyers|phi)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/Philadelphia.html",
-      "twitter_handle": "NHLFlyers",
-      "colors": [
-         {
-            "hue": 0,
-            "saturation": 2,
-            "brightness": 24
-         },
-         {
-            "hue": 13,
-            "saturation": 78,
-            "brightness": 94
-         }
-      ]
+      "twitter_handle": "NHLFlyers"
    },
    {
       "name": "Arizona Coyotes",
       "regex": "(arizona coyotes|arizona|coyotes|ari|phoenix coyotes|phoenix|phx|yotes)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/Arizona.html",
-      "twitter_handle": "ArizonaCoyotes",
-      "colors": [
-         {
-            "hue": 0,
-            "saturation": 2,
-            "brightness": 24
-         },
-         {
-            "hue": 359,
-            "saturation": 50,
-            "brightness": 53
-         }
-      ]
+      "twitter_handle": "ArizonaCoyotes"
    },
    {
       "name": "Pittsburgh Penguins",
       "regex": "(pittsburgh penguins|pittsburgh|penguins|pit|pitt)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/Pittsburgh.html",
-      "twitter_handle": "penguins",
-      "colors": [
-         {
-            "hue": 35,
-            "saturation": 42,
-            "brightness": 72
-         },
-         {
-            "hue": 0,
-            "saturation": 2,
-            "brightness": 24
-         }
-      ]
+      "twitter_handle": "penguins"
    },
    {
       "name": "San Jose Sharks",
       "regex": "(san jose sharks|san jose|sharks|sjs|sanjose)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/SanJose.html",
-      "twitter_handle": "SanJoseSharks",
-      "colors": [
-         {
-            "hue": 184,
-            "saturation": 100,
-            "brightness": 46
-         },
-         {
-            "hue": 0,
-            "saturation": 2,
-            "brightness": 24
-         }
-      ]
+      "twitter_handle": "SanJoseSharks"
    },
    {
       "name": "Tampa Bay Lightning",
       "regex": "(tampa bay lightning|tampa bay|lightning|tbl|tampabay)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/TampaBay.html",
-      "twitter_handle": "TBLightning",
-      "colors": [
-         {
-            "hue": 60,
-            "saturation": 1,
-            "brightness": 92
-         },
-         {
-            "hue": 210,
-            "saturation": 61,
-            "brightness": 47
-         }
-      ]
+      "twitter_handle": "TBLightning"
    },
    {
       "name": "St. Louis Blues",
       "regex": "(st. louis blues|st. louis|blues|stl|stlouis|saint louis|st louis|blue notes)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/StLouis.html",
-      "twitter_handle": "StLouisBlues",
-      "colors": [
-         {
-            "hue": 35,
-            "saturation": 76,
-            "brightness": 98
-         },
-         {
-            "hue": 213,
-            "saturation": 42,
-            "brightness": 42
-         }
-      ]
+      "twitter_handle": "StLouisBlues"
    },
    {
       "name": "Toronto Maple Leafs",
       "regex": "(toronto maple leafs|toronto|maple leafs|tor|leafs|mapleleafs)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Toronto.html",
-      "twitter_handle": "MapleLeafs",
-      "colors": [
-         {
-            "hue": 60,
-            "saturation": 1,
-            "brightness": 92
-         },
-         {
-            "hue": 210,
-            "saturation": 61,
-            "brightness": 47
-         }
-      ]
+      "twitter_handle": "MapleLeafs"
    },
    {
       "name": "Vancouver Canucks",
       "regex": "(vancouver canucks|vancouver|canucks|van|nucks)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/Vancouver.html",
-      "twitter_handle": "VanCanucks",
-      "colors": [
-         {
-            "hue": 223,
-            "saturation": 18,
-            "brightness": 31
-         },
-         {
-            "hue": 60,
-            "saturation": 1,
-            "brightness": 64
-         }
-      ]
+      "twitter_handle": "VanCanucks"
+   },
+   {
+      "name": "Vegas Golden Knights",
+      "regex": "(vegas golden knights|vegas|knights|vgk)",
+      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/Vegas.html",
+      "twitter_handle": "GoldenKnights"
    },
    {
       "name": "Washington Capitals",
       "regex": "(washington capitals|washington|capitals|wsh|caps)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/Washington.html",
-      "twitter_handle": "washcaps",
-      "colors": [
-         {
-            "hue": 1,
-            "saturation": 69,
-            "brightness": 76
-         },
-         {
-            "hue": 213,
-            "saturation": 42,
-            "brightness": 42
-         }
-      ]
+      "twitter_handle": "washcaps"
    },
    {
       "name": "Winnipeg Jets",
       "regex": "(winnipeg jets|winnipeg|jets|wpg|peg)",
       "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/Winnipeg.html",
-      "twitter_handle": "NHLJets",
-      "colors": [
-         {
-            "hue": 199,
-            "saturation": 100,
-            "brightness": 57
-         },
-         {
-            "hue": 213,
-            "saturation": 42,
-            "brightness": 42
-         }
-      ]
+      "twitter_handle": "NHLJets"
    }
 ]
