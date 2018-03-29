@@ -61,19 +61,48 @@ module.exports = (robot) ->
           xmlMode: false,
           decodeEntities: true
 
+        # Selectors
+        logo = $('div.tB a img')
         result = $('div.sub')
 
         # Data we want
         if result.length
-          last_game = "Last Game: #{$(result.get(0)).text()}"
-          standings = "Standings: #{$(result.get(1)).text()}"
+          last_game = $(result.get(0)).text()
+          standings = $(result.get(1)).text()
 
           # Sanitize standings
           standings = _.unescape(standings)
 
           # Say it
-          msg.send last_game
-          msg.send standings.replace('&nbsp;',' ')
+          switch robot.adapterName
+            when 'slack'
+              msg.send {
+                attachments: [
+                  {
+                    author_icon: "https://s3.amazonaws.com/uploads.uservoice.com/logo/design_setting/59485/original/SportsClubStatsSmall_4162_0.jpg",
+                    author_link: "http://sportsclubstats.com",
+                    author_name: "SportsClubStats.com",
+                    fallback: "#{team.name}: #{last_game}; #{standings}",
+                    thumb_url: $(logo).attr('src'),
+                    title: team.name,
+                    title_link: team.scs_url,
+                    fields: [
+                      {
+                        title: "Last Game",
+                        value: last_game,
+                        short: false
+                      },
+                      {
+                        title: "Standings",
+                        value: standings,
+                        short: false
+                      }
+                    ]
+                  }
+                ]
+              }
+            else
+              msg.send "Last Game: #{last_game}\nStandings: #{standings.replace('&nbsp;',' ')}"
 
         else
           msg.send "Could not retrieve standings."
@@ -94,7 +123,14 @@ module.exports = (robot) ->
       # Send first tweet
       robot.logger.debug tweets
       tweet = tweets[0]
-      msg.send "<#{tweet.user.screen_name}> #{tweet.text} - #{tweet.created_at}"
+      switch robot.adapterName
+        when 'slack'
+          msg.send {
+            "text": "<https://twitter.com/#{tweet.user.screen_name}/status/#{tweet.id_str}>",
+            "unfurl_links": true
+          }
+        else
+          msg.send "<#{tweet.user.screen_name}> #{tweet.text} - #{tweet.created_at}"
 
   strCapitalize = (str) ->
     return str.charAt(0).toUpperCase() + str.substring(1)
