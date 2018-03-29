@@ -5,10 +5,11 @@ nock = require 'nock'
 expect = chai.expect
 
 helper = new Helper [
+  'adapters/slack.coffee'
   '../src/hockey.coffee'
 ]
 
-describe 'hubot-hockey', ->
+describe 'hubot-hockey for slack', ->
   beforeEach ->
     process.env.HUBOT_LOG_LEVEL='error'
     process.env.HUBOT_TWITTER_CONSUMER_KEY='foobarbaz'
@@ -38,7 +39,34 @@ describe 'hubot-hockey', ->
       try
         expect(selfRoom.messages).to.eql [
           ['alice', '@hubot preds']
-          ['hubot', "Last Game: Did not play, average seed down 0.02 to 1.2\nStandings: 107 points   48 16-11"]
+          [
+            'hubot',
+            {
+              "attachments": [
+                {
+                  "fallback": "Nashville Predators: Did not play, average seed down 0.02 to 1.2; 107 points   48 16-11",
+                  "author_name": "SportsClubStats.com",
+                  "author_link": "http://sportsclubstats.com",
+                  "author_icon": "https://s3.amazonaws.com/uploads.uservoice.com/logo/design_setting/59485/original/SportsClubStatsSmall_4162_0.jpg",
+                  "title": "Nashville Predators",
+                  "title_link": "http://www.sportsclubstats.com/NHL/Western/Central/Nashville.html",
+                  "thumb_url": "http://www.sportsclubstats.com/img/129.gif",
+                  "fields": [
+                    {
+                      "title": "Last Game",
+                      "value": "Did not play, average seed down 0.02 to 1.2",
+                      "short": false
+                    },
+                    {
+                      "title": "Standings",
+                      "value": "107 points   48 16-11",
+                      "short": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         ]
         done()
       catch err
@@ -57,7 +85,13 @@ describe 'hubot-hockey', ->
       try
         expect(selfRoom.messages).to.eql [
           ['alice', '@hubot preds twitter']
-          ['hubot', '<twitterapi> RT @TwitterDev: 1/ Today we’re sharing our vision for the future of the Twitter API platform!nhttps://t.co/XweGngmxlP - Thu Apr 06 15:28:43 +0000 2017']
+          [
+            'hubot',
+            {
+              "text": "<https://twitter.com/twitterapi/status/850007368138018817>",
+              "unfurl_links": true
+            }
+          ]
         ]
         done()
       catch err
