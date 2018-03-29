@@ -1,7 +1,7 @@
 {
   "name": "hubot-hockey",
   "description": "Get the latest hockey playoff odds for your team.",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": "Stephen Yeargin <stephen@yearg.in>",
   "license": "MIT",
   "keywords": [
