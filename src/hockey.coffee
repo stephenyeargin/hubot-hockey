@@ -1,4 +1,4 @@
-# Description:
+# Description
 #   Get the latest hockey playoff odds and light the lamp
 #
 # Configuration:

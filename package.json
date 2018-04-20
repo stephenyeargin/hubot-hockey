@@ -3,6 +3,7 @@
   "description": "Get the latest hockey playoff odds for your team.",
   "version": "2.1.0",
   "author": "Stephen Yeargin <stephen@yearg.in>",
+  "homepage": "https://github.com/stephenyeargin/hubot-hockey",
   "license": "MIT",
   "keywords": [
     "hubot",
@@ -19,7 +20,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "lodash": "^4.17.5",
-    "moment": "^2.21.0",
+    "moment": "^2.22.1",
     "twitter": "^1.7.1"
   },
   "peerDependencies": {
@@ -37,9 +38,9 @@
     "hubot-test-helper": "^1.9.0",
     "husky": "^0.14.3",
     "matchdep": "~2.0.0",
-    "mocha": "^5.0.4",
-    "nock": "^9.2.3",
-    "sinon": "^4.4.3",
+    "mocha": "^5.1.1",
+    "nock": "^9.2.5",
+    "sinon": "^4.5.0",
     "sinon-chai": "^3.0.0"
   },
   "main": "index.coffee",

@@ -12,15 +12,12 @@ There is no additional configuration if you simply wish to get the latest playof
 
 You can also set the Twitter credentials (if not already set for another plugin) to get the latest team news.
 
-```
-export HUBOT_TWITTER_CONSUMER_KEY="xxxxxxxxxxxx"
-export HUBOT_TWITTER_CONSUMER_SECRET="xxxxxxxxxxxx"
-export HUBOT_TWITTER_ACCESS_TOKEN="xxxxxxxxxxxx"
-export HUBOT_TWITTER_ACCESS_TOKEN_SECRET="xxxxxxxxxxxx"
-
-```
-
-If you are using Heroku to host your bot, replace `export ...` with `heroku set:config ...`. Note that the IP address/hostname specified will need to be accessible (or routed) through the public Internet for the configuration to work with Heroku or any other host.
+| Environment Variable                 | Required? | Description               |
+| ------------------------------------ | :-------: | --------------------------|
+| `HUBOT_TWITTER_CONSUMER_KEY`         | Yes       | Consumer key from application |
+| `HUBOT_TWITTER_CONSUMER_SECRET`      | Yes       | Consumer key secret from application |
+| `HUBOT_TWITTER_ACCESS_TOKEN`         | Yes       | Access token from OAuth workflow |
+| `HUBOT_TWITTER_ACCESS_TOKEN_SECRET`  | Yes       | Access token secret from OAuth workflow |
 
 ## Adding to Your Hubot
 
