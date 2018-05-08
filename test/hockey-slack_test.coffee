@@ -9,6 +9,11 @@ helper = new Helper [
   '../src/hockey.coffee'
 ]
 
+# Alter time as test runs
+originalDateNow = Date.now
+mockDateNow = () ->
+  return Date.parse('Tue Mar 30 2018 14:10:00 GMT-0500 (CDT)')
+
 describe 'hubot-hockey for slack', ->
   beforeEach ->
     process.env.HUBOT_LOG_LEVEL='error'
@@ -16,6 +21,7 @@ describe 'hubot-hockey for slack', ->
     process.env.HUBOT_TWITTER_CONSUMER_SECRET='foobarbaz'
     process.env.HUBOT_TWITTER_ACCESS_TOKEN='foobarbaz'
     process.env.HUBOT_TWITTER_ACCESS_TOKEN_SECRET='foobarbaz'
+    Date.now = mockDateNow
     nock.disableNetConnect()
     @room = helper.createRoom()
 
@@ -25,6 +31,7 @@ describe 'hubot-hockey for slack', ->
     delete process.env.HUBOT_TWITTER_CONSUMER_SECRET
     delete process.env.HUBOT_TWITTER_ACCESS_TOKEN
     delete process.env.HUBOT_TWITTER_ACCESS_TOKEN_SECRET
+    Date.now = originalDateNow
     nock.cleanAll()
     @room.destroy()
 
