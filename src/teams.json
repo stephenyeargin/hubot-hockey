@@ -2,187 +2,187 @@
    {
       "name": "Anaheim Ducks",
       "regex": "(anaheim ducks|anaheim|ducks|ana)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/Anaheim.html",
+      "moneypuck_key": "ANA",
       "twitter_handle": "AnaheimDucks"
    },
    {
       "name": "Boston Bruins",
       "regex": "(boston bruins|boston|bruins|bos)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Boston.html",
+      "moneypuck_key": "BOS",
       "twitter_handle": "NHLBruins"
    },
    {
       "name": "Buffalo Sabres",
       "regex": "(buffalo sabres|bufalo|sabres|buf)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Buffalo.html",
+      "moneypuck_key": "BUF",
       "twitter_handle": "BuffaloSabres"
    },
    {
       "name": "Calgary Flames",
       "regex": "(calgary flames|calgary|flames|cal)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/Calgary.html",
+      "moneypuck_key": "CGY",
       "twitter_handle": "NHLFlames"
    },
    {
       "name": "Carolina Hurricanes",
       "regex": "(carolina hurricanes|carolina|hurricanes|car|canes)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/Carolina.html",
+      "moneypuck_key": "CAR",
       "twitter_handle": "NHLCanes"
    },
    {
       "name": "Chicago Blackhawks",
       "regex": "(chicago blackhawks|chicago|blackhawks|chi|hawks)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/Chicago.html",
+      "moneypuck_key": "CHI",
       "twitter_handle": "NHLBlackhawks"
    },
    {
       "name": "Colorado Avalanche",
       "regex": "(colorado avalanche|colorado|avalanche|col|avs|denver)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/Colorado.html",
+      "moneypuck_key": "COL",
       "twitter_handle": "Avalanche"
    },
    {
       "name": "Columbus Blue Jackets",
       "regex": "(columbus blue jackets|columbus|blue jackets|cbj|bluejackets)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/Columbus.html",
+      "moneypuck_key": "CBJ",
       "twitter_handle": "BlueJacketsNHL"
    },
    {
       "name": "Dallas Stars",
       "regex": "(dallas stars|dallas|stars|dal)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/Dallas.html",
+      "moneypuck_key": "DAL",
       "twitter_handle": "DallasStars"
    },
    {
       "name": "Detroit Red Wings",
       "regex": "(detroit red wings|detroit|red wings|det|redwings|wings)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Detroit.html",
+      "moneypuck_key": "DET",
       "twitter_handle": "DetroitRedWings"
    },
    {
       "name": "Edmonton Oilers",
       "regex": "(edmonton oilers|edmonton|oilers|edm|oil)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/Edmonton.html",
+      "moneypuck_key": "EDM",
       "twitter_handle": "EdmontonOilers"
    },
    {
       "name": "Florida Panthers",
       "regex": "(florida panthers|florida|panthers|fla|cats)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Florida.html",
+      "moneypuck_key": "FLA",
       "twitter_handle": "FlaPanthers"
    },
    {
       "name": "Los Angeles Kings",
       "regex": "(los angeles kings|los angeles|kings|lak|losangeles)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/LosAngeles.html",
+      "moneypuck_key": "LAK",
       "twitter_handle": "LAKings"
    },
    {
       "name": "Minnesota Wild",
       "regex": "(minnesota wild|minnesota|wild|min)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/Minnesota.html",
+      "moneypuck_key": "MIN",
       "twitter_handle": "mnwild"
    },
    {
       "name": "Montreal Canadiens",
       "regex": "(montreal canadiens|montreal|canadiens|mtl|habs)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Montreal.html",
+      "moneypuck_key": "MTL",
       "twitter_handle": "CanadiensMTL"
    },
    {
       "name": "Nashville Predators",
       "regex": "(nashville predators|nashville|predators|nas|preds)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/Nashville.html",
+      "moneypuck_key": "NSH",
       "twitter_handle": "predsnhl"
     },
    {
       "name": "New Jersey Devils",
       "regex": "(new jersey devils|new jersey|devils|njd)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/NewJersey.html",
+      "moneypuck_key": "NJD",
       "twitter_handle": "NHLDevils"
    },
    {
       "name": "New York Islanders",
       "regex": "(new york islanders|islanders|nyi|isles)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/NYIslanders.html",
+      "moneypuck_key": "NYI",
       "twitter_handle": "NYIslanders"
    },
    {
       "name": "New York Rangers",
       "regex": "(new york rangers|rangers|nyr|blue shirts|blueshirts)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/NYRangers.html",
+      "moneypuck_key": "NYR",
       "twitter_handle": "NYRangers"
    },
    {
       "name": "Ottawa Senators",
       "regex": "(ottawa senators|ottawa|senators|ott|sens)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Ottawa.html",
+      "moneypuck_key": "OTT",
       "twitter_handle": "Senators"
    },
    {
       "name": "Philidelphia Flyers",
       "regex": "(philidelphia flyers|philidelphia|flyers|phi)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/Philadelphia.html",
+      "moneypuck_key": "PHI",
       "twitter_handle": "NHLFlyers"
    },
    {
       "name": "Arizona Coyotes",
       "regex": "(arizona coyotes|arizona|coyotes|ari|phoenix coyotes|phoenix|phx|yotes)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/Arizona.html",
+      "moneypuck_key": "ARI",
       "twitter_handle": "ArizonaCoyotes"
    },
    {
       "name": "Pittsburgh Penguins",
       "regex": "(pittsburgh penguins|pittsburgh|penguins|pit|pitt)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/Pittsburgh.html",
+      "moneypuck_key": "PIT",
       "twitter_handle": "penguins"
    },
    {
       "name": "San Jose Sharks",
       "regex": "(san jose sharks|san jose|sharks|sjs|sanjose)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/SanJose.html",
+      "moneypuck_key": "SJS",
       "twitter_handle": "SanJoseSharks"
    },
    {
       "name": "Tampa Bay Lightning",
       "regex": "(tampa bay lightning|tampa bay|lightning|tbl|tampabay)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/TampaBay.html",
+      "moneypuck_key": "TBL",
       "twitter_handle": "TBLightning"
    },
    {
       "name": "St. Louis Blues",
       "regex": "(st. louis blues|st. louis|blues|stl|stlouis|saint louis|st louis|blue notes)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/StLouis.html",
+      "moneypuck_key": "STL",
       "twitter_handle": "StLouisBlues"
    },
    {
       "name": "Toronto Maple Leafs",
       "regex": "(toronto maple leafs|toronto|maple leafs|tor|leafs|mapleleafs)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Atlantic/Toronto.html",
+      "moneypuck_key": "TOR",
       "twitter_handle": "MapleLeafs"
    },
    {
       "name": "Vancouver Canucks",
       "regex": "(vancouver canucks|vancouver|canucks|van|nucks)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/Vancouver.html",
+      "moneypuck_key": "VAN",
       "twitter_handle": "VanCanucks"
    },
    {
       "name": "Vegas Golden Knights",
       "regex": "(vegas golden knights|vegas|knights|vgk)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Pacific/Vegas.html",
+      "moneypuck_key": "VGK",
       "twitter_handle": "GoldenKnights"
    },
    {
       "name": "Washington Capitals",
       "regex": "(washington capitals|washington|capitals|wsh|caps)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Eastern/Metropolitan/Washington.html",
+      "moneypuck_key": "WSH",
       "twitter_handle": "washcaps"
    },
    {
       "name": "Winnipeg Jets",
       "regex": "(winnipeg jets|winnipeg|jets|wpg|peg)",
-      "scs_url": "http://www.sportsclubstats.com/NHL/Western/Central/Winnipeg.html",
+      "moneypuck_key": "WPG",
       "twitter_handle": "NHLJets"
    }
 ]

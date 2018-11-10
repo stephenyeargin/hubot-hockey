@@ -35,9 +35,9 @@ describe 'hubot-hockey', ->
     @room.destroy()
 
   it 'responds with a team\'s latest playoff odds', (done) ->
-    nock('http://www.sportsclubstats.com')
-      .get('/NHL/Western/Central/Nashville.html')
-      .replyWithFile(200, __dirname + '/fixtures/Nashville.html')
+    nock('http://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/simulations_recent.csv')
 
     selfRoom = @room
     selfRoom.user.say('alice', '@hubot preds')
@@ -45,7 +45,7 @@ describe 'hubot-hockey', ->
       try
         expect(selfRoom.messages).to.eql [
           ['alice', '@hubot preds']
-          ['hubot', "Last Game: Did not play, average seed down 0.02 to 1.2\nStandings: 107 points   48 16-11"]
+          ['hubot', 'The Nashville Predators have a 83.77% chance of making the playoffs and a 4.6% chance of winning The Stanley Cup.']
         ]
         done()
       catch err
