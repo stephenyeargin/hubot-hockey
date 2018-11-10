@@ -18,8 +18,7 @@
     "url": "https://github.com/stephenyeargin/hubot-hockey/issues"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "lodash": "^4.17.10",
+    "csv-parse": "^3.2.0",
     "moment": "^2.22.2",
     "twitter": "^1.7.1"
   },

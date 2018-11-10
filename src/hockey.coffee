@@ -1,5 +1,5 @@
 # Description
-#   Get the latest hockey playoff odds and light the lamp
+#   Get the latest hockey playoff odds for your team.
 #
 # Configuration:
 #   HUBOT_TWITTER_CONSUMER_KEY - Optional; Twitter consumer key
@@ -8,8 +8,8 @@
 #   HUBOT_TWITTER_ACCESS_TOKEN_SECRET - Optional; Twitter access token secret
 #
 # Commands:
-#   hubot <team or city> - Get the lastest playoff odds and result from SportsClubStats and schedule from SeatGeek
-#   hubot <team or city> twitter - Get the latest news from Twitter (requires configuraiton)
+#   hubot <team or city> - Get the lastest playoff odds from MoneyPuck.com
+#   hubot <team or city> twitter - Get the latest news from Twitter (requires configuration)
 #
 # Author:
 #   stephenyeargin
@@ -17,8 +17,7 @@
 hockey_teams = require './teams.json'
 
 moment = require 'moment'
-_ = require 'lodash'
-cheerio = require 'cheerio'
+parse = require 'csv-parse'
 
 # Twitter
 Twitter = require "twitter"
@@ -32,14 +31,14 @@ module.exports = (robot) ->
   registerDefaultListener = (team) ->
     statsregex = '_team_regex_$'
     robot.respond new RegExp(statsregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
-      getSCSData(team, msg)
+      getMoneyPuckData(team, msg)
 
   registerTweetListener = (team) ->
     twitterregex = '_team_regex_ (tweet|twitter)$'
     robot.respond new RegExp(twitterregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
       showLatestTweet(team, msg)
 
-  getSCSData = (team, msg) ->
+  getMoneyPuckData = (team, msg) ->
     robot.logger.debug team
     if moment().month() in [4, 5, 6, 7, 8]
       msg.send "The regular season has ended."
@@ -47,31 +46,34 @@ module.exports = (robot) ->
         msg.send "Use `#{robot.name} #{team.name} twitter` to get the latest news."
       return
 
-    msg.http(team.scs_url)
+    msg.http('http://moneypuck.com/moneypuck/simulations/simulations_recent.csv')
       .get() (err, res, body) ->
         # Catch errors
         if err || res.statusCode != 200
-          msg.send "Cannot get your standings right now."
-        else
+          msg.send "Cannot get your playoff odds right now."
+          return
 
-        # Parse body into a structure
-        $ = cheerio.load body,
-          withDomLvl1: true,
-          normalizeWhitespace: false,
-          xmlMode: false,
-          decodeEntities: true
+        # Parse the CSV file into lines
+        parse body, {}, (err, output) ->
+          if err
+            msg.send err
+            return
 
-        # Selectors
-        logo = $('div.tB a img')
-        result = $('div.sub')
+          # Extract only appropriate row (all odds for given team)
+          odds = []
 
-        # Data we want
-        if result.length
-          last_game = $(result.get(0)).text()
-          standings = $(result.get(1)).text()
+          for row in output
+            odds = row if row[0] is 'ALL' and row[1] is team.moneypuck_key
 
-          # Sanitize standings
-          standings = _.unescape(standings)
+          if !odds
+            msg.send "Could not find your odds for team #{team.moneypuck_key}"
+            return
+
+          # Extract relevant columns
+          make_playoffs = odds[output[0].indexOf('madePlayoffs')] * 100
+          win_cup = odds[output[0].indexOf('wonCup')] * 100
+
+          fallback = "The #{team.name} have a #{make_playoffs}% chance of making the playoffs and a #{win_cup}% chance of winning The Stanley Cup."
 
           # Say it
           switch robot.adapterName
@@ -79,22 +81,21 @@ module.exports = (robot) ->
               msg.send {
                 attachments: [
                   {
-                    author_icon: "https://s3.amazonaws.com/uploads.uservoice.com/logo/design_setting/59485/original/SportsClubStatsSmall_4162_0.jpg",
-                    author_link: "http://sportsclubstats.com",
-                    author_name: "SportsClubStats.com",
-                    fallback: "#{team.name}: #{last_game}; #{standings}",
-                    thumb_url: $(logo).attr('src'),
+                    author_icon: "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
+                    author_link: "http://moneypuck.com.com",
+                    author_name: "MoneyPuck.com",
+                    fallback: fallback,
+                    thumb_url: "http://peter-tanner.com/moneypuck/logos/#{team.moneypuck_key}.png",
                     title: team.name,
-                    title_link: team.scs_url,
                     fields: [
                       {
-                        title: "Last Game",
-                        value: last_game,
+                        title: "Make Playoffs",
+                        value: "#{make_playoffs}%",
                         short: false
                       },
                       {
-                        title: "Standings",
-                        value: standings,
+                        title: "Win Stanley Cup",
+                        value: "#{win_cup}%",
                         short: false
                       }
                     ]
@@ -102,11 +103,7 @@ module.exports = (robot) ->
                 ]
               }
             else
-              msg.send "Last Game: #{last_game}\nStandings: #{standings.replace('&nbsp;',' ')}"
-
-        else
-          msg.send "Could not retrieve standings."
-
+              msg.send fallback
 
   showLatestTweet = (team, msg) ->
     # Skip if no client configured

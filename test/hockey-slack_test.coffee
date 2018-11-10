@@ -36,9 +36,9 @@ describe 'hubot-hockey for slack', ->
     @room.destroy()
 
   it 'responds with a team\'s latest playoff odds', (done) ->
-    nock('http://www.sportsclubstats.com')
-      .get('/NHL/Western/Central/Nashville.html')
-      .replyWithFile(200, __dirname + '/fixtures/Nashville.html')
+    nock('http://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/simulations_recent.csv')
 
     selfRoom = @room
     selfRoom.user.say('alice', '@hubot preds')
@@ -51,22 +51,21 @@ describe 'hubot-hockey for slack', ->
             {
               "attachments": [
                 {
-                  "fallback": "Nashville Predators: Did not play, average seed down 0.02 to 1.2; 107 points   48 16-11",
-                  "author_name": "SportsClubStats.com",
-                  "author_link": "http://sportsclubstats.com",
-                  "author_icon": "https://s3.amazonaws.com/uploads.uservoice.com/logo/design_setting/59485/original/SportsClubStatsSmall_4162_0.jpg",
+                  "fallback": "The Nashville Predators have a 83.77% chance of making the playoffs and a 4.6% chance of winning The Stanley Cup.",
+                  "author_name": "MoneyPuck.com",
+                  "author_link": "http://moneypuck.com.com",
+                  "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
                   "title": "Nashville Predators",
-                  "title_link": "http://www.sportsclubstats.com/NHL/Western/Central/Nashville.html",
-                  "thumb_url": "http://www.sportsclubstats.com/img/129.gif",
+                  "thumb_url": "http://peter-tanner.com/moneypuck/logos/NSH.png",
                   "fields": [
                     {
-                      "title": "Last Game",
-                      "value": "Did not play, average seed down 0.02 to 1.2",
+                      "title": "Make Playoffs",
+                      "value": "83.77%",
                       "short": false
                     },
                     {
-                      "title": "Standings",
-                      "value": "107 points   48 16-11",
+                      "title": "Win Stanley Cup",
+                      "value": "4.6%",
                       "short": false
                     }
                   ]
