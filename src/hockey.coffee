@@ -73,7 +73,7 @@ module.exports = (robot) ->
           make_playoffs = odds[output[0].indexOf('madePlayoffs')] * 100
           win_cup = odds[output[0].indexOf('wonCup')] * 100
 
-          fallback = "The #{team.name} have a #{make_playoffs}% chance of making the playoffs and a #{win_cup}% chance of winning The Stanley Cup."
+          fallback = "The #{team.name} have a #{make_playoffs.toFixed(1)}% chance of making the playoffs and a #{win_cup.toFixed(1)}% chance of winning The Stanley Cup."
 
           # Say it
           switch robot.adapterName
@@ -90,12 +90,12 @@ module.exports = (robot) ->
                     fields: [
                       {
                         title: "Make Playoffs",
-                        value: "#{make_playoffs}%",
+                        value: "#{make_playoffs.toFixed(1)}%",
                         short: false
                       },
                       {
                         title: "Win Stanley Cup",
-                        value: "#{win_cup}%",
+                        value: "#{win_cup.toFixed(1)}%",
                         short: false
                       }
                     ]

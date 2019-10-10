@@ -45,7 +45,7 @@ describe 'hubot-hockey', ->
       try
         expect(selfRoom.messages).to.eql [
           ['alice', '@hubot preds']
-          ['hubot', 'The Nashville Predators have a 83.77% chance of making the playoffs and a 4.6% chance of winning The Stanley Cup.']
+          ['hubot', 'The Nashville Predators have a 83.8% chance of making the playoffs and a 4.6% chance of winning The Stanley Cup.']
         ]
         done()
       catch err
