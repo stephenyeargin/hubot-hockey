@@ -51,7 +51,7 @@ describe 'hubot-hockey for slack', ->
             {
               "attachments": [
                 {
-                  "fallback": "The Nashville Predators have a 83.77% chance of making the playoffs and a 4.6% chance of winning The Stanley Cup.",
+                  "fallback": "The Nashville Predators have a 83.8% chance of making the playoffs and a 4.6% chance of winning The Stanley Cup.",
                   "author_name": "MoneyPuck.com",
                   "author_link": "http://moneypuck.com.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
@@ -60,7 +60,7 @@ describe 'hubot-hockey for slack', ->
                   "fields": [
                     {
                       "title": "Make Playoffs",
-                      "value": "83.77%",
+                      "value": "83.8%",
                       "short": false
                     },
                     {
