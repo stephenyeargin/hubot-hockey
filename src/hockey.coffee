@@ -20,7 +20,7 @@ moment = require 'moment'
 parse = require 'csv-parse'
 
 # Twitter
-Twitter = require "twitter"
+Twitter = require 'twitter'
 twitter_client = new Twitter
   consumer_key: process.env.HUBOT_TWITTER_CONSUMER_KEY
   consumer_secret: process.env.HUBOT_TWITTER_CONSUMER_SECRET
@@ -31,20 +31,53 @@ module.exports = (robot) ->
   registerDefaultListener = (team) ->
     statsregex = '_team_regex_$'
     robot.respond new RegExp(statsregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
-      getMoneyPuckData(team, msg)
+      getNhlStatsData(team, msg)
+      setTimeout ->
+        getMoneyPuckData(team, msg)
+      , 100
 
   registerTweetListener = (team) ->
     twitterregex = '_team_regex_ (tweet|twitter)$'
     robot.respond new RegExp(twitterregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
       showLatestTweet(team, msg)
 
+  getNhlStatsData = (team, msg) ->
+    msg.http('https://statsapi.web.nhl.com/api/v1/schedule')
+      .query({teamId: team.nhl_stats_api_id})
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        if json.dates.length == 0 || json.dates[0].games.length == 0
+          msg.send "No games scheduled."
+          return
+        date = json.dates[0].date
+        game = json.dates[0].games[0]
+
+        # Say it
+        switch robot.adapterName
+          when 'slack'
+            msg.send {
+              attachments: [
+                {
+                  fallback: "#{moment(date).format('l')} - #{game.teams.away.team.name} #{game.teams.away.score}, #{game.teams.home.team.name} #{game.teams.home.score}",
+                  title_link: "https://nhl.com/gamecenter/#{game.gamePk}",
+                  author_name: "NHL.com",
+                  author_link: "https://nhl.com",
+                  author_icon: "https://github.com/nhl.png",
+                  title: "#{moment(date).format('l')} - #{game.status.detailedState}",
+                  text: "*#{game.teams.away.team.name}* (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses}-#{game.teams.away.leagueRecord.ot}) - *#{game.teams.away.score}*\n*#{game.teams.home.team.name}* (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses}-#{game.teams.home.leagueRecord.ot}) - *#{game.teams.home.score}*",
+                  footer: game.venue.name,
+                  mrkdwn_in: ["text", "pretext"]
+                }
+              ]
+            }
+          else
+            msg.send ("#{moment(date).format('l')} - #{game.venue.name}")
+            msg.send ("#{game.teams.away.team.name} (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses}-#{game.teams.away.leagueRecord.ot}) - #{game.teams.away.score}")
+            msg.send ("#{game.teams.home.team.name} (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses}-#{game.teams.home.leagueRecord.ot}) - #{game.teams.home.score}")
+            msg.send game.status.detailedState
+
   getMoneyPuckData = (team, msg) ->
     robot.logger.debug team
-    if moment().month() in [4, 5, 6, 7, 8]
-      msg.send "The regular season has ended."
-      if process.env.HUBOT_TWITTER_CONSUMER_KEY
-        msg.send "Use `#{robot.name} #{team.name} twitter` to get the latest news."
-      return
 
     msg.http('http://moneypuck.com/moneypuck/simulations/simulations_recent.csv')
       .get() (err, res, body) ->
@@ -73,7 +106,7 @@ module.exports = (robot) ->
           make_playoffs = odds[output[0].indexOf('madePlayoffs')] * 100
           win_cup = odds[output[0].indexOf('wonCup')] * 100
 
-          fallback = "The #{team.name} have a #{make_playoffs.toFixed(1)}% chance of making the playoffs and a #{win_cup.toFixed(1)}% chance of winning The Stanley Cup."
+          fallback = "Odds to Make Playoffs: #{make_playoffs.toFixed(1)}% / Win Stanley Cup: #{win_cup.toFixed(1)}%"
 
           # Say it
           switch robot.adapterName
