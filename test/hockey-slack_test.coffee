@@ -36,9 +36,14 @@ describe 'hubot-hockey for slack', ->
     @room.destroy()
 
   it 'responds with a team\'s latest playoff odds', (done) ->
+    nock('https://statsapi.web.nhl.com')
+      .get('/api/v1/schedule')
+      .query({teamId: 18})
+      .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18.json')
+
     nock('http://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
-      .replyWithFile(200, __dirname + '/fixtures/simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
 
     selfRoom = @room
     selfRoom.user.say('alice', '@hubot preds')
@@ -51,7 +56,25 @@ describe 'hubot-hockey for slack', ->
             {
               "attachments": [
                 {
-                  "fallback": "The Nashville Predators have a 83.8% chance of making the playoffs and a 4.6% chance of winning The Stanley Cup.",
+                  "fallback": "10/10/2019 - Washington Capitals 5, Nashville Predators 6",
+                  "title_link": "https://nhl.com/gamecenter/2019020052",
+                  "author_name": "NHL.com",
+                  "author_link": "https://nhl.com",
+                  "author_icon": "https://github.com/nhl.png",
+                  "title": "10/10/2019 - Final",
+                  "text": "*Washington Capitals* (2-1-2) - *5*\n*Nashville Predators* (3-1-0) - *6*",
+                  "footer": "Bridgestone Arena",
+                  "mrkdwn_in": ["text", "pretext"]
+                }
+              ]
+            }
+          ]
+          [
+            'hubot',
+            {
+              "attachments": [
+                {
+                  "fallback": "Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%",
                   "author_name": "MoneyPuck.com",
                   "author_link": "http://moneypuck.com.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
@@ -60,12 +83,12 @@ describe 'hubot-hockey for slack', ->
                   "fields": [
                     {
                       "title": "Make Playoffs",
-                      "value": "83.8%",
+                      "value": "67.5%",
                       "short": false
                     },
                     {
                       "title": "Win Stanley Cup",
-                      "value": "4.6%",
+                      "value": "4.2%",
                       "short": false
                     }
                   ]
@@ -83,7 +106,7 @@ describe 'hubot-hockey for slack', ->
   it 'responds with a team\'s latest tweet', (done) ->
     nock('https://api.twitter.com')
       .get('/1.1/statuses/user_timeline.json?screen_name=predsnhl')
-      .replyWithFile(200, __dirname + '/fixtures/predsnhl.json')
+      .replyWithFile(200, __dirname + '/fixtures/twitter-predsnhl.json')
 
     selfRoom = @room
     selfRoom.user.say('alice', '@hubot preds twitter')

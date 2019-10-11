@@ -34,10 +34,15 @@ describe 'hubot-hockey', ->
     nock.cleanAll()
     @room.destroy()
 
-  it 'responds with a team\'s latest playoff odds', (done) ->
+  it 'responds with a team\'s last game and current playoff odds', (done) ->
+    nock('https://statsapi.web.nhl.com')
+      .get('/api/v1/schedule')
+      .query({teamId: 18})
+      .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18.json')
+
     nock('http://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
-      .replyWithFile(200, __dirname + '/fixtures/simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
 
     selfRoom = @room
     selfRoom.user.say('alice', '@hubot preds')
@@ -45,7 +50,11 @@ describe 'hubot-hockey', ->
       try
         expect(selfRoom.messages).to.eql [
           ['alice', '@hubot preds']
-          ['hubot', 'The Nashville Predators have a 83.8% chance of making the playoffs and a 4.6% chance of winning The Stanley Cup.']
+          ['hubot', '10/10/2019 - Bridgestone Arena']
+          ['hubot', 'Washington Capitals (2-1-2) - 5']
+          ['hubot', 'Nashville Predators (3-1-0) - 6']
+          ['hubot', 'Final']
+          ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
         ]
         done()
       catch err
@@ -56,7 +65,7 @@ describe 'hubot-hockey', ->
   it 'responds with a team\'s latest tweet', (done) ->
     nock('https://api.twitter.com')
       .get('/1.1/statuses/user_timeline.json?screen_name=predsnhl')
-      .replyWithFile(200, __dirname + '/fixtures/predsnhl.json')
+      .replyWithFile(200, __dirname + '/fixtures/twitter-predsnhl.json')
 
     selfRoom = @room
     selfRoom.user.say('alice', '@hubot preds twitter')
@@ -65,24 +74,6 @@ describe 'hubot-hockey', ->
         expect(selfRoom.messages).to.eql [
           ['alice', '@hubot preds twitter']
           ['hubot', '<twitterapi> RT @TwitterDev: 1/ Today we’re sharing our vision for the future of the Twitter API platform!nhttps://t.co/XweGngmxlP - Thu Apr 06 15:28:43 +0000 2017']
-        ]
-        done()
-      catch err
-        done err
-      return
-    , 1000)
-
-  it 'responds with an out-of-season message', (done) ->
-    Date.now = () ->
-      return Date.parse('Tue May 08 2018 10:35:09 GMT-0500 (CDT)')
-    selfRoom = @room
-    selfRoom.user.say('alice', '@hubot preds')
-    setTimeout(() ->
-      try
-        expect(selfRoom.messages).to.eql [
-          ['alice', '@hubot preds']
-          ['hubot', 'The regular season has ended.']
-          ['hubot', 'Use `hubot Nashville Predators twitter` to get the latest news.']
         ]
         done()
       catch err
