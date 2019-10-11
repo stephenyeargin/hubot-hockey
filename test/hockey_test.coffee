@@ -11,7 +11,7 @@ helper = new Helper [
 # Alter time as test runs
 originalDateNow = Date.now
 mockDateNow = () ->
-  return Date.parse('Tue Mar 30 2018 14:10:00 GMT-0500 (CDT)')
+  return Date.parse('Fri Oct 10 2019 22:08:08 GMT-0500 (Central Daylight Time)')
 
 describe 'hubot-hockey', ->
   beforeEach ->
@@ -37,7 +37,11 @@ describe 'hubot-hockey', ->
   it 'responds with a team\'s last game and current playoff odds', (done) ->
     nock('https://statsapi.web.nhl.com')
       .get('/api/v1/schedule')
-      .query({teamId: 18})
+      .query({
+        teamId: 18,
+        startDate: '2019-10-10',
+        endDate: '2019-10-17'
+      })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18.json')
 
     nock('http://moneypuck.com')
