@@ -65,7 +65,7 @@ describe 'hubot-hockey for slack', ->
               "attachments": [
                 {
                   "fallback": "10/10/2019 - Washington Capitals 5, Nashville Predators 6",
-                  "title_link": "https://nhl.com/gamecenter/2019020052",
+                  "title_link": "https://www.nhl.com/gamecenter/2019020052",
                   "author_name": "NHL.com",
                   "author_link": "https://nhl.com",
                   "author_icon": "https://github.com/nhl.png",

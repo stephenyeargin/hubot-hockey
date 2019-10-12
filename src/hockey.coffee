@@ -79,7 +79,7 @@ module.exports = (robot) ->
             msg.send ("#{moment(date).format('l')} - #{game.venue.name}")
             msg.send ("#{game.teams.away.team.name} (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses}-#{game.teams.away.leagueRecord.ot}) - #{game.teams.away.score}")
             msg.send ("#{game.teams.home.team.name} (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses}-#{game.teams.home.leagueRecord.ot}) - #{game.teams.home.score}")
-            msg.send game.status.detailedState
+            msg.send "#{game.status.detailedState} - https://www.nhl.com/gamecenter/#{game.gamePk}"
         if typeof cb == 'function'
           cb()
 

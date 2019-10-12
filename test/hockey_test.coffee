@@ -61,7 +61,7 @@ describe 'hubot-hockey', ->
           ['hubot', '10/10/2019 - Bridgestone Arena']
           ['hubot', 'Washington Capitals (2-1-2) - 5']
           ['hubot', 'Nashville Predators (3-1-0) - 6']
-          ['hubot', 'Final']
+          ['hubot', 'Final - https://www.nhl.com/gamecenter/2019020052']
           ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
         ]
         done()
