@@ -44,7 +44,8 @@ module.exports = (robot) ->
       .query({
         teamId: team.nhl_stats_api_id,
         startDate: moment().format('YYYY-MM-DD'),
-        endDate: moment().add(7, 'd').format('YYYY-MM-DD')
+        endDate: moment().add(7, 'd').format('YYYY-MM-DD'),
+        hydrate: 'linescore,broadcasts(all)'
       })
       .get() (err, res, body) ->
         if err
@@ -56,6 +57,13 @@ module.exports = (robot) ->
           return
         date = json.dates[0].date
         game = json.dates[0].games[0]
+        # Handle in-progress games
+        if game.status.detailedState == 'Final'
+          gameStatus = 'Final'
+        else if game.status.detailedState == 'In Progress'
+          gameStatus = "#{game.linescore.currentPeriodTimeRemaining} #{game.linescore.currentPeriodOrdinal}"
+        else
+          gameStatus = game.status.detailedState
 
         # Say it
         switch robot.adapterName
@@ -63,12 +71,12 @@ module.exports = (robot) ->
             msg.send {
               attachments: [
                 {
-                  fallback: "#{moment(date).format('l')} - #{game.teams.away.team.name} #{game.teams.away.score}, #{game.teams.home.team.name} #{game.teams.home.score}",
+                  fallback: "#{moment(date).format('l')} - #{game.teams.away.team.name} #{game.teams.away.score}, #{game.teams.home.team.name} #{game.teams.home.score} (#{gameStatus})",
                   title_link: "https://www.nhl.com/gamecenter/#{game.gamePk}",
                   author_name: "NHL.com",
                   author_link: "https://nhl.com",
                   author_icon: "https://github.com/nhl.png",
-                  title: "#{moment(date).format('l')} - #{game.status.detailedState}",
+                  title: "#{moment(date).format('l')} - #{gameStatus}",
                   text: "*#{game.teams.away.team.name}* (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses}-#{game.teams.away.leagueRecord.ot}) - *#{game.teams.away.score}*\n*#{game.teams.home.team.name}* (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses}-#{game.teams.home.leagueRecord.ot}) - *#{game.teams.home.score}*",
                   footer: game.venue.name,
                   mrkdwn_in: ["text", "pretext"]
@@ -79,7 +87,7 @@ module.exports = (robot) ->
             msg.send ("#{moment(date).format('l')} - #{game.venue.name}")
             msg.send ("#{game.teams.away.team.name} (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses}-#{game.teams.away.leagueRecord.ot}) - #{game.teams.away.score}")
             msg.send ("#{game.teams.home.team.name} (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses}-#{game.teams.home.leagueRecord.ot}) - #{game.teams.home.score}")
-            msg.send "#{game.status.detailedState} - https://www.nhl.com/gamecenter/#{game.gamePk}"
+            msg.send "#{gameStatus} - https://www.nhl.com/gamecenter/#{game.gamePk}"
         if typeof cb == 'function'
           cb()
 
