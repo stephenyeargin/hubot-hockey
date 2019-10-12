@@ -12,7 +12,7 @@ helper = new Helper [
 # Alter time as test runs
 originalDateNow = Date.now
 mockDateNow = () ->
-  return Date.parse('Fri Oct 10 2019 22:08:08 GMT-0500 (Central Daylight Time)')
+  return Date.parse('2019-10-10 12:00')
 
 describe 'hubot-hockey for slack', ->
   beforeEach ->
