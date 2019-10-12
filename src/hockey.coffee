@@ -31,17 +31,15 @@ module.exports = (robot) ->
   registerDefaultListener = (team) ->
     statsregex = '_team_regex_$'
     robot.respond new RegExp(statsregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
-      getNhlStatsData(team, msg)
-      setTimeout ->
-        getMoneyPuckData(team, msg)
-      , 100
+      getNhlStatsData team, msg, ->
+        getMoneyPuckData team, msg
 
   registerTweetListener = (team) ->
     twitterregex = '_team_regex_ (tweet|twitter)$'
     robot.respond new RegExp(twitterregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
       showLatestTweet(team, msg)
 
-  getNhlStatsData = (team, msg) ->
+  getNhlStatsData = (team, msg, cb) ->
     msg.http('https://statsapi.web.nhl.com/api/v1/schedule')
       .query({
         teamId: team.nhl_stats_api_id,
@@ -66,7 +64,7 @@ module.exports = (robot) ->
               attachments: [
                 {
                   fallback: "#{moment(date).format('l')} - #{game.teams.away.team.name} #{game.teams.away.score}, #{game.teams.home.team.name} #{game.teams.home.score}",
-                  title_link: "https://nhl.com/gamecenter/#{game.gamePk}",
+                  title_link: "https://www.nhl.com/gamecenter/#{game.gamePk}",
                   author_name: "NHL.com",
                   author_link: "https://nhl.com",
                   author_icon: "https://github.com/nhl.png",
@@ -82,8 +80,10 @@ module.exports = (robot) ->
             msg.send ("#{game.teams.away.team.name} (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses}-#{game.teams.away.leagueRecord.ot}) - #{game.teams.away.score}")
             msg.send ("#{game.teams.home.team.name} (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses}-#{game.teams.home.leagueRecord.ot}) - #{game.teams.home.score}")
             msg.send game.status.detailedState
+        if typeof cb == 'function'
+          cb()
 
-  getMoneyPuckData = (team, msg) ->
+  getMoneyPuckData = (team, msg, cb) ->
     robot.logger.debug team
 
     msg.http('http://moneypuck.com/moneypuck/simulations/simulations_recent.csv')
@@ -144,6 +144,8 @@ module.exports = (robot) ->
               }
             else
               msg.send fallback
+          if typeof cb == 'function'
+            cb()
 
   showLatestTweet = (team, msg) ->
     # Skip if no client configured

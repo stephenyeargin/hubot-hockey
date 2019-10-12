@@ -43,6 +43,10 @@ describe 'hubot-hockey for slack', ->
         startDate: '2019-10-10',
         endDate: '2019-10-17'
       })
+      .delay({
+        head: 100,
+        body: 200,
+      })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18.json')
 
     nock('http://moneypuck.com')
