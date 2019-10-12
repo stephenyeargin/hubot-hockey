@@ -43,10 +43,17 @@ module.exports = (robot) ->
 
   getNhlStatsData = (team, msg) ->
     msg.http('https://statsapi.web.nhl.com/api/v1/schedule')
-      .query({teamId: team.nhl_stats_api_id})
+      .query({
+        teamId: team.nhl_stats_api_id,
+        startDate: moment().format('YYYY-MM-DD'),
+        endDate: moment().add(7, 'd').format('YYYY-MM-DD')
+      })
       .get() (err, res, body) ->
+        if err
+          robot.logger.error err
+          return
         json = JSON.parse(body)
-        if json.dates.length == 0 || json.dates[0].games.length == 0
+        if !json || json.dates.length == 0 || json.dates[0].games.length == 0
           msg.send "No games scheduled."
           return
         date = json.dates[0].date
