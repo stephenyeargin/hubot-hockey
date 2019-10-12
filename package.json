@@ -1,7 +1,7 @@
 {
   "name": "hubot-hockey",
   "description": "Get the latest hockey playoff odds for your team.",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "author": "Stephen Yeargin <stephen@yearg.in>",
   "homepage": "https://github.com/stephenyeargin/hubot-hockey",
   "license": "MIT",
