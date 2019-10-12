@@ -42,6 +42,10 @@ describe 'hubot-hockey', ->
         startDate: '2019-10-10',
         endDate: '2019-10-17'
       })
+      .delay({
+        head: 100,
+        body: 200,
+      })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18.json')
 
     nock('http://moneypuck.com')
@@ -57,7 +61,7 @@ describe 'hubot-hockey', ->
           ['hubot', '10/10/2019 - Bridgestone Arena']
           ['hubot', 'Washington Capitals (2-1-2) - 5']
           ['hubot', 'Nashville Predators (3-1-0) - 6']
-          ['hubot', 'Final']
+          ['hubot', 'Final - https://www.nhl.com/gamecenter/2019020052']
           ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
         ]
         done()
