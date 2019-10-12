@@ -34,19 +34,20 @@ describe 'hubot-hockey', ->
     nock.cleanAll()
     @room.destroy()
 
-  it 'responds with a team\'s last game and current playoff odds', (done) ->
+  it 'responds with a completed game and playoff odds', (done) ->
     nock('https://statsapi.web.nhl.com')
       .get('/api/v1/schedule')
       .query({
         teamId: 18,
         startDate: '2019-10-10',
-        endDate: '2019-10-17'
+        endDate: '2019-10-17',
+        hydrate: 'linescore,broadcasts(all)'
       })
       .delay({
         head: 100,
         body: 200,
       })
-      .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18.json')
+      .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-final.json')
 
     nock('http://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
@@ -62,6 +63,45 @@ describe 'hubot-hockey', ->
           ['hubot', 'Washington Capitals (2-1-2) - 5']
           ['hubot', 'Nashville Predators (3-1-0) - 6']
           ['hubot', 'Final - https://www.nhl.com/gamecenter/2019020052']
+          ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
+        ]
+        done()
+      catch err
+        done err
+      return
+    , 1000)
+
+  it 'responds with a in-progress game and playoff odds', (done) ->
+    Date.now = () ->
+      Date.parse('2019-10-12 17:40')
+    nock('https://statsapi.web.nhl.com')
+      .get('/api/v1/schedule')
+      .query({
+        teamId: 18,
+        startDate: '2019-10-12',
+        endDate: '2019-10-19',
+        hydrate: 'linescore,broadcasts(all)'
+      })
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-in-progress.json')
+
+    nock('http://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
+
+    selfRoom = @room
+    selfRoom.user.say('alice', '@hubot preds')
+    setTimeout(() ->
+      try
+        expect(selfRoom.messages).to.eql [
+          ['alice', '@hubot preds']
+          ['hubot', '10/12/2019 - STAPLES Center']
+          ['hubot', 'Nashville Predators (3-1-0) - 1']
+          ['hubot', 'Los Angeles Kings (1-2-0) - 2']
+          ['hubot', '04:23 1st - https://www.nhl.com/gamecenter/2019020063']
           ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
         ]
         done()
