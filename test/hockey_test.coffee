@@ -33,7 +33,7 @@ describe 'hubot-hockey', ->
 
   it 'responds with a completed game and playoff odds', (done) ->
     Date.now = () ->
-      return Date.parse('Thu Oct 10 22:59:00 CDT 2019')
+      return Date.parse('Thu Oct 10 23:59:00 CDT 2019')
 
     nock('https://statsapi.web.nhl.com')
       .get('/api/v1/schedule')

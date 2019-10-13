@@ -43,8 +43,8 @@ module.exports = (robot) ->
     msg.http('https://statsapi.web.nhl.com/api/v1/schedule')
       .query({
         teamId: team.nhl_stats_api_id,
-        startDate: moment().tz('America/New_York').format('YYYY-MM-DD'),
-        endDate: moment().tz('America/New_York').add(7, 'd').format('YYYY-MM-DD'),
+        startDate: moment().tz('America/Los_Angeles').format('YYYY-MM-DD'),
+        endDate: moment().tz('America/Los_Angeles').add(7, 'd').format('YYYY-MM-DD'),
         hydrate: 'linescore,broadcasts(all)'
       })
       .get() (err, res, body) ->
