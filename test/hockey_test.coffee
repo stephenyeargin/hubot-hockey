@@ -60,8 +60,7 @@ describe 'hubot-hockey', ->
         expect(selfRoom.messages).to.eql [
           ['alice', '@hubot preds']
           ['hubot', '10/10/2019 - Bridgestone Arena']
-          ['hubot', 'Washington Capitals (2-1-2) - 5']
-          ['hubot', 'Nashville Predators (3-1-0) - 6']
+          ['hubot', "  Washington Capitals (2-1-2)   5  \n  Nashville Predators (3-1-0)   6  "]
           ['hubot', 'Final - https://www.nhl.com/gamecenter/2019020052']
           ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
         ]
@@ -99,8 +98,7 @@ describe 'hubot-hockey', ->
         expect(selfRoom.messages).to.eql [
           ['alice', '@hubot preds']
           ['hubot', '10/12/2019 - STAPLES Center']
-          ['hubot', 'Nashville Predators (3-1-0) - 1']
-          ['hubot', 'Los Angeles Kings (1-2-0) - 2']
+          ['hubot', "  Nashville Predators (3-1-0)   1  \n  Los Angeles Kings (1-2-0)     2  "]
           ['hubot', '04:23 1st - https://www.nhl.com/gamecenter/2019020063']
           ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
         ]

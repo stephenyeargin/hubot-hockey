@@ -18,6 +18,7 @@ hockey_teams = require './teams.json'
 
 moment = require 'moment-timezone'
 parse = require 'csv-parse'
+AsciiTable = require 'ascii-table'
 
 # Twitter
 Twitter = require 'twitter'
@@ -65,6 +66,11 @@ module.exports = (robot) ->
         else
           gameStatus = game.status.detailedState
 
+        table = new AsciiTable()
+        table.addRow "#{game.teams.away.team.name} (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses}-#{game.teams.away.leagueRecord.ot})", "#{game.teams.away.score}"
+        table.addRow "#{game.teams.home.team.name} (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses}-#{game.teams.home.leagueRecord.ot})", "#{game.teams.home.score}"
+        table.removeBorder()
+
         # Say it
         switch robot.adapterName
           when 'slack'
@@ -77,16 +83,15 @@ module.exports = (robot) ->
                   author_link: "https://nhl.com",
                   author_icon: "https://github.com/nhl.png",
                   title: "#{moment(date).format('l')} - #{gameStatus}",
-                  text: "*#{game.teams.away.team.name}* (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses}-#{game.teams.away.leagueRecord.ot}) - *#{game.teams.away.score}*\n*#{game.teams.home.team.name}* (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses}-#{game.teams.home.leagueRecord.ot}) - *#{game.teams.home.score}*",
+                  text: "```\n" + table.toString() + "\n```"
                   footer: game.venue.name,
                   mrkdwn_in: ["text", "pretext"]
                 }
               ]
             }
           else
-            msg.send ("#{moment(date).format('l')} - #{game.venue.name}")
-            msg.send ("#{game.teams.away.team.name} (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses}-#{game.teams.away.leagueRecord.ot}) - #{game.teams.away.score}")
-            msg.send ("#{game.teams.home.team.name} (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses}-#{game.teams.home.leagueRecord.ot}) - #{game.teams.home.score}")
+            msg.send "#{moment(date).format('l')} - #{game.venue.name}"
+            msg.send table.toString()
             msg.send "#{gameStatus} - https://www.nhl.com/gamecenter/#{game.gamePk}"
         if typeof cb == 'function'
           cb()

@@ -71,7 +71,7 @@ describe 'hubot-hockey for slack', ->
                   "author_link": "https://nhl.com",
                   "author_icon": "https://github.com/nhl.png",
                   "title": "10/10/2019 - Final",
-                  "text": "*Washington Capitals* (2-1-2) - *5*\n*Nashville Predators* (3-1-0) - *6*",
+                  "text": "```\n  Washington Capitals (2-1-2)   5  \n  Nashville Predators (3-1-0)   6  \n```",
                   "footer": "Bridgestone Arena",
                   "mrkdwn_in": ["text", "pretext"]
                 }
@@ -151,7 +151,7 @@ describe 'hubot-hockey for slack', ->
                   "author_link": "https://nhl.com",
                   "author_icon": "https://github.com/nhl.png",
                   "title": "10/12/2019 - 04:23 1st",
-                  "text": "*Nashville Predators* (3-1-0) - *1*\n*Los Angeles Kings* (1-2-0) - *2*",
+                  "text": "```\n  Nashville Predators (3-1-0)   1  \n  Los Angeles Kings (1-2-0)     2  \n```",
                   "footer": "STAPLES Center",
                   "mrkdwn_in": ["text", "pretext"]
                 }
