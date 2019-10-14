@@ -11,8 +11,6 @@ helper = new Helper [
 
 # Alter time as test runs
 originalDateNow = Date.now
-mockDateNow = () ->
-  return Date.parse('2019-10-10 12:00')
 
 describe 'hubot-hockey for slack', ->
   beforeEach ->
@@ -21,7 +19,6 @@ describe 'hubot-hockey for slack', ->
     process.env.HUBOT_TWITTER_CONSUMER_SECRET='foobarbaz'
     process.env.HUBOT_TWITTER_ACCESS_TOKEN='foobarbaz'
     process.env.HUBOT_TWITTER_ACCESS_TOKEN_SECRET='foobarbaz'
-    Date.now = mockDateNow
     nock.disableNetConnect()
     @room = helper.createRoom()
 
@@ -36,6 +33,9 @@ describe 'hubot-hockey for slack', ->
     @room.destroy()
 
   it 'responds with a completed game and playoff odds', (done) ->
+    Date.now = () ->
+      return Date.parse('Thu Oct 10 23:59:00 CDT 2019')
+
     nock('https://statsapi.web.nhl.com')
       .get('/api/v1/schedule')
       .query({
@@ -114,7 +114,8 @@ describe 'hubot-hockey for slack', ->
 
   it 'responds with a game in progress and playoff odds', (done) ->
     Date.now = () ->
-      Date.parse('2019-10-12 17:40')
+      Date.parse('Sat Oct 12 17:40:00 CDT 2019')
+
     nock('https://statsapi.web.nhl.com')
       .get('/api/v1/schedule')
       .query({

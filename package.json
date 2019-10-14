@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "csv-parse": "^4.6.3",
-    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.26",
     "twitter": "^1.7.1"
   },
   "peerDependencies": {
