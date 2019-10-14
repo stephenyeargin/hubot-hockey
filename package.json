@@ -18,6 +18,7 @@
     "url": "https://github.com/stephenyeargin/hubot-hockey/issues"
   },
   "dependencies": {
+    "ascii-table": "0.0.9",
     "csv-parse": "^4.6.3",
     "moment-timezone": "^0.5.26",
     "twitter": "^1.7.1"
