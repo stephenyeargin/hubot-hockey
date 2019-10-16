@@ -59,10 +59,10 @@ module.exports = (robot) ->
         date = json.dates[0].date
         game = json.dates[0].games[0]
         # Handle in-progress games
-        if game.status.detailedState == 'Final'
-          gameStatus = 'Final'
-        else if game.status.detailedState == 'In Progress'
+        if game.status.detailedState == 'In Progress'
           gameStatus = "#{game.linescore.currentPeriodTimeRemaining} #{game.linescore.currentPeriodOrdinal}"
+        else if game.status.detailedState == 'Scheduled' && game.status.startTimeTBD == false
+          gameStatus = "#{moment(game.gameDate).tz(game.teams.home.team.venue.timeZone.id).format('h:mm a')} #{game.teams.home.team.venue.timeZone.tz}"
         else
           gameStatus = game.status.detailedState
 
