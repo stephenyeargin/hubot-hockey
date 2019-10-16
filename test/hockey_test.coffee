@@ -70,7 +70,7 @@ describe 'hubot-hockey', ->
       return
     , 1000)
 
-  it 'responds with a in-progress game and playoff odds', (done) ->
+  it 'responds with an in-progress game and playoff odds', (done) ->
     Date.now = () ->
       Date.parse('Sat Oct 12 17:40:00 CDT 2019')
     nock('https://statsapi.web.nhl.com')
@@ -100,6 +100,44 @@ describe 'hubot-hockey', ->
           ['hubot', '10/12/2019 - STAPLES Center']
           ['hubot', "  Nashville Predators (3-1-0)   1  \n  Los Angeles Kings (1-2-0)     2  "]
           ['hubot', '04:23 1st - https://www.nhl.com/gamecenter/2019020063']
+          ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
+        ]
+        done()
+      catch err
+        done err
+      return
+    , 1000)
+
+  it 'responds with a future game and playoff odds', (done) ->
+    Date.now = () ->
+      Date.parse('Tue Oct 15 17:40:00 CDT 2019')
+    nock('https://statsapi.web.nhl.com')
+      .get('/api/v1/schedule')
+      .query({
+        teamId: 18,
+        startDate: '2019-10-15',
+        endDate: '2019-10-22',
+        hydrate: 'linescore,broadcasts(all)'
+      })
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-future.json')
+
+    nock('http://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
+
+    selfRoom = @room
+    selfRoom.user.say('alice', '@hubot preds')
+    setTimeout(() ->
+      try
+        expect(selfRoom.messages).to.eql [
+          ['alice', '@hubot preds']
+          ['hubot', '10/15/2019 - T-Mobile Arena']
+          ['hubot', "  Nashville Predators (3-2-0)    0  \n  Vegas Golden Knights (4-2-0)   0  "]
+          ['hubot', '7:00 pm PDT - https://www.nhl.com/gamecenter/2019020090']
           ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
         ]
         done()
