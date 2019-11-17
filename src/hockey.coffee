@@ -63,6 +63,8 @@ module.exports = (robot) ->
           gameStatus = 'Final'
         else if game.status.abstractGameState == 'Live'
           gameStatus = "#{game.linescore.currentPeriodTimeRemaining} #{game.linescore.currentPeriodOrdinal}"
+        else if game.status.detailedState == 'Scheduled' && game.status.startTimeTBD == false
+          gameStatus = "#{moment(game.gameDate).tz(game.teams.home.team.venue.timeZone.id).format('h:mm a')} #{game.teams.home.team.venue.timeZone.tz}"
         else
           gameStatus = game.status.detailedState
 
