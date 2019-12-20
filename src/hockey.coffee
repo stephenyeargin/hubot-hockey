@@ -67,6 +67,8 @@ module.exports = (robot) ->
           gameStatus = "#{moment(game.gameDate).tz(game.teams.home.team.venue.timeZone.id).format('h:mm a')} #{game.teams.home.team.venue.timeZone.tz}"
         else
           gameStatus = game.status.detailedState
+        if game.linescore.currentPeriodOrdinal == 'OT' || game.linescorecurrentPeriodOrdinal == 'SO'
+          gameStatus += "/#{game.linescore.currentPeriodOrdinal}"
 
         table = new AsciiTable()
         table.addRow "#{game.teams.away.team.name} (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses}-#{game.teams.away.leagueRecord.ot})", "#{game.teams.away.score}"
