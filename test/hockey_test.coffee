@@ -70,6 +70,45 @@ describe 'hubot-hockey', ->
       return
     , 1000)
 
+  it 'responds with a completed game that went to overtime and playoff odds', (done) ->
+    Date.now = () ->
+      return Date.parse('Thu Dec 19 09:42:00 CST 2019')
+
+    nock('https://statsapi.web.nhl.com')
+      .get('/api/v1/schedule')
+      .query({
+        teamId: 18,
+        startDate: '2019-12-19',
+        endDate: '2019-12-26',
+        hydrate: 'linescore,broadcasts(all)'
+      })
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-final-ot.json')
+
+    nock('http://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
+
+    selfRoom = @room
+    selfRoom.user.say('alice', '@hubot preds')
+    setTimeout(() ->
+      try
+        expect(selfRoom.messages).to.eql [
+          ['alice', '@hubot preds']
+          ['hubot', '12/19/2019 - Canadian Tire Centre']
+          ['hubot', "  Nashville Predators (16-12-6)   4  \n  Ottawa Senators (15-18-3)       5  "]
+          ['hubot', 'Final/OT - https://www.nhl.com/gamecenter/2019020542']
+          ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
+        ]
+        done()
+      catch err
+        done err
+      return
+    , 1000)
+
   it 'responds with an in-progress game and playoff odds', (done) ->
     Date.now = () ->
       Date.parse('Sat Oct 12 17:40:00 CDT 2019')

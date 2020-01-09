@@ -112,6 +112,86 @@ describe 'hubot-hockey for slack', ->
       return
     , 1000)
 
+  it 'responds with a completed game that went to overtime and playoff odds', (done) ->
+    Date.now = () ->
+      return Date.parse('Thu Dec 19 09:42:00 CST 2019')
+
+    nock('https://statsapi.web.nhl.com')
+      .get('/api/v1/schedule')
+      .query({
+        teamId: 18,
+        startDate: '2019-12-19',
+        endDate: '2019-12-26',
+        hydrate: 'linescore,broadcasts(all)'
+      })
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-final-ot.json')
+
+    nock('http://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
+
+    selfRoom = @room
+    selfRoom.user.say('alice', '@hubot preds')
+    setTimeout(() ->
+      try
+        expect(selfRoom.messages).to.eql [
+          ['alice', '@hubot preds']
+          [
+            'hubot',
+            {
+              "attachments": [
+                {
+                  "fallback": "12/19/2019 - Nashville Predators 4, Ottawa Senators 5 (Final/OT)",
+                  "title_link": "https://www.nhl.com/gamecenter/2019020542",
+                  "author_name": "NHL.com",
+                  "author_link": "https://nhl.com",
+                  "author_icon": "https://github.com/nhl.png",
+                  "title": "12/19/2019 - Final/OT",
+                  "text": "```\n  Nashville Predators (16-12-6)   4  \n  Ottawa Senators (15-18-3)       5  \n```",
+                  "footer": "Canadian Tire Centre",
+                  "mrkdwn_in": ["text", "pretext"]
+                }
+              ]
+            }
+          ]
+          [
+            'hubot',
+            {
+              "attachments": [
+                {
+                  "fallback": "Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%",
+                  "author_name": "MoneyPuck.com",
+                  "author_link": "http://moneypuck.com.com",
+                  "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
+                  "title": "Nashville Predators",
+                  "thumb_url": "http://peter-tanner.com/moneypuck/logos/NSH.png",
+                  "fields": [
+                    {
+                      "title": "Make Playoffs",
+                      "value": "67.5%",
+                      "short": false
+                    },
+                    {
+                      "title": "Win Stanley Cup",
+                      "value": "4.2%",
+                      "short": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+        done()
+      catch err
+        done err
+      return
+    , 1000)
+
   it 'responds with an in-progress game and playoff odds', (done) ->
     Date.now = () ->
       Date.parse('Tue Oct 15 17:40:00 CDT 2019')
