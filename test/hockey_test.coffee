@@ -137,7 +137,7 @@ describe 'hubot-hockey', ->
           ['alice', '@hubot preds']
           ['hubot', '10/15/2019 - T-Mobile Arena']
           ['hubot', "  Nashville Predators (3-2-0)    0  \n  Vegas Golden Knights (4-2-0)   0  "]
-          ['hubot', '7:00 pm PDT - https://www.nhl.com/gamecenter/2019020090']
+          ['hubot', '9:00 pm CDT - https://www.nhl.com/gamecenter/2019020090']
           ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
         ]
         done()

@@ -1,219 +1,250 @@
 [
    {
-      "name": "Anaheim Ducks",
-      "regex": "(anaheim ducks|anaheim|ducks|ana)",
-      "moneypuck_key": "ANA",
-      "nhl_stats_api_id": 24,
-      "twitter_handle": "AnaheimDucks"
+      "name":"Anaheim Ducks",
+      "regex":"(anaheim ducks|anaheim|ducks|ana)",
+      "moneypuck_key":"ANA",
+      "nhl_stats_api_id":24,
+      "time_zone":"America/Los_Angeles",
+      "twitter_handle":"AnaheimDucks"
    },
    {
-      "name": "Boston Bruins",
-      "regex": "(boston bruins|boston|bruins|bos)",
-      "moneypuck_key": "BOS",
-      "nhl_stats_api_id": 6,
-      "twitter_handle": "NHLBruins"
+      "name":"Boston Bruins",
+      "regex":"(boston bruins|boston|bruins|bos)",
+      "moneypuck_key":"BOS",
+      "nhl_stats_api_id":6,
+      "time_zone":"America/New_York",
+      "twitter_handle":"NHLBruins"
    },
    {
-      "name": "Buffalo Sabres",
-      "regex": "(buffalo sabres|bufalo|sabres|buf)",
-      "moneypuck_key": "BUF",
-      "nhl_stats_api_id": 7,
-      "twitter_handle": "BuffaloSabres"
+      "name":"Buffalo Sabres",
+      "regex":"(buffalo sabres|bufalo|sabres|buf)",
+      "moneypuck_key":"BUF",
+      "nhl_stats_api_id":7,
+      "time_zone":"America/New_York",
+      "twitter_handle":"BuffaloSabres"
    },
    {
-      "name": "Calgary Flames",
-      "regex": "(calgary flames|calgary|flames|cal)",
-      "moneypuck_key": "CGY",
-      "nhl_stats_api_id": 20,
-      "twitter_handle": "NHLFlames"
+      "name":"Calgary Flames",
+      "regex":"(calgary flames|calgary|flames|cal)",
+      "moneypuck_key":"CGY",
+      "nhl_stats_api_id":20,
+      "time_zone":"America/Denver",
+      "twitter_handle":"NHLFlames"
    },
    {
-      "name": "Carolina Hurricanes",
-      "regex": "(carolina hurricanes|carolina|hurricanes|car|canes)",
-      "moneypuck_key": "CAR",
-      "nhl_stats_api_id": 12,
-      "twitter_handle": "NHLCanes"
+      "name":"Carolina Hurricanes",
+      "regex":"(carolina hurricanes|carolina|hurricanes|car|canes)",
+      "moneypuck_key":"CAR",
+      "nhl_stats_api_id":12,
+      "time_zone":"America/New_York",
+      "twitter_handle":"NHLCanes"
    },
    {
-      "name": "Chicago Blackhawks",
-      "regex": "(chicago blackhawks|chicago|blackhawks|chi|hawks)",
-      "moneypuck_key": "CHI",
-      "nhl_stats_api_id": 16,
-      "twitter_handle": "NHLBlackhawks"
+      "name":"Chicago Blackhawks",
+      "regex":"(chicago blackhawks|chicago|blackhawks|chi|hawks)",
+      "moneypuck_key":"CHI",
+      "nhl_stats_api_id":16,
+      "time_zone":"America/Chicago",
+      "twitter_handle":"NHLBlackhawks"
    },
    {
-      "name": "Colorado Avalanche",
-      "regex": "(colorado avalanche|colorado|avalanche|col|avs|denver)",
-      "moneypuck_key": "COL",
-      "nhl_stats_api_id": 21,
-      "twitter_handle": "Avalanche"
+      "name":"Colorado Avalanche",
+      "regex":"(colorado avalanche|colorado|avalanche|col|avs|denver)",
+      "moneypuck_key":"COL",
+      "nhl_stats_api_id":21,
+      "time_zone":"America/Denver",
+      "twitter_handle":"Avalanche"
    },
    {
-      "name": "Columbus Blue Jackets",
-      "regex": "(columbus blue jackets|columbus|blue jackets|cbj|bluejackets)",
-      "moneypuck_key": "CBJ",
-      "nhl_stats_api_id": 29,
-      "twitter_handle": "BlueJacketsNHL"
+      "name":"Columbus Blue Jackets",
+      "regex":"(columbus blue jackets|columbus|blue jackets|cbj|bluejackets)",
+      "moneypuck_key":"CBJ",
+      "nhl_stats_api_id":29,
+      "time_zone":"America/New_York",
+      "twitter_handle":"BlueJacketsNHL"
    },
    {
-      "name": "Dallas Stars",
-      "regex": "(dallas stars|dallas|stars|dal)",
-      "moneypuck_key": "DAL",
-      "nhl_stats_api_id": 25,
-      "twitter_handle": "DallasStars"
+      "name":"Dallas Stars",
+      "regex":"(dallas stars|dallas|stars|dal)",
+      "moneypuck_key":"DAL",
+      "nhl_stats_api_id":25,
+      "time_zone":"America/Chicago",
+      "twitter_handle":"DallasStars"
    },
    {
-      "name": "Detroit Red Wings",
-      "regex": "(detroit red wings|detroit|red wings|det|redwings|wings)",
-      "moneypuck_key": "DET",
-      "nhl_stats_api_id": 17,
-      "twitter_handle": "DetroitRedWings"
+      "name":"Detroit Red Wings",
+      "regex":"(detroit red wings|detroit|red wings|det|redwings|wings)",
+      "moneypuck_key":"DET",
+      "nhl_stats_api_id":17,
+      "time_zone":"America/Detroit",
+      "twitter_handle":"DetroitRedWings"
    },
    {
-      "name": "Edmonton Oilers",
-      "regex": "(edmonton oilers|edmonton|oilers|edm|oil)",
-      "moneypuck_key": "EDM",
-      "nhl_stats_api_id": 22,
-      "twitter_handle": "EdmontonOilers"
+      "name":"Edmonton Oilers",
+      "regex":"(edmonton oilers|edmonton|oilers|edm|oil)",
+      "moneypuck_key":"EDM",
+      "nhl_stats_api_id":22,
+      "time_zone":"America/Edmonton",
+      "twitter_handle":"EdmontonOilers"
    },
    {
-      "name": "Florida Panthers",
-      "regex": "(florida panthers|florida|panthers|fla|cats)",
-      "moneypuck_key": "FLA",
-      "nhl_stats_api_id": 13,
-      "twitter_handle": "FlaPanthers"
+      "name":"Florida Panthers",
+      "regex":"(florida panthers|florida|panthers|fla|cats)",
+      "moneypuck_key":"FLA",
+      "nhl_stats_api_id":13,
+      "time_zone":"America/New_York",
+      "twitter_handle":"FlaPanthers"
    },
    {
-      "name": "Los Angeles Kings",
-      "regex": "(los angeles kings|los angeles|kings|lak|losangeles)",
-      "moneypuck_key": "LAK",
-      "nhl_stats_api_id": 26,
-      "twitter_handle": "LAKings"
+      "name":"Los Angeles Kings",
+      "regex":"(los angeles kings|los angeles|kings|lak|losangeles)",
+      "moneypuck_key":"LAK",
+      "nhl_stats_api_id":26,
+      "time_zone":"America/Los_Angeles",
+      "twitter_handle":"LAKings"
    },
    {
-      "name": "Minnesota Wild",
-      "regex": "(minnesota wild|minnesota|wild|min)",
-      "moneypuck_key": "MIN",
-      "nhl_stats_api_id": 30,
-      "twitter_handle": "mnwild"
+      "name":"Minnesota Wild",
+      "regex":"(minnesota wild|minnesota|wild|min)",
+      "moneypuck_key":"MIN",
+      "nhl_stats_api_id":30,
+      "time_zone":"America/Chicago",
+      "twitter_handle":"mnwild"
    },
    {
-      "name": "Montreal Canadiens",
-      "regex": "(montreal canadiens|montreal|canadiens|mtl|habs)",
-      "moneypuck_key": "MTL",
-      "nhl_stats_api_id": 8,
-      "twitter_handle": "CanadiensMTL"
+      "name":"Montreal Canadiens",
+      "regex":"(montreal canadiens|montreal|canadiens|mtl|habs)",
+      "moneypuck_key":"MTL",
+      "nhl_stats_api_id":8,
+      "time_zone":"America/Montreal",
+      "twitter_handle":"CanadiensMTL"
    },
    {
-      "name": "Nashville Predators",
-      "regex": "(nashville predators|nashville|predators|nas|preds)",
-      "moneypuck_key": "NSH",
-      "nhl_stats_api_id": 18,
-      "twitter_handle": "predsnhl"
-    },
-   {
-      "name": "New Jersey Devils",
-      "regex": "(new jersey devils|new jersey|devils|njd)",
-      "moneypuck_key": "NJD",
-      "nhl_stats_api_id": 1,
-      "twitter_handle": "NHLDevils"
+      "name":"Nashville Predators",
+      "regex":"(nashville predators|nashville|predators|nas|preds)",
+      "moneypuck_key":"NSH",
+      "nhl_stats_api_id":18,
+      "time_zone":"America/Chicago",
+      "twitter_handle":"predsnhl"
    },
    {
-      "name": "New York Islanders",
-      "regex": "(new york islanders|islanders|nyi|isles)",
-      "moneypuck_key": "NYI",
-      "nhl_stats_api_id": 2,
-      "twitter_handle": "NYIslanders"
+      "name":"New Jersey Devils",
+      "regex":"(new jersey devils|new jersey|devils|njd)",
+      "moneypuck_key":"NJD",
+      "nhl_stats_api_id":1,
+      "time_zone":"America/New_York",
+      "twitter_handle":"NHLDevils"
    },
    {
-      "name": "New York Rangers",
-      "regex": "(new york rangers|rangers|nyr|blue shirts|blueshirts)",
-      "moneypuck_key": "NYR",
-      "nhl_stats_api_id": 3,
-      "twitter_handle": "NYRangers"
+      "name":"New York Islanders",
+      "regex":"(new york islanders|islanders|nyi|isles)",
+      "moneypuck_key":"NYI",
+      "nhl_stats_api_id":2,
+      "time_zone":"America/New_York",
+      "twitter_handle":"NYIslanders"
    },
    {
-      "name": "Ottawa Senators",
-      "regex": "(ottawa senators|ottawa|senators|ott|sens)",
-      "moneypuck_key": "OTT",
-      "nhl_stats_api_id": 9,
-      "twitter_handle": "Senators"
+      "name":"New York Rangers",
+      "regex":"(new york rangers|rangers|nyr|blue shirts|blueshirts)",
+      "moneypuck_key":"NYR",
+      "nhl_stats_api_id":3,
+      "time_zone":"America/New_York",
+      "twitter_handle":"NYRangers"
    },
    {
-      "name": "Philidelphia Flyers",
-      "regex": "(philidelphia flyers|philidelphia|flyers|phi)",
-      "moneypuck_key": "PHI",
-      "nhl_stats_api_id": 4,
-      "twitter_handle": "NHLFlyers"
+      "name":"Ottawa Senators",
+      "regex":"(ottawa senators|ottawa|senators|ott|sens)",
+      "moneypuck_key":"OTT",
+      "nhl_stats_api_id":9,
+      "time_zone":"America/New_York",
+      "twitter_handle":"Senators"
    },
    {
-      "name": "Arizona Coyotes",
-      "regex": "(arizona coyotes|arizona|coyotes|ari|phoenix coyotes|phoenix|phx|yotes)",
-      "moneypuck_key": "ARI",
-      "nhl_stats_api_id": 53,
-      "twitter_handle": "ArizonaCoyotes"
+      "name":"Philidelphia Flyers",
+      "regex":"(philidelphia flyers|philidelphia|flyers|phi)",
+      "moneypuck_key":"PHI",
+      "nhl_stats_api_id":4,
+      "time_zone":"America/New_York",
+      "twitter_handle":"NHLFlyers"
    },
    {
-      "name": "Pittsburgh Penguins",
-      "regex": "(pittsburgh penguins|pittsburgh|penguins|pit|pitt)",
-      "moneypuck_key": "PIT",
-      "nhl_stats_api_id": 5,
-      "twitter_handle": "penguins"
+      "name":"Arizona Coyotes",
+      "regex":"(arizona coyotes|arizona|coyotes|ari|phoenix coyotes|phoenix|phx|yotes)",
+      "moneypuck_key":"ARI",
+      "nhl_stats_api_id":53,
+      "time_zone":"America/Phoenix",
+      "twitter_handle":"ArizonaCoyotes"
    },
    {
-      "name": "San Jose Sharks",
-      "regex": "(san jose sharks|san jose|sharks|sjs|sanjose)",
-      "moneypuck_key": "SJS",
-      "nhl_stats_api_id": 28,
-      "twitter_handle": "SanJoseSharks"
+      "name":"Pittsburgh Penguins",
+      "regex":"(pittsburgh penguins|pittsburgh|penguins|pit|pitt)",
+      "moneypuck_key":"PIT",
+      "nhl_stats_api_id":5,
+      "time_zone":"America/New_York",
+      "twitter_handle":"penguins"
    },
    {
-      "name": "Tampa Bay Lightning",
-      "regex": "(tampa bay lightning|tampa bay|lightning|tbl|tampabay|bolts)",
-      "moneypuck_key": "TBL",
-      "nhl_stats_api_id": 14,
-      "twitter_handle": "TBLightning"
+      "name":"San Jose Sharks",
+      "regex":"(san jose sharks|san jose|sharks|sjs|sanjose)",
+      "moneypuck_key":"SJS",
+      "nhl_stats_api_id":28,
+      "time_zone":"America/Los_Angeles",
+      "twitter_handle":"SanJoseSharks"
    },
    {
-      "name": "St. Louis Blues",
-      "regex": "(st. louis blues|st. louis|blues|stl|stlouis|saint louis|st louis|blue notes)",
-      "moneypuck_key": "STL",
-      "nhl_stats_api_id": 19,
-      "twitter_handle": "StLouisBlues"
+      "name":"Tampa Bay Lightning",
+      "regex":"(tampa bay lightning|tampa bay|lightning|tbl|tampabay|bolts)",
+      "moneypuck_key":"TBL",
+      "nhl_stats_api_id":14,
+      "time_zone":"America/New_York",
+      "twitter_handle":"TBLightning"
    },
    {
-      "name": "Toronto Maple Leafs",
-      "regex": "(toronto maple leafs|toronto|maple leafs|tor|leafs|mapleleafs)",
-      "moneypuck_key": "TOR",
-      "nhl_stats_api_id": 10,
-      "twitter_handle": "MapleLeafs"
+      "name":"St. Louis Blues",
+      "regex":"(st. louis blues|st. louis|blues|stl|stlouis|saint louis|st louis|blue notes)",
+      "moneypuck_key":"STL",
+      "nhl_stats_api_id":19,
+      "time_zone":"America/Chicago",
+      "twitter_handle":"StLouisBlues"
    },
    {
-      "name": "Vancouver Canucks",
-      "regex": "(vancouver canucks|vancouver|canucks|van|nucks)",
-      "moneypuck_key": "VAN",
-      "nhl_stats_api_id": 23,
-      "twitter_handle": "VanCanucks"
+      "name":"Toronto Maple Leafs",
+      "regex":"(toronto maple leafs|toronto|maple leafs|tor|leafs|mapleleafs)",
+      "moneypuck_key":"TOR",
+      "nhl_stats_api_id":10,
+      "time_zone":"America/New_York",
+      "twitter_handle":"MapleLeafs"
    },
    {
-      "name": "Vegas Golden Knights",
-      "regex": "(vegas golden knights|vegas|knights|vgk)",
-      "moneypuck_key": "VGK",
-      "nhl_stats_api_id": 54,
-      "twitter_handle": "GoldenKnights"
+      "name":"Vancouver Canucks",
+      "regex":"(vancouver canucks|vancouver|canucks|van|nucks)",
+      "moneypuck_key":"VAN",
+      "nhl_stats_api_id":23,
+      "time_zone":"America/Vancouver",
+      "twitter_handle":"VanCanucks"
    },
    {
-      "name": "Washington Capitals",
-      "regex": "(washington capitals|washington|capitals|wsh|caps)",
-      "moneypuck_key": "WSH",
-      "nhl_stats_api_id": 15,
-      "twitter_handle": "washcaps"
+      "name":"Vegas Golden Knights",
+      "regex":"(vegas golden knights|vegas|knights|vgk)",
+      "moneypuck_key":"VGK",
+      "nhl_stats_api_id":54,
+      "time_zone":"America/Los_Angeles",
+      "twitter_handle":"GoldenKnights"
    },
    {
-      "name": "Winnipeg Jets",
-      "regex": "(winnipeg jets|winnipeg|jets|wpg|peg)",
-      "moneypuck_key": "WPG",
-      "nhl_stats_api_id": 52,
-      "twitter_handle": "NHLJets"
+      "name":"Washington Capitals",
+      "regex":"(washington capitals|washington|capitals|wsh|caps)",
+      "moneypuck_key":"WSH",
+      "nhl_stats_api_id":15,
+      "time_zone":"America/New_York",
+      "twitter_handle":"washcaps"
+   },
+   {
+      "name":"Winnipeg Jets",
+      "regex":"(winnipeg jets|winnipeg|jets|wpg|peg)",
+      "moneypuck_key":"WPG",
+      "nhl_stats_api_id":52,
+      "time_zone":"America/Winnipeg",
+      "twitter_handle":"NHLJets"
    }
 ]
