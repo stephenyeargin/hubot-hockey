@@ -225,12 +225,12 @@ describe 'hubot-hockey for slack', ->
             {
               "attachments": [
                 {
-                  "fallback": "10/15/2019 - Nashville Predators 0, Vegas Golden Knights 0 (7:00 pm PDT)",
+                  "fallback": "10/15/2019 - Nashville Predators 0, Vegas Golden Knights 0 (9:00 pm CDT)",
                   "title_link": "https://www.nhl.com/gamecenter/2019020090",
                   "author_name": "NHL.com",
                   "author_link": "https://nhl.com",
                   "author_icon": "https://github.com/nhl.png",
-                  "title": "10/15/2019 - 7:00 pm PDT",
+                  "title": "10/15/2019 - 9:00 pm CDT",
                   "text": "```\n  Nashville Predators (3-2-0)    0  \n  Vegas Golden Knights (4-2-0)   0  \n```",
                   "footer": "T-Mobile Arena",
                   "mrkdwn_in": ["text", "pretext"]

@@ -40,13 +40,7 @@
             "venue" : {
               "id" : 5030,
               "name" : "Bridgestone Arena",
-              "link" : "/api/v1/venues/5030",
-              "city" : "Nashville",
-              "timeZone" : {
-                "id" : "America/Chicago",
-                "offset" : -5,
-                "tz" : "CDT"
-              }
+              "link" : "/api/v1/venues/5030"
             },
             "abbreviation" : "NSH",
             "teamName" : "Predators",
@@ -90,13 +84,7 @@
             "venue" : {
               "id" : 5178,
               "name" : "T-Mobile Arena",
-              "link" : "/api/v1/venues/5178",
-              "city" : "Las Vegas",
-              "timeZone" : {
-                "id" : "America/Los_Angeles",
-                "offset" : -7,
-                "tz" : "PDT"
-              }
+              "link" : "/api/v1/venues/5178"
             },
             "abbreviation" : "VGK",
             "teamName" : "Golden Knights",
@@ -238,13 +226,7 @@
             "venue" : {
               "id" : 5030,
               "name" : "Bridgestone Arena",
-              "link" : "/api/v1/venues/5030",
-              "city" : "Nashville",
-              "timeZone" : {
-                "id" : "America/Chicago",
-                "offset" : -5,
-                "tz" : "CDT"
-              }
+              "link" : "/api/v1/venues/5030"
             },
             "abbreviation" : "NSH",
             "teamName" : "Predators",
@@ -288,13 +270,7 @@
             "venue" : {
               "id" : 5043,
               "name" : "Gila River Arena",
-              "link" : "/api/v1/venues/5043",
-              "city" : "Glendale",
-              "timeZone" : {
-                "id" : "America/Phoenix",
-                "offset" : -7,
-                "tz" : "MST"
-              }
+              "link" : "/api/v1/venues/5043"
             },
             "abbreviation" : "ARI",
             "teamName" : "Coyotes",
@@ -436,13 +412,7 @@
             "venue" : {
               "id" : 5027,
               "name" : "BB&T Center",
-              "link" : "/api/v1/venues/5027",
-              "city" : "Sunrise",
-              "timeZone" : {
-                "id" : "America/New_York",
-                "offset" : -4,
-                "tz" : "EDT"
-              }
+              "link" : "/api/v1/venues/5027"
             },
             "abbreviation" : "FLA",
             "teamName" : "Panthers",
@@ -486,13 +456,7 @@
             "venue" : {
               "id" : 5030,
               "name" : "Bridgestone Arena",
-              "link" : "/api/v1/venues/5030",
-              "city" : "Nashville",
-              "timeZone" : {
-                "id" : "America/Chicago",
-                "offset" : -5,
-                "tz" : "CDT"
-              }
+              "link" : "/api/v1/venues/5030"
             },
             "abbreviation" : "NSH",
             "teamName" : "Predators",
@@ -628,13 +592,7 @@
             "venue" : {
               "id" : 5046,
               "name" : "Honda Center",
-              "link" : "/api/v1/venues/5046",
-              "city" : "Anaheim",
-              "timeZone" : {
-                "id" : "America/Los_Angeles",
-                "offset" : -7,
-                "tz" : "PDT"
-              }
+              "link" : "/api/v1/venues/5046"
             },
             "abbreviation" : "ANA",
             "teamName" : "Ducks",
@@ -678,13 +636,7 @@
             "venue" : {
               "id" : 5030,
               "name" : "Bridgestone Arena",
-              "link" : "/api/v1/venues/5030",
-              "city" : "Nashville",
-              "timeZone" : {
-                "id" : "America/Chicago",
-                "offset" : -5,
-                "tz" : "CDT"
-              }
+              "link" : "/api/v1/venues/5030"
             },
             "abbreviation" : "NSH",
             "teamName" : "Predators",
