@@ -85,7 +85,7 @@ describe 'hubot-hockey for slack', ->
                 {
                   "fallback": "Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%",
                   "author_name": "MoneyPuck.com",
-                  "author_link": "http://moneypuck.com.com",
+                  "author_link": "http://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
                   "title": "Nashville Predators",
                   "thumb_url": "http://peter-tanner.com/moneypuck/logos/NSH.png",
@@ -165,7 +165,7 @@ describe 'hubot-hockey for slack', ->
                 {
                   "fallback": "Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%",
                   "author_name": "MoneyPuck.com",
-                  "author_link": "http://moneypuck.com.com",
+                  "author_link": "http://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
                   "title": "Nashville Predators",
                   "thumb_url": "http://peter-tanner.com/moneypuck/logos/NSH.png",
@@ -245,7 +245,7 @@ describe 'hubot-hockey for slack', ->
                 {
                   "fallback": "Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%",
                   "author_name": "MoneyPuck.com",
-                  "author_link": "http://moneypuck.com.com",
+                  "author_link": "http://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
                   "title": "Nashville Predators",
                   "thumb_url": "http://peter-tanner.com/moneypuck/logos/NSH.png",
@@ -325,7 +325,7 @@ describe 'hubot-hockey for slack', ->
                 {
                   "fallback": "Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%",
                   "author_name": "MoneyPuck.com",
-                  "author_link": "http://moneypuck.com.com",
+                  "author_link": "http://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
                   "title": "Nashville Predators",
                   "thumb_url": "http://peter-tanner.com/moneypuck/logos/NSH.png",

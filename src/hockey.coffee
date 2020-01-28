@@ -139,7 +139,7 @@ module.exports = (robot) ->
                 attachments: [
                   {
                     author_icon: "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
-                    author_link: "http://moneypuck.com.com",
+                    author_link: "http://moneypuck.com",
                     author_name: "MoneyPuck.com",
                     fallback: fallback,
                     thumb_url: "http://peter-tanner.com/moneypuck/logos/#{team.moneypuck_key}.png",
