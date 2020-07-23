@@ -45,7 +45,7 @@ module.exports = (robot) ->
       .query({
         teamId: team.nhl_stats_api_id,
         startDate: moment().tz('America/Los_Angeles').format('YYYY-MM-DD'),
-        endDate: moment().tz('America/Los_Angeles').add(7, 'd').format('YYYY-MM-DD'),
+        endDate: moment().tz('America/Los_Angeles').add(90, 'd').format('YYYY-MM-DD'),
         hydrate: 'linescore,broadcasts(all)'
       })
       .get() (err, res, body) ->
@@ -86,6 +86,7 @@ module.exports = (robot) ->
                   author_name: "NHL.com",
                   author_link: "https://nhl.com",
                   author_icon: "https://github.com/nhl.png",
+                  color: team.primary_color,
                   title: "#{moment(date).format('l')} - #{gameStatus}",
                   text: "```\n" + table.toString() + "\n```"
                   footer: game.venue.name,
@@ -120,10 +121,10 @@ module.exports = (robot) ->
           odds = []
 
           for row in output
-            odds = row if row[0] is 'ALL' and row[1] is team.moneypuck_key
+            odds = row if row[0] is 'ALL' and row[1] is team.abbreviation
 
           if !odds
-            msg.send "Could not find your odds for team #{team.moneypuck_key}"
+            msg.send "Could not find your odds for team #{team.abbreviation}"
             return
 
           # Extract relevant columns
@@ -142,8 +143,9 @@ module.exports = (robot) ->
                     author_link: "http://moneypuck.com",
                     author_name: "MoneyPuck.com",
                     fallback: fallback,
-                    thumb_url: "http://peter-tanner.com/moneypuck/logos/#{team.moneypuck_key}.png",
+                    thumb_url: "http://peter-tanner.com/moneypuck/logos/#{team.abbreviation}.png",
                     title: team.name,
+                    color: team.primary_color,
                     fields: [
                       {
                         title: "Make Playoffs",
