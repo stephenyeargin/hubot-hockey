@@ -225,6 +225,15 @@
       "twitter_handle": "SanJoseSharks"
    },
    {
+      "name": "Seattle Kraken",
+      "regex": "(seattle kraken|seattle|kraken|sea|kraks)",
+      "abbreviation": "SEA",
+      "primary_color": "#001628",
+      "nhl_stats_api_id": 55,
+      "time_zone": "America/Los_Angeles",
+      "twitter_handle": "NHLSeattle_"
+   },
+   {
       "name": "Tampa Bay Lightning",
       "regex": "(tampa bay lightning|tampa bay|lightning|tbl|tampabay|bolts)",
       "abbreviation": "TBL",
@@ -277,14 +286,5 @@
       "nhl_stats_api_id": 52,
       "time_zone": "America/Winnipeg",
       "twitter_handle": "NHLJets"
-   },
-   {
-      "name": "Seattle Kraken",
-      "regex": "(seattle kraken|seattle|kraken|sea|kraks)",
-      "abbreviation": "SEA",
-      "primary_color": "#001628",
-      "nhl_stats_api_id": 55,
-      "time_zone": "America/Los_Angeles",
-      "twitter_handle": "NHLSeattle_"
    }
 ]
