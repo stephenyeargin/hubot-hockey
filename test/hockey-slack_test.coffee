@@ -41,7 +41,7 @@ describe 'hubot-hockey for slack', ->
       .query({
         teamId: 18,
         startDate: '2019-10-10',
-        endDate: '2019-10-17',
+        endDate: '2020-01-08',
         hydrate: 'linescore,broadcasts(all)'
       })
       .delay({
@@ -70,6 +70,7 @@ describe 'hubot-hockey for slack', ->
                   "author_name": "NHL.com",
                   "author_link": "https://nhl.com",
                   "author_icon": "https://github.com/nhl.png",
+                  "color": "#FFB81C",
                   "title": "10/10/2019 - Final",
                   "text": "```\n  Washington Capitals (2-1-2)   5  \n  Nashville Predators (3-1-0)   6  \n```",
                   "footer": "Bridgestone Arena",
@@ -87,6 +88,7 @@ describe 'hubot-hockey for slack', ->
                   "author_name": "MoneyPuck.com",
                   "author_link": "http://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
+                  "color": "#FFB81C",
                   "title": "Nashville Predators",
                   "thumb_url": "http://peter-tanner.com/moneypuck/logos/NSH.png",
                   "fields": [
@@ -121,7 +123,7 @@ describe 'hubot-hockey for slack', ->
       .query({
         teamId: 18,
         startDate: '2019-12-19',
-        endDate: '2019-12-26',
+        endDate: '2020-03-18',
         hydrate: 'linescore,broadcasts(all)'
       })
       .delay({
@@ -150,6 +152,7 @@ describe 'hubot-hockey for slack', ->
                   "author_name": "NHL.com",
                   "author_link": "https://nhl.com",
                   "author_icon": "https://github.com/nhl.png",
+                  "color": "#FFB81C",
                   "title": "12/19/2019 - Final/OT",
                   "text": "```\n  Nashville Predators (16-12-6)   4  \n  Ottawa Senators (15-18-3)       5  \n```",
                   "footer": "Canadian Tire Centre",
@@ -167,6 +170,7 @@ describe 'hubot-hockey for slack', ->
                   "author_name": "MoneyPuck.com",
                   "author_link": "http://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
+                  "color": "#FFB81C",
                   "title": "Nashville Predators",
                   "thumb_url": "http://peter-tanner.com/moneypuck/logos/NSH.png",
                   "fields": [
@@ -201,7 +205,7 @@ describe 'hubot-hockey for slack', ->
       .query({
         teamId: 18,
         startDate: '2019-10-15',
-        endDate: '2019-10-22',
+        endDate: '2020-01-13',
         hydrate: 'linescore,broadcasts(all)'
       })
       .delay({
@@ -230,6 +234,7 @@ describe 'hubot-hockey for slack', ->
                   "author_name": "NHL.com",
                   "author_link": "https://nhl.com",
                   "author_icon": "https://github.com/nhl.png",
+                  "color": "#FFB81C",
                   "title": "10/15/2019 - 9:00 pm CDT",
                   "text": "```\n  Nashville Predators (3-2-0)    0  \n  Vegas Golden Knights (4-2-0)   0  \n```",
                   "footer": "T-Mobile Arena",
@@ -247,6 +252,7 @@ describe 'hubot-hockey for slack', ->
                   "author_name": "MoneyPuck.com",
                   "author_link": "http://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
+                  "color": "#FFB81C",
                   "title": "Nashville Predators",
                   "thumb_url": "http://peter-tanner.com/moneypuck/logos/NSH.png",
                   "fields": [
@@ -281,7 +287,7 @@ describe 'hubot-hockey for slack', ->
       .query({
         teamId: 18,
         startDate: '2019-10-12',
-        endDate: '2019-10-19',
+        endDate: '2020-01-10',
         hydrate: 'linescore,broadcasts(all)'
       })
       .delay({
@@ -310,6 +316,7 @@ describe 'hubot-hockey for slack', ->
                   "author_name": "NHL.com",
                   "author_link": "https://nhl.com",
                   "author_icon": "https://github.com/nhl.png",
+                  "color": "#FFB81C",
                   "title": "10/12/2019 - 04:23 1st",
                   "text": "```\n  Nashville Predators (3-1-0)   1  \n  Los Angeles Kings (1-2-0)     2  \n```",
                   "footer": "STAPLES Center",
@@ -327,6 +334,7 @@ describe 'hubot-hockey for slack', ->
                   "author_name": "MoneyPuck.com",
                   "author_link": "http://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
+                  "color": "#FFB81C",
                   "title": "Nashville Predators",
                   "thumb_url": "http://peter-tanner.com/moneypuck/logos/NSH.png",
                   "fields": [

@@ -40,7 +40,7 @@ describe 'hubot-hockey', ->
       .query({
         teamId: 18,
         startDate: '2019-10-10',
-        endDate: '2019-10-17',
+        endDate: '2020-01-08',
         hydrate: 'linescore,broadcasts(all)'
       })
       .delay({
@@ -79,7 +79,7 @@ describe 'hubot-hockey', ->
       .query({
         teamId: 18,
         startDate: '2019-12-19',
-        endDate: '2019-12-26',
+        endDate: '2020-03-18',
         hydrate: 'linescore,broadcasts(all)'
       })
       .delay({
@@ -117,7 +117,7 @@ describe 'hubot-hockey', ->
       .query({
         teamId: 18,
         startDate: '2019-10-12',
-        endDate: '2019-10-19',
+        endDate: '2020-01-10',
         hydrate: 'linescore,broadcasts(all)'
       })
       .delay({
@@ -155,7 +155,7 @@ describe 'hubot-hockey', ->
       .query({
         teamId: 18,
         startDate: '2019-10-15',
-        endDate: '2019-10-22',
+        endDate: '2020-01-13',
         hydrate: 'linescore,broadcasts(all)'
       })
       .delay({
