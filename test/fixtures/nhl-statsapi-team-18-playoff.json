@@ -1,0 +1,763 @@
+{
+  "copyright" : "NHL and the NHL Shield are registered trademarks of the National Hockey League. NHL and NHL team marks are the property of the NHL and its teams. © NHL 2020. All Rights Reserved.",
+  "totalItems" : 6,
+  "totalEvents" : 0,
+  "totalGames" : 6,
+  "totalMatches" : 0,
+  "wait" : 10,
+  "dates" : [ {
+    "date" : "2020-07-30",
+    "totalItems" : 1,
+    "totalEvents" : 0,
+    "totalGames" : 1,
+    "totalMatches" : 0,
+    "games" : [ {
+      "gamePk" : 2019011010,
+      "link" : "/api/v1/game/2019011010/feed/live",
+      "gameType" : "PR",
+      "season" : "20192020",
+      "gameDate" : "2020-07-30T20:00:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "1",
+        "detailedState" : "Scheduled",
+        "statusCode" : "1",
+        "startTimeTBD" : false
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "type" : "league"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 18,
+            "name" : "Nashville Predators",
+            "link" : "/api/v1/teams/18"
+          }
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "type" : "league"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 25,
+            "name" : "Dallas Stars",
+            "link" : "/api/v1/teams/25"
+          }
+        }
+      },
+      "linescore" : {
+        "currentPeriod" : 0,
+        "periods" : [ ],
+        "shootoutInfo" : {
+          "away" : {
+            "scores" : 0,
+            "attempts" : 0
+          },
+          "home" : {
+            "scores" : 0,
+            "attempts" : 0
+          }
+        },
+        "teams" : {
+          "home" : {
+            "team" : {
+              "id" : 25,
+              "name" : "Dallas Stars",
+              "link" : "/api/v1/teams/25"
+            },
+            "goals" : 0,
+            "shotsOnGoal" : 0,
+            "goaliePulled" : false,
+            "numSkaters" : 0,
+            "powerPlay" : false
+          },
+          "away" : {
+            "team" : {
+              "id" : 18,
+              "name" : "Nashville Predators",
+              "link" : "/api/v1/teams/18"
+            },
+            "goals" : 0,
+            "shotsOnGoal" : 0,
+            "goaliePulled" : false,
+            "numSkaters" : 0,
+            "powerPlay" : false
+          }
+        },
+        "powerPlayStrength" : "Even",
+        "hasShootout" : false,
+        "intermissionInfo" : {
+          "intermissionTimeRemaining" : 0,
+          "intermissionTimeElapsed" : 0,
+          "inIntermission" : false
+        }
+      },
+      "venue" : {
+        "id" : 5100,
+        "name" : "Rogers Place",
+        "link" : "/api/v1/venues/5100"
+      },
+      "broadcasts" : [ {
+        "id" : 324,
+        "name" : "NHLN",
+        "type" : "national",
+        "site" : "nhl",
+        "language" : "en"
+      }, {
+        "id" : 20,
+        "name" : "FS-SW",
+        "type" : "home",
+        "site" : "nhl",
+        "language" : "en"
+      }, {
+        "id" : 141,
+        "name" : "FS-TN",
+        "type" : "away",
+        "site" : "nhl",
+        "language" : "en"
+      } ],
+      "content" : {
+        "link" : "/api/v1/game/2019011010/content"
+      }
+    } ],
+    "events" : [ ],
+    "matches" : [ ]
+  }, {
+    "date" : "2020-08-02",
+    "totalItems" : 1,
+    "totalEvents" : 0,
+    "totalGames" : 1,
+    "totalMatches" : 0,
+    "games" : [ {
+      "gamePk" : 2019030071,
+      "link" : "/api/v1/game/2019030071/feed/live",
+      "gameType" : "P",
+      "season" : "20192020",
+      "gameDate" : "2020-08-02T18:00:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "1",
+        "detailedState" : "Scheduled",
+        "statusCode" : "1",
+        "startTimeTBD" : false
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "type" : "league"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 53,
+            "name" : "Arizona Coyotes",
+            "link" : "/api/v1/teams/53"
+          }
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "type" : "league"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 18,
+            "name" : "Nashville Predators",
+            "link" : "/api/v1/teams/18"
+          }
+        }
+      },
+      "linescore" : {
+        "currentPeriod" : 0,
+        "periods" : [ ],
+        "shootoutInfo" : {
+          "away" : {
+            "scores" : 0,
+            "attempts" : 0
+          },
+          "home" : {
+            "scores" : 0,
+            "attempts" : 0
+          }
+        },
+        "teams" : {
+          "home" : {
+            "team" : {
+              "id" : 18,
+              "name" : "Nashville Predators",
+              "link" : "/api/v1/teams/18"
+            },
+            "goals" : 0,
+            "shotsOnGoal" : 0,
+            "goaliePulled" : false,
+            "numSkaters" : 0,
+            "powerPlay" : false
+          },
+          "away" : {
+            "team" : {
+              "id" : 53,
+              "name" : "Arizona Coyotes",
+              "link" : "/api/v1/teams/53"
+            },
+            "goals" : 0,
+            "shotsOnGoal" : 0,
+            "goaliePulled" : false,
+            "numSkaters" : 0,
+            "powerPlay" : false
+          }
+        },
+        "powerPlayStrength" : "Even",
+        "hasShootout" : false,
+        "intermissionInfo" : {
+          "intermissionTimeRemaining" : 0,
+          "intermissionTimeElapsed" : 0,
+          "inIntermission" : false
+        }
+      },
+      "venue" : {
+        "id" : 5100,
+        "name" : "Rogers Place",
+        "link" : "/api/v1/venues/5100"
+      },
+      "broadcasts" : [ {
+        "id" : 188,
+        "name" : "USA",
+        "type" : "national",
+        "site" : "nhl",
+        "language" : "en"
+      }, {
+        "id" : 337,
+        "name" : "NHL.TV",
+        "type" : "national",
+        "site" : "nhl",
+        "language" : "en"
+      }, {
+        "id" : 283,
+        "name" : "SN360",
+        "type" : "national",
+        "site" : "nhlCA",
+        "language" : "en"
+      }, {
+        "id" : 141,
+        "name" : "FS-TN",
+        "type" : "home",
+        "site" : "nhl",
+        "language" : "en"
+      }, {
+        "id" : 9,
+        "name" : "FS-A",
+        "type" : "away",
+        "site" : "nhl",
+        "language" : "en"
+      } ],
+      "content" : {
+        "link" : "/api/v1/game/2019030071/content"
+      }
+    } ],
+    "events" : [ ],
+    "matches" : [ ]
+  }, {
+    "date" : "2020-08-04",
+    "totalItems" : 1,
+    "totalEvents" : 0,
+    "totalGames" : 1,
+    "totalMatches" : 0,
+    "games" : [ {
+      "gamePk" : 2019030072,
+      "link" : "/api/v1/game/2019030072/feed/live",
+      "gameType" : "P",
+      "season" : "20192020",
+      "gameDate" : "2020-08-04T18:30:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "1",
+        "detailedState" : "Scheduled",
+        "statusCode" : "1",
+        "startTimeTBD" : false
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "type" : "league"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 53,
+            "name" : "Arizona Coyotes",
+            "link" : "/api/v1/teams/53"
+          }
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "type" : "league"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 18,
+            "name" : "Nashville Predators",
+            "link" : "/api/v1/teams/18"
+          }
+        }
+      },
+      "linescore" : {
+        "currentPeriod" : 0,
+        "periods" : [ ],
+        "shootoutInfo" : {
+          "away" : {
+            "scores" : 0,
+            "attempts" : 0
+          },
+          "home" : {
+            "scores" : 0,
+            "attempts" : 0
+          }
+        },
+        "teams" : {
+          "home" : {
+            "team" : {
+              "id" : 18,
+              "name" : "Nashville Predators",
+              "link" : "/api/v1/teams/18"
+            },
+            "goals" : 0,
+            "shotsOnGoal" : 0,
+            "goaliePulled" : false,
+            "numSkaters" : 0,
+            "powerPlay" : false
+          },
+          "away" : {
+            "team" : {
+              "id" : 53,
+              "name" : "Arizona Coyotes",
+              "link" : "/api/v1/teams/53"
+            },
+            "goals" : 0,
+            "shotsOnGoal" : 0,
+            "goaliePulled" : false,
+            "numSkaters" : 0,
+            "powerPlay" : false
+          }
+        },
+        "powerPlayStrength" : "Even",
+        "hasShootout" : false,
+        "intermissionInfo" : {
+          "intermissionTimeRemaining" : 0,
+          "intermissionTimeElapsed" : 0,
+          "inIntermission" : false
+        }
+      },
+      "venue" : {
+        "id" : 5100,
+        "name" : "Rogers Place",
+        "link" : "/api/v1/venues/5100"
+      },
+      "broadcasts" : [ {
+        "id" : 324,
+        "name" : "NHLN",
+        "type" : "national",
+        "site" : "nhl",
+        "language" : "en"
+      }, {
+        "id" : 337,
+        "name" : "NHL.TV",
+        "type" : "national",
+        "site" : "nhl",
+        "language" : "en"
+      }, {
+        "id" : 283,
+        "name" : "SN360",
+        "type" : "national",
+        "site" : "nhlCA",
+        "language" : "en"
+      }, {
+        "id" : 284,
+        "name" : "SN1",
+        "type" : "national",
+        "site" : "nhlCA",
+        "language" : "en"
+      }, {
+        "id" : 141,
+        "name" : "FS-TN",
+        "type" : "home",
+        "site" : "nhl",
+        "language" : "en"
+      }, {
+        "id" : 204,
+        "name" : "FS-A PLUS",
+        "type" : "away",
+        "site" : "nhl",
+        "language" : "en"
+      } ],
+      "content" : {
+        "link" : "/api/v1/game/2019030072/content"
+      }
+    } ],
+    "events" : [ ],
+    "matches" : [ ]
+  }, {
+    "date" : "2020-08-05",
+    "totalItems" : 1,
+    "totalEvents" : 0,
+    "totalGames" : 1,
+    "totalMatches" : 0,
+    "games" : [ {
+      "gamePk" : 2019030073,
+      "link" : "/api/v1/game/2019030073/feed/live",
+      "gameType" : "P",
+      "season" : "20192020",
+      "gameDate" : "2020-08-05T18:30:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "1",
+        "detailedState" : "Scheduled",
+        "statusCode" : "1",
+        "startTimeTBD" : false
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "type" : "league"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 18,
+            "name" : "Nashville Predators",
+            "link" : "/api/v1/teams/18"
+          }
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "type" : "league"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 53,
+            "name" : "Arizona Coyotes",
+            "link" : "/api/v1/teams/53"
+          }
+        }
+      },
+      "linescore" : {
+        "currentPeriod" : 0,
+        "periods" : [ ],
+        "shootoutInfo" : {
+          "away" : {
+            "scores" : 0,
+            "attempts" : 0
+          },
+          "home" : {
+            "scores" : 0,
+            "attempts" : 0
+          }
+        },
+        "teams" : {
+          "home" : {
+            "team" : {
+              "id" : 53,
+              "name" : "Arizona Coyotes",
+              "link" : "/api/v1/teams/53"
+            },
+            "goals" : 0,
+            "shotsOnGoal" : 0,
+            "goaliePulled" : false,
+            "numSkaters" : 0,
+            "powerPlay" : false
+          },
+          "away" : {
+            "team" : {
+              "id" : 18,
+              "name" : "Nashville Predators",
+              "link" : "/api/v1/teams/18"
+            },
+            "goals" : 0,
+            "shotsOnGoal" : 0,
+            "goaliePulled" : false,
+            "numSkaters" : 0,
+            "powerPlay" : false
+          }
+        },
+        "powerPlayStrength" : "Even",
+        "hasShootout" : false,
+        "intermissionInfo" : {
+          "intermissionTimeRemaining" : 0,
+          "intermissionTimeElapsed" : 0,
+          "inIntermission" : false
+        }
+      },
+      "venue" : {
+        "id" : 5100,
+        "name" : "Rogers Place",
+        "link" : "/api/v1/venues/5100"
+      },
+      "broadcasts" : [ {
+        "id" : 324,
+        "name" : "NHLN",
+        "type" : "national",
+        "site" : "nhl",
+        "language" : "en"
+      }, {
+        "id" : 337,
+        "name" : "NHL.TV",
+        "type" : "national",
+        "site" : "nhl",
+        "language" : "en"
+      }, {
+        "id" : 283,
+        "name" : "SN360",
+        "type" : "national",
+        "site" : "nhlCA",
+        "language" : "en"
+      }, {
+        "id" : 9,
+        "name" : "FS-A",
+        "type" : "home",
+        "site" : "nhl",
+        "language" : "en"
+      }, {
+        "id" : 204,
+        "name" : "FS-A PLUS",
+        "type" : "home",
+        "site" : "nhl",
+        "language" : "en"
+      }, {
+        "id" : 141,
+        "name" : "FS-TN",
+        "type" : "away",
+        "site" : "nhl",
+        "language" : "en"
+      } ],
+      "content" : {
+        "link" : "/api/v1/game/2019030073/content"
+      }
+    } ],
+    "events" : [ ],
+    "matches" : [ ]
+  }, {
+    "date" : "2020-08-07",
+    "totalItems" : 1,
+    "totalEvents" : 0,
+    "totalGames" : 1,
+    "totalMatches" : 0,
+    "games" : [ {
+      "gamePk" : 2019030074,
+      "link" : "/api/v1/game/2019030074/feed/live",
+      "gameType" : "P",
+      "season" : "20192020",
+      "gameDate" : "2020-08-07T06:00:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "8",
+        "detailedState" : "Scheduled (Time TBD)",
+        "statusCode" : "8",
+        "startTimeTBD" : false
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "type" : "league"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 18,
+            "name" : "Nashville Predators",
+            "link" : "/api/v1/teams/18"
+          }
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "type" : "league"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 53,
+            "name" : "Arizona Coyotes",
+            "link" : "/api/v1/teams/53"
+          }
+        }
+      },
+      "linescore" : {
+        "currentPeriod" : 0,
+        "periods" : [ ],
+        "shootoutInfo" : {
+          "away" : {
+            "scores" : 0,
+            "attempts" : 0
+          },
+          "home" : {
+            "scores" : 0,
+            "attempts" : 0
+          }
+        },
+        "teams" : {
+          "home" : {
+            "team" : {
+              "id" : 53,
+              "name" : "Arizona Coyotes",
+              "link" : "/api/v1/teams/53"
+            },
+            "goals" : 0,
+            "shotsOnGoal" : 0,
+            "goaliePulled" : false,
+            "numSkaters" : 0,
+            "powerPlay" : false
+          },
+          "away" : {
+            "team" : {
+              "id" : 18,
+              "name" : "Nashville Predators",
+              "link" : "/api/v1/teams/18"
+            },
+            "goals" : 0,
+            "shotsOnGoal" : 0,
+            "goaliePulled" : false,
+            "numSkaters" : 0,
+            "powerPlay" : false
+          }
+        },
+        "powerPlayStrength" : "Even",
+        "hasShootout" : false,
+        "intermissionInfo" : {
+          "intermissionTimeRemaining" : 0,
+          "intermissionTimeElapsed" : 0,
+          "inIntermission" : false
+        }
+      },
+      "venue" : {
+        "id" : 5100,
+        "name" : "Rogers Place",
+        "link" : "/api/v1/venues/5100"
+      },
+      "content" : {
+        "link" : "/api/v1/game/2019030074/content"
+      }
+    } ],
+    "events" : [ ],
+    "matches" : [ ]
+  }, {
+    "date" : "2020-08-09",
+    "totalItems" : 1,
+    "totalEvents" : 0,
+    "totalGames" : 1,
+    "totalMatches" : 0,
+    "games" : [ {
+      "gamePk" : 2019030075,
+      "link" : "/api/v1/game/2019030075/feed/live",
+      "gameType" : "P",
+      "season" : "20192020",
+      "gameDate" : "2020-08-09T06:00:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "8",
+        "detailedState" : "Scheduled (Time TBD)",
+        "statusCode" : "8",
+        "startTimeTBD" : false
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "type" : "league"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 53,
+            "name" : "Arizona Coyotes",
+            "link" : "/api/v1/teams/53"
+          }
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "type" : "league"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 18,
+            "name" : "Nashville Predators",
+            "link" : "/api/v1/teams/18"
+          }
+        }
+      },
+      "linescore" : {
+        "currentPeriod" : 0,
+        "periods" : [ ],
+        "shootoutInfo" : {
+          "away" : {
+            "scores" : 0,
+            "attempts" : 0
+          },
+          "home" : {
+            "scores" : 0,
+            "attempts" : 0
+          }
+        },
+        "teams" : {
+          "home" : {
+            "team" : {
+              "id" : 18,
+              "name" : "Nashville Predators",
+              "link" : "/api/v1/teams/18"
+            },
+            "goals" : 0,
+            "shotsOnGoal" : 0,
+            "goaliePulled" : false,
+            "numSkaters" : 0,
+            "powerPlay" : false
+          },
+          "away" : {
+            "team" : {
+              "id" : 53,
+              "name" : "Arizona Coyotes",
+              "link" : "/api/v1/teams/53"
+            },
+            "goals" : 0,
+            "shotsOnGoal" : 0,
+            "goaliePulled" : false,
+            "numSkaters" : 0,
+            "powerPlay" : false
+          }
+        },
+        "powerPlayStrength" : "Even",
+        "hasShootout" : false,
+        "intermissionInfo" : {
+          "intermissionTimeRemaining" : 0,
+          "intermissionTimeElapsed" : 0,
+          "inIntermission" : false
+        }
+      },
+      "venue" : {
+        "id" : 5100,
+        "name" : "Rogers Place",
+        "link" : "/api/v1/venues/5100"
+      },
+      "content" : {
+        "link" : "/api/v1/game/2019030075/content"
+      }
+    } ],
+    "events" : [ ],
+    "matches" : [ ]
+  } ]
+}

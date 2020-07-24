@@ -71,8 +71,12 @@ module.exports = (robot) ->
           gameStatus += "/#{game.linescore.currentPeriodOrdinal}"
 
         table = new AsciiTable()
-        table.addRow "#{game.teams.away.team.name} (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses}-#{game.teams.away.leagueRecord.ot})", "#{game.teams.away.score}"
-        table.addRow "#{game.teams.home.team.name} (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses}-#{game.teams.home.leagueRecord.ot})", "#{game.teams.home.score}"
+        if game.teams.away.leagueRecord.ot? or game.teams.home.leagueRecord.ot?
+          table.addRow "#{game.teams.away.team.name} (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses}-#{game.teams.away.leagueRecord.ot})", "#{game.teams.away.score}"
+          table.addRow "#{game.teams.home.team.name} (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses}-#{game.teams.home.leagueRecord.ot})", "#{game.teams.home.score}"
+        else
+          table.addRow "#{game.teams.away.team.name} (#{game.teams.away.leagueRecord.wins}-#{game.teams.away.leagueRecord.losses})", "#{game.teams.away.score}"
+          table.addRow "#{game.teams.home.team.name} (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses})", "#{game.teams.home.score}"
         table.removeBorder()
 
         # Say it
