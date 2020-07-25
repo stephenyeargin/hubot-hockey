@@ -185,6 +185,44 @@ describe 'hubot-hockey', ->
       return
     , 1000)
 
+  it 'responds with a scheduled playoff game (no overtime) and odds', (done) ->
+    Date.now = () ->
+      Date.parse('Wed Jul 22 17:40:00 CDT 2020')
+    nock('https://statsapi.web.nhl.com')
+      .get('/api/v1/schedule')
+      .query({
+        teamId: 18,
+        startDate: '2020-07-22',
+        endDate: '2020-10-20',
+        hydrate: 'linescore,broadcasts(all)'
+      })
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-playoff.json')
+
+    nock('http://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
+
+    selfRoom = @room
+    selfRoom.user.say('alice', '@hubot preds')
+    setTimeout(() ->
+      try
+        expect(selfRoom.messages).to.eql [
+          ['alice', '@hubot preds']
+          ['hubot', '7/30/2020 - Rogers Place']
+          ['hubot', "  Nashville Predators (0-0)   0  \n  Dallas Stars (0-0)          0  "]
+          ['hubot', '3:00 pm CDT - https://www.nhl.com/gamecenter/2019011010']
+          ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
+        ]
+        done()
+      catch err
+        done err
+      return
+    , 1000)
+
   it 'responds with a team\'s latest tweet', (done) ->
     nock('https://api.twitter.com')
       .get('/1.1/statuses/user_timeline.json?screen_name=predsnhl')

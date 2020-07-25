@@ -360,6 +360,89 @@ describe 'hubot-hockey for slack', ->
       return
     , 1000)
 
+  it 'responds with a scheduled playoff game (no overtime) and odds', (done) ->
+    Date.now = () ->
+      Date.parse('Wed Jul 22 17:40:00 CDT 2020')
+
+    nock('https://statsapi.web.nhl.com')
+      .get('/api/v1/schedule')
+      .query({
+        teamId: 18,
+        startDate: '2020-07-22',
+        endDate: '2020-10-20',
+        hydrate: 'linescore,broadcasts(all)'
+      })
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-playoff.json')
+
+    nock('http://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
+
+    selfRoom = @room
+    selfRoom.user.say('alice', '@hubot preds')
+    setTimeout(() ->
+      try
+        expect(selfRoom.messages).to.eql [
+          ['alice', '@hubot preds']
+          [
+            'hubot',
+            {
+              "attachments": [
+                {
+                  "fallback": "7/30/2020 - Nashville Predators 0, Dallas Stars 0 (3:00 pm CDT)",
+                  "title_link": "https://www.nhl.com/gamecenter/2019011010",
+                  "author_name": "NHL.com",
+                  "author_link": "https://nhl.com",
+                  "author_icon": "https://github.com/nhl.png",
+                  "color": "#FFB81C",
+                  "title": "7/30/2020 - 3:00 pm CDT",
+                  "text": "```\n  Nashville Predators (0-0)   0  \n  Dallas Stars (0-0)          0  \n```",
+                  "footer": "Rogers Place",
+                  "mrkdwn_in": ["text", "pretext"]
+                }
+              ]
+            }
+          ]
+          [
+            'hubot',
+            {
+              "attachments": [
+                {
+                  "fallback": "Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%",
+                  "author_name": "MoneyPuck.com",
+                  "author_link": "http://moneypuck.com",
+                  "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
+                  "color": "#FFB81C",
+                  "title": "Nashville Predators",
+                  "thumb_url": "http://peter-tanner.com/moneypuck/logos/NSH.png",
+                  "fields": [
+                    {
+                      "title": "Make Playoffs",
+                      "value": "67.5%",
+                      "short": false
+                    },
+                    {
+                      "title": "Win Stanley Cup",
+                      "value": "4.2%",
+                      "short": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+        done()
+      catch err
+        done err
+      return
+    , 1000)
+
+
   it 'responds with a team\'s latest tweet', (done) ->
     nock('https://api.twitter.com')
       .get('/1.1/statuses/user_timeline.json?screen_name=predsnhl')
