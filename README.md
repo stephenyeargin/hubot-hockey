@@ -1,6 +1,6 @@
 # Hubot Hockey
 
-[![npm version](https://badge.fury.io/js/hubot-hockey.svg)](http://badge.fury.io/js/hubot-hockey) [![Build Status](https://travis-ci.org/stephenyeargin/hubot-hockey.png)](https://travis-ci.org/stephenyeargin/hubot-hockey)
+[![npm version](https://badge.fury.io/js/hubot-hockey.svg)](http://badge.fury.io/js/hubot-hockey) [![Build Status](https://travis-ci.com/stephenyeargin/hubot-hockey.png)](https://travis-ci.com/stephenyeargin/hubot-hockey)
 
 Get the latest odds for the selected team from the very useful [MoneyPuck.com](http://moneypuck.com/).
 
