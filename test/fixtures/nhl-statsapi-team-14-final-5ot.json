@@ -271,6 +271,16 @@
         "site" : "nhl",
         "language" : "en"
       } ],
+      "seriesSummary": {
+        "gamePk": 2020030134,
+        "gameNumber": 4,
+        "gameLabel": "Game 1",
+        "necessary": true,
+        "gameCode": 134,
+        "gameTime": "2021-05-23T18:30:00Z",
+        "seriesStatus": "Lighting lead 1-0",
+        "seriesStatusShort": "TBL leads 1-0"
+      },
       "content" : {
         "link" : "/api/v1/game/2019030121/content"
       }
@@ -408,6 +418,7 @@
         "site" : "nhl",
         "language" : "en"
       } ],
+
       "content" : {
         "link" : "/api/v1/game/2019030122/content"
       }

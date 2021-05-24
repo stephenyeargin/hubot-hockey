@@ -41,7 +41,7 @@ describe 'hubot-hockey', ->
         teamId: 18,
         startDate: '2019-10-10',
         endDate: '2020-01-08',
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .delay({
         head: 100,
@@ -80,7 +80,7 @@ describe 'hubot-hockey', ->
         teamId: 18,
         startDate: '2019-12-19',
         endDate: '2020-03-18',
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .delay({
         head: 100,
@@ -119,7 +119,7 @@ describe 'hubot-hockey', ->
         teamId: 14,
         startDate: '2020-08-11',
         endDate: '2020-11-09',
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .delay({
         head: 100,
@@ -129,7 +129,7 @@ describe 'hubot-hockey', ->
 
     nock('http://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
-      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent-playoffs.csv')
 
     selfRoom = @room
     selfRoom.user.say('alice', '@hubot bolts')
@@ -139,8 +139,8 @@ describe 'hubot-hockey', ->
           ['alice', '@hubot bolts']
           ['hubot', '8/11/2020 - Scotiabank Arena']
           ['hubot', "  Columbus Blue Jackets (3-3-0)   2  \n  Tampa Bay Lightning (3-1-0)     3  "]
-          ['hubot', 'Final/5OT - https://www.nhl.com/gamecenter/2019030121']
-          ['hubot', 'Odds to Make Playoffs: 74.3% / Win Stanley Cup: 5.4%']
+          ['hubot', 'Final/5OT - Lighting lead 1-0 - https://www.nhl.com/gamecenter/2019030121']
+          ['hubot', 'Odds to Win Stanley Cup: 3.1%']
         ]
         done()
       catch err
@@ -157,7 +157,7 @@ describe 'hubot-hockey', ->
         teamId: 18,
         startDate: '2019-10-12',
         endDate: '2020-01-10',
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .delay({
         head: 100,
@@ -195,7 +195,7 @@ describe 'hubot-hockey', ->
         teamId: 18,
         startDate: '2019-10-15',
         endDate: '2020-01-13',
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .delay({
         head: 100,
@@ -233,7 +233,7 @@ describe 'hubot-hockey', ->
         teamId: 18,
         startDate: '2020-07-22',
         endDate: '2020-10-20',
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .delay({
         head: 100,
@@ -243,7 +243,7 @@ describe 'hubot-hockey', ->
 
     nock('http://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
-      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent-playoffs.csv')
 
     selfRoom = @room
     selfRoom.user.say('alice', '@hubot preds')
@@ -253,8 +253,8 @@ describe 'hubot-hockey', ->
           ['alice', '@hubot preds']
           ['hubot', '7/30/2020 - Rogers Place']
           ['hubot', "  Nashville Predators (0-0)   0  \n  Dallas Stars (0-0)          0  "]
-          ['hubot', '3:00 pm CDT - https://www.nhl.com/gamecenter/2019011010']
-          ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
+          ['hubot', '3:00 pm CDT - Preseason - https://www.nhl.com/gamecenter/2019011010']
+          ['hubot', 'Odds to Win Stanley Cup: 1.6%']
         ]
         done()
       catch err

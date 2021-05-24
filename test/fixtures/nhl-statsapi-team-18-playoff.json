@@ -123,6 +123,16 @@
         "site" : "nhl",
         "language" : "en"
       } ],
+      "seriesSummary": {
+        "gamePk": 2020030134,
+        "gameNumber": 4,
+        "gameLabel": "Game 4",
+        "necessary": true,
+        "gameCode": 134,
+        "gameTime": "2021-05-23T18:30:00Z",
+        "seriesStatus": "Series tied 2-2",
+        "seriesStatusShort": "Tied 2-2"
+      },
       "content" : {
         "link" : "/api/v1/game/2019011010/content"
       }

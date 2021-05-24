@@ -46,7 +46,7 @@ module.exports = (robot) ->
         teamId: team.nhl_stats_api_id,
         startDate: moment().tz('America/Los_Angeles').format('YYYY-MM-DD'),
         endDate: moment().tz('America/Los_Angeles').add(90, 'd').format('YYYY-MM-DD'),
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .get() (err, res, body) ->
         if err
@@ -58,7 +58,7 @@ module.exports = (robot) ->
           return
         date = json.dates[0].date
         game = json.dates[0].games[0]
-        # Handle in-progress games
+
         if game.status.abstractGameState == 'Final'
           gameStatus = 'Final'
         else if game.status.abstractGameState == 'Live'
@@ -69,6 +69,11 @@ module.exports = (robot) ->
           gameStatus = game.status.detailedState
         if game.status.abstractGameState == 'Final' && game.linescore.currentPeriodOrdinal != '3rd'
           gameStatus += "/#{game.linescore.currentPeriodOrdinal}"
+
+        if game.gameType == 'PR'
+          gameStatus = gameStatus + ' - Preseason'
+        if game.gameType == 'P'
+          gameStatus = gameStatus + " - #{game.seriesSummary.seriesStatus}"
 
         table = new AsciiTable()
         if game.teams.away.leagueRecord.ot? or game.teams.home.leagueRecord.ot?
@@ -135,7 +140,30 @@ module.exports = (robot) ->
           make_playoffs = odds[output[0].indexOf('madePlayoffs')] * 100
           win_cup = odds[output[0].indexOf('wonCup')] * 100
 
-          fallback = "Odds to Make Playoffs: #{make_playoffs.toFixed(1)}% / Win Stanley Cup: #{win_cup.toFixed(1)}%"
+          oddsParts = []
+          slackFields = []
+          if make_playoffs > 0 and make_playoffs < 100
+            oddsParts.push("Make Playoffs: #{make_playoffs.toFixed(1)}%")
+            slackFields.push({
+              title: "Make Playoffs",
+              value: "#{make_playoffs.toFixed(1)}%",
+              short: false
+            })
+
+          if win_cup > 0 and win_cup < 100
+            oddsParts.push("Win Stanley Cup: #{win_cup.toFixed(1)}%")
+            slackFields.push({
+              title: "Win Stanley Cup",
+              value: "#{win_cup.toFixed(1)}%",
+              short: false
+            })
+
+          # Bail if odds are irrelevant
+          if oddsParts.length == 0
+            robot.logger.debug 'No reason to show the odds.'
+            return
+
+          fallback = "Odds to " + oddsParts.join(" / ")
 
           # Say it
           switch robot.adapterName
@@ -150,18 +178,7 @@ module.exports = (robot) ->
                     thumb_url: "http://peter-tanner.com/moneypuck/logos/#{team.abbreviation}.png",
                     title: team.name,
                     color: team.primary_color,
-                    fields: [
-                      {
-                        title: "Make Playoffs",
-                        value: "#{make_playoffs.toFixed(1)}%",
-                        short: false
-                      },
-                      {
-                        title: "Win Stanley Cup",
-                        value: "#{win_cup.toFixed(1)}%",
-                        short: false
-                      }
-                    ]
+                    fields: slackFields
                   }
                 ]
               }
