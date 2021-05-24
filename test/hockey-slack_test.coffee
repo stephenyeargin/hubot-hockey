@@ -42,7 +42,7 @@ describe 'hubot-hockey for slack', ->
         teamId: 18,
         startDate: '2019-10-10',
         endDate: '2020-01-08',
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .delay({
         head: 100,
@@ -124,7 +124,7 @@ describe 'hubot-hockey for slack', ->
         teamId: 18,
         startDate: '2019-12-19',
         endDate: '2020-03-18',
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .delay({
         head: 100,
@@ -206,7 +206,7 @@ describe 'hubot-hockey for slack', ->
         teamId: 14,
         startDate: '2020-08-11',
         endDate: '2020-11-09',
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .delay({
         head: 100,
@@ -229,13 +229,13 @@ describe 'hubot-hockey for slack', ->
             {
               "attachments": [
                 {
-                  "fallback": "8/11/2020 - Columbus Blue Jackets 2, Tampa Bay Lightning 3 (Final/5OT)",
+                  "fallback": "8/11/2020 - Columbus Blue Jackets 2, Tampa Bay Lightning 3 (Final/5OT - Lighting lead 1-0)",
                   "title_link": "https://www.nhl.com/gamecenter/2019030121",
                   "author_name": "NHL.com",
                   "author_link": "https://nhl.com",
                   "author_icon": "https://github.com/nhl.png",
                   "color": "#002868",
-                  "title": "8/11/2020 - Final/5OT",
+                  "title": "8/11/2020 - Final/5OT - Lighting lead 1-0",
                   "text": "```\n  Columbus Blue Jackets (3-3-0)   2  \n  Tampa Bay Lightning (3-1-0)     3  \n```",
                   "footer": "Scotiabank Arena",
                   "mrkdwn_in": ["text", "pretext"]
@@ -288,7 +288,7 @@ describe 'hubot-hockey for slack', ->
         teamId: 18,
         startDate: '2019-10-15',
         endDate: '2020-01-13',
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .delay({
         head: 100,
@@ -370,7 +370,7 @@ describe 'hubot-hockey for slack', ->
         teamId: 18,
         startDate: '2019-10-12',
         endDate: '2020-01-10',
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .delay({
         head: 100,
@@ -452,7 +452,7 @@ describe 'hubot-hockey for slack', ->
         teamId: 18,
         startDate: '2020-07-22',
         endDate: '2020-10-20',
-        hydrate: 'linescore,broadcasts(all)'
+        hydrate: 'linescore,broadcasts(all),game(seriesSummary)'
       })
       .delay({
         head: 100,
@@ -462,7 +462,7 @@ describe 'hubot-hockey for slack', ->
 
     nock('http://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
-      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
+      .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent-playoffs.csv')
 
     selfRoom = @room
     selfRoom.user.say('alice', '@hubot preds')
@@ -475,13 +475,13 @@ describe 'hubot-hockey for slack', ->
             {
               "attachments": [
                 {
-                  "fallback": "7/30/2020 - Nashville Predators 0, Dallas Stars 0 (3:00 pm CDT)",
+                  "fallback": "7/30/2020 - Nashville Predators 0, Dallas Stars 0 (3:00 pm CDT - Preseason)",
                   "title_link": "https://www.nhl.com/gamecenter/2019011010",
                   "author_name": "NHL.com",
                   "author_link": "https://nhl.com",
                   "author_icon": "https://github.com/nhl.png",
                   "color": "#FFB81C",
-                  "title": "7/30/2020 - 3:00 pm CDT",
+                  "title": "7/30/2020 - 3:00 pm CDT - Preseason",
                   "text": "```\n  Nashville Predators (0-0)   0  \n  Dallas Stars (0-0)          0  \n```",
                   "footer": "Rogers Place",
                   "mrkdwn_in": ["text", "pretext"]
@@ -494,7 +494,7 @@ describe 'hubot-hockey for slack', ->
             {
               "attachments": [
                 {
-                  "fallback": "Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%",
+                  "fallback": "Odds to Win Stanley Cup: 1.6%",
                   "author_name": "MoneyPuck.com",
                   "author_link": "http://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
@@ -503,13 +503,8 @@ describe 'hubot-hockey for slack', ->
                   "thumb_url": "http://peter-tanner.com/moneypuck/logos/NSH.png",
                   "fields": [
                     {
-                      "title": "Make Playoffs",
-                      "value": "67.5%",
-                      "short": false
-                    },
-                    {
                       "title": "Win Stanley Cup",
-                      "value": "4.2%",
+                      "value": "1.6%",
                       "short": false
                     }
                   ]
