@@ -85,7 +85,7 @@ module.exports = (robot) ->
         table.removeBorder()
 
         howToWatch = game.venue.name
-        if game.broadcasts.length > 0
+        if game.broadcasts and game.broadcasts.length > 0
           networks = []
           for broadcast in game.broadcasts
             networks.push "#{broadcast.name} (#{broadcast.type})"
