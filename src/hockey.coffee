@@ -84,6 +84,13 @@ module.exports = (robot) ->
           table.addRow "#{game.teams.home.team.name} (#{game.teams.home.leagueRecord.wins}-#{game.teams.home.leagueRecord.losses})", "#{game.teams.home.score}"
         table.removeBorder()
 
+        howToWatch = game.venue.name
+        if game.broadcasts.length > 0
+          networks = []
+          for broadcast in game.broadcasts
+            networks.push "#{broadcast.name} (#{broadcast.type})"
+          howToWatch = howToWatch + "; TV: " + networks.join(' | ')
+
         # Say it
         switch robot.adapterName
           when 'slack'
@@ -98,13 +105,13 @@ module.exports = (robot) ->
                   color: team.primary_color,
                   title: "#{moment(date).format('l')} - #{gameStatus}",
                   text: "```\n" + table.toString() + "\n```"
-                  footer: game.venue.name,
+                  footer: "#{howToWatch}",
                   mrkdwn_in: ["text", "pretext"]
                 }
               ]
             }
           else
-            msg.send "#{moment(date).format('l')} - #{game.venue.name}"
+            msg.send "#{moment(date).format('l')} - #{howToWatch}"
             msg.send table.toString()
             msg.send "#{gameStatus} - https://www.nhl.com/gamecenter/#{game.gamePk}"
         if typeof cb == 'function'
