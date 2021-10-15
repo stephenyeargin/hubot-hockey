@@ -1,12 +1,12 @@
 # Hubot Hockey
 
-[![npm version](https://badge.fury.io/js/hubot-hockey.svg)](http://badge.fury.io/js/hubot-hockey) [![Build Status](https://app.travis-ci.com/stephenyeargin/hubot-hockey.png)](https://app.travis-ci.com/stephenyeargin/hubot-hockey)
+[![npm version](https://badge.fury.io/js/hubot-hockey.svg)](http://badge.fury.io/js/hubot-hockey) [![Node CI](https://github.com/stephenyeargin/hubot-hockey/actions/workflows/nodejs.yml/badge.svg)](https://github.com/stephenyeargin/hubot-hockey/actions/workflows/nodejs.yml)
 
-Get the latest odds for the selected team from the very useful [MoneyPuck.com](https://moneypuck.com/).
+Get the game results and the latest NHL playoff odds for the selected team from the very useful [MoneyPuck.com](https://moneypuck.com/).
 
 ## Suggested Setup
 
-There is no additional configuration if you simply wish to get the latest playoff odds.
+There is no additional configuration if you simply wish to get the latest game results and playoff odds.
 
 ### Twitter
 
