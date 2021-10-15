@@ -120,7 +120,7 @@ module.exports = (robot) ->
   getMoneyPuckData = (team, msg, cb) ->
     robot.logger.debug team
 
-    msg.http('http://moneypuck.com/moneypuck/simulations/simulations_recent.csv')
+    msg.http('https://moneypuck.com/moneypuck/simulations/simulations_recent.csv')
       .get() (err, res, body) ->
         # Catch errors
         if err || res.statusCode != 200
@@ -179,7 +179,7 @@ module.exports = (robot) ->
                 attachments: [
                   {
                     author_icon: "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
-                    author_link: "http://moneypuck.com",
+                    author_link: "https://moneypuck.com",
                     author_name: "MoneyPuck.com",
                     fallback: fallback,
                     thumb_url: "http://peter-tanner.com/moneypuck/logos/#{team.abbreviation}.png",

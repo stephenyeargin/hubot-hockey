@@ -50,7 +50,7 @@ describe 'hubot-hockey for slack', ->
       })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-final.json')
 
-    nock('http://moneypuck.com')
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
 
@@ -86,7 +86,7 @@ describe 'hubot-hockey for slack', ->
                 {
                   "fallback": "Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%",
                   "author_name": "MoneyPuck.com",
-                  "author_link": "http://moneypuck.com",
+                  "author_link": "https://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
                   "color": "#FFB81C",
                   "title": "Nashville Predators",
@@ -132,7 +132,7 @@ describe 'hubot-hockey for slack', ->
       })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-final-ot.json')
 
-    nock('http://moneypuck.com')
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
 
@@ -168,7 +168,7 @@ describe 'hubot-hockey for slack', ->
                 {
                   "fallback": "Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%",
                   "author_name": "MoneyPuck.com",
-                  "author_link": "http://moneypuck.com",
+                  "author_link": "https://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
                   "color": "#FFB81C",
                   "title": "Nashville Predators",
@@ -214,7 +214,7 @@ describe 'hubot-hockey for slack', ->
       })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-14-final-5ot.json')
 
-    nock('http://moneypuck.com')
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
 
@@ -250,7 +250,7 @@ describe 'hubot-hockey for slack', ->
                 {
                   "fallback": "Odds to Make Playoffs: 74.3% / Win Stanley Cup: 5.4%",
                   "author_name": "MoneyPuck.com",
-                  "author_link": "http://moneypuck.com",
+                  "author_link": "https://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
                   "color": "#002868",
                   "title": "Tampa Bay Lightning",
@@ -296,7 +296,7 @@ describe 'hubot-hockey for slack', ->
       })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-future.json')
 
-    nock('http://moneypuck.com')
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
 
@@ -332,7 +332,7 @@ describe 'hubot-hockey for slack', ->
                 {
                   "fallback": "Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%",
                   "author_name": "MoneyPuck.com",
-                  "author_link": "http://moneypuck.com",
+                  "author_link": "https://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
                   "color": "#FFB81C",
                   "title": "Nashville Predators",
@@ -378,7 +378,7 @@ describe 'hubot-hockey for slack', ->
       })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-in-progress.json')
 
-    nock('http://moneypuck.com')
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
 
@@ -414,7 +414,7 @@ describe 'hubot-hockey for slack', ->
                 {
                   "fallback": "Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%",
                   "author_name": "MoneyPuck.com",
-                  "author_link": "http://moneypuck.com",
+                  "author_link": "https://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
                   "color": "#FFB81C",
                   "title": "Nashville Predators",
@@ -460,7 +460,7 @@ describe 'hubot-hockey for slack', ->
       })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-playoff.json')
 
-    nock('http://moneypuck.com')
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent-playoffs.csv')
 
@@ -496,7 +496,7 @@ describe 'hubot-hockey for slack', ->
                 {
                   "fallback": "Odds to Win Stanley Cup: 1.6%",
                   "author_name": "MoneyPuck.com",
-                  "author_link": "http://moneypuck.com",
+                  "author_link": "https://moneypuck.com",
                   "author_icon": "http://peter-tanner.com/moneypuck/logos/moneypucklogo.png",
                   "color": "#FFB81C",
                   "title": "Nashville Predators",

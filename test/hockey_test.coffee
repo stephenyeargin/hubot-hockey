@@ -49,7 +49,7 @@ describe 'hubot-hockey', ->
       })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-final.json')
 
-    nock('http://moneypuck.com')
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
 
@@ -88,7 +88,7 @@ describe 'hubot-hockey', ->
       })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-final-ot.json')
 
-    nock('http://moneypuck.com')
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
 
@@ -127,7 +127,7 @@ describe 'hubot-hockey', ->
       })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-14-final-5ot.json')
 
-    nock('http://moneypuck.com')
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent-playoffs.csv')
 
@@ -165,7 +165,7 @@ describe 'hubot-hockey', ->
       })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-in-progress.json')
 
-    nock('http://moneypuck.com')
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
 
@@ -203,7 +203,7 @@ describe 'hubot-hockey', ->
       })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-future.json')
 
-    nock('http://moneypuck.com')
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent.csv')
 
@@ -241,7 +241,7 @@ describe 'hubot-hockey', ->
       })
       .replyWithFile(200, __dirname + '/fixtures/nhl-statsapi-team-18-playoff.json')
 
-    nock('http://moneypuck.com')
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, __dirname + '/fixtures/moneypuck-simulations_recent-playoffs.csv')
 
