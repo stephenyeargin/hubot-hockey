@@ -59,7 +59,7 @@ describe 'hubot-hockey', ->
       try
         expect(selfRoom.messages).to.eql [
           ['alice', '@hubot preds']
-          ['hubot', '10/10/2019 - Bridgestone Arena; TV: FS-TN (home) | NBCSWA (away)']
+          ['hubot', '10/10/2019 - Bridgestone Arena']
           ['hubot', "  Washington Capitals (2-1-2)   5  \n  Nashville Predators (3-1-0)   6  "]
           ['hubot', 'Final - https://www.nhl.com/gamecenter/2019020052']
           ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
@@ -98,7 +98,7 @@ describe 'hubot-hockey', ->
       try
         expect(selfRoom.messages).to.eql [
           ['alice', '@hubot preds']
-          ['hubot', '12/19/2019 - Canadian Tire Centre; TV: ESPN+ (national) | RDS2 (home) | TSN5 (home) | FS-TN (away)']
+          ['hubot', '12/19/2019 - Canadian Tire Centre']
           ['hubot', "  Nashville Predators (16-12-6)   4  \n  Ottawa Senators (15-18-3)       5  "]
           ['hubot', 'Final/OT - https://www.nhl.com/gamecenter/2019020542']
           ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%']
@@ -137,7 +137,7 @@ describe 'hubot-hockey', ->
       try
         expect(selfRoom.messages).to.eql [
           ['alice', '@hubot bolts']
-          ['hubot', '8/11/2020 - Scotiabank Arena; TV: NBCSN (national) | TVAS (national) | SN (national) | SUN (home) | FS-O (away)']
+          ['hubot', '8/11/2020 - Scotiabank Arena']
           ['hubot', "  Columbus Blue Jackets (3-3-0)   2  \n  Tampa Bay Lightning (3-1-0)     3  "]
           ['hubot', 'Final/5OT - Lighting lead 1-0 - https://www.nhl.com/gamecenter/2019030121']
           ['hubot', 'Odds to Win Stanley Cup: 3.1%']
@@ -224,7 +224,7 @@ describe 'hubot-hockey', ->
       return
     , 1000)
 
-  it 'responds with a scheduled playoff game (no overtime) and odds', (done) ->
+  it 'responds with a scheduled preseason game and odds', (done) ->
     Date.now = () ->
       Date.parse('Wed Jul 22 17:40:00 CDT 2020')
     nock('https://statsapi.web.nhl.com')

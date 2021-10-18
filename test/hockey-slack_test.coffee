@@ -73,7 +73,7 @@ describe 'hubot-hockey for slack', ->
                   "color": "#FFB81C",
                   "title": "10/10/2019 - Final",
                   "text": "```\n  Washington Capitals (2-1-2)   5  \n  Nashville Predators (3-1-0)   6  \n```",
-                  "footer": "Bridgestone Arena; TV: FS-TN (home) | NBCSWA (away)",
+                  "footer": "Bridgestone Arena",
                   "mrkdwn_in": ["text", "pretext"]
                 }
               ]
@@ -155,7 +155,7 @@ describe 'hubot-hockey for slack', ->
                   "color": "#FFB81C",
                   "title": "12/19/2019 - Final/OT",
                   "text": "```\n  Nashville Predators (16-12-6)   4  \n  Ottawa Senators (15-18-3)       5  \n```",
-                  "footer": "Canadian Tire Centre; TV: ESPN+ (national) | RDS2 (home) | TSN5 (home) | FS-TN (away)",
+                  "footer": "Canadian Tire Centre",
                   "mrkdwn_in": ["text", "pretext"]
                 }
               ]
@@ -237,7 +237,7 @@ describe 'hubot-hockey for slack', ->
                   "color": "#002868",
                   "title": "8/11/2020 - Final/5OT - Lighting lead 1-0",
                   "text": "```\n  Columbus Blue Jackets (3-3-0)   2  \n  Tampa Bay Lightning (3-1-0)     3  \n```",
-                  "footer": "Scotiabank Arena; TV: NBCSN (national) | TVAS (national) | SN (national) | SUN (home) | FS-O (away)",
+                  "footer": "Scotiabank Arena",
                   "mrkdwn_in": ["text", "pretext"]
                 }
               ]
@@ -442,7 +442,7 @@ describe 'hubot-hockey for slack', ->
       return
     , 1000)
 
-  it 'responds with a scheduled playoff game (no overtime) and odds', (done) ->
+  it 'responds with a scheduled preseason game and odds', (done) ->
     Date.now = () ->
       Date.parse('Wed Jul 22 17:40:00 CDT 2020')
 
