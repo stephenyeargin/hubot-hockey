@@ -17,7 +17,7 @@
 hockey_teams = require './teams.json'
 
 moment = require 'moment-timezone'
-parse = require 'csv-parse'
+csvParser = require 'csv-parse'
 AsciiTable = require 'ascii-table'
 
 # Twitter
@@ -128,7 +128,7 @@ module.exports = (robot) ->
           return
 
         # Parse the CSV file into lines
-        parse body, {}, (err, output) ->
+        csvParser.parse body, {}, (err, output) ->
           if err
             msg.send err
             return
