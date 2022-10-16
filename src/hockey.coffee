@@ -110,6 +110,12 @@ module.exports = (robot) ->
                 }
               ]
             }
+          when 'discord'
+            output = []
+            output.push "#{moment(date).format('l')} - #{howToWatch}"
+            output.push "```" + table.toString() + "```"
+            output.push "#{gameStatus} - https://www.nhl.com/gamecenter/#{game.gamePk}"
+            msg.send output.join('')
           else
             msg.send "#{moment(date).format('l')} - #{howToWatch}"
             msg.send table.toString()
@@ -149,6 +155,7 @@ module.exports = (robot) ->
 
           oddsParts = []
           slackFields = []
+          discordFields = []
           if make_playoffs > 0 and make_playoffs < 100
             oddsParts.push("Make Playoffs: #{make_playoffs.toFixed(1)}%")
             slackFields.push({
@@ -156,6 +163,7 @@ module.exports = (robot) ->
               value: "#{make_playoffs.toFixed(1)}%",
               short: false
             })
+            discordFields.push "**Make Playoffs:** #{make_playoffs.toFixed(1)}%"
 
           if win_cup > 0 and win_cup < 100
             oddsParts.push("Win Stanley Cup: #{win_cup.toFixed(1)}%")
@@ -164,6 +172,7 @@ module.exports = (robot) ->
               value: "#{win_cup.toFixed(1)}%",
               short: false
             })
+            discordFields.push "**Win Stanley Cup:** #{win_cup.toFixed(1)}%"
 
           # Bail if odds are irrelevant
           if oddsParts.length == 0
@@ -189,6 +198,8 @@ module.exports = (robot) ->
                   }
                 ]
               }
+            when 'discord'
+              msg.send "__**MoneyPuck.com**__\n" + discordFields.join("\n")
             else
               msg.send fallback
           if typeof cb == 'function'
