@@ -190,7 +190,7 @@
    },
    {
       "name": "Philidelphia Flyers",
-      "regex": "(philidelphia flyers|philidelphia|flyers|phi)",
+      "regex": "(philidelphia flyers|philidelphia|flyers|phi|philly)",
       "abbreviation": "PHI",
       "primary_color": "#F74902",
       "nhl_stats_api_id": 4,
@@ -199,7 +199,7 @@
    },
    {
       "name": "Pittsburgh Penguins",
-      "regex": "(pittsburgh penguins|pittsburgh|penguins|pit|pitt)",
+      "regex": "(pittsburgh penguins|pittsburgh|penguins|pit|pitt|pens)",
       "abbreviation": "PIT",
       "primary_color": "#000000",
       "nhl_stats_api_id": 5,
