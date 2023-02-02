@@ -5,8 +5,7 @@
       "abbreviation": "ANA",
       "primary_color": "#F47A38",
       "nhl_stats_api_id": 24,
-      "time_zone": "America/Los_Angeles",
-      "twitter_handle": "AnaheimDucks"
+      "time_zone": "America/Los_Angeles"
    },
    {
       "name": "Arizona Coyotes",
@@ -14,8 +13,7 @@
       "abbreviation": "ARI",
       "primary_color": "#8C2633",
       "nhl_stats_api_id": 53,
-      "time_zone": "America/Phoenix",
-      "twitter_handle": "ArizonaCoyotes"
+      "time_zone": "America/Phoenix"
    },
    {
       "name": "Boston Bruins",
@@ -23,8 +21,7 @@
       "abbreviation": "BOS",
       "primary_color": "#FFB81C",
       "nhl_stats_api_id": 6,
-      "time_zone": "America/New_York",
-      "twitter_handle": "NHLBruins"
+      "time_zone": "America/New_York"
    },
    {
       "name": "Buffalo Sabres",
@@ -32,8 +29,7 @@
       "abbreviation": "BUF",
       "primary_color": "#002654",
       "nhl_stats_api_id": 7,
-      "time_zone": "America/New_York",
-      "twitter_handle": "BuffaloSabres"
+      "time_zone": "America/New_York"
    },
    {
       "name": "Calgary Flames",
@@ -41,8 +37,7 @@
       "abbreviation": "CGY",
       "primary_color": "#C8102E",
       "nhl_stats_api_id": 20,
-      "time_zone": "America/Denver",
-      "twitter_handle": "NHLFlames"
+      "time_zone": "America/Denver"
    },
    {
       "name": "Carolina Hurricanes",
@@ -50,8 +45,7 @@
       "abbreviation": "CAR",
       "primary_color": "#CC0000",
       "nhl_stats_api_id": 12,
-      "time_zone": "America/New_York",
-      "twitter_handle": "NHLCanes"
+      "time_zone": "America/New_York"
    },
    {
       "name": "Chicago Blackhawks",
@@ -59,8 +53,7 @@
       "abbreviation": "CHI",
       "primary_color": "#CF0A2C",
       "nhl_stats_api_id": 16,
-      "time_zone": "America/Chicago",
-      "twitter_handle": "NHLBlackhawks"
+      "time_zone": "America/Chicago"
    },
    {
       "name": "Colorado Avalanche",
@@ -68,8 +61,7 @@
       "abbreviation": "COL",
       "primary_color": "#6F263D",
       "nhl_stats_api_id": 21,
-      "time_zone": "America/Denver",
-      "twitter_handle": "Avalanche"
+      "time_zone": "America/Denver"
    },
    {
       "name": "Columbus Blue Jackets",
@@ -77,8 +69,7 @@
       "abbreviation": "CBJ",
       "primary_color": "#002654",
       "nhl_stats_api_id": 29,
-      "time_zone": "America/New_York",
-      "twitter_handle": "BlueJacketsNHL"
+      "time_zone": "America/New_York"
    },
    {
       "name": "Dallas Stars",
@@ -86,8 +77,7 @@
       "abbreviation": "DAL",
       "primary_color": "#006847",
       "nhl_stats_api_id": 25,
-      "time_zone": "America/Chicago",
-      "twitter_handle": "DallasStars"
+      "time_zone": "America/Chicago"
    },
    {
       "name": "Detroit Red Wings",
@@ -95,8 +85,7 @@
       "abbreviation": "DET",
       "primary_color": "#CE1126",
       "nhl_stats_api_id": 17,
-      "time_zone": "America/Detroit",
-      "twitter_handle": "DetroitRedWings"
+      "time_zone": "America/Detroit"
    },
    {
       "name": "Edmonton Oilers",
@@ -104,8 +93,7 @@
       "abbreviation": "EDM",
       "primary_color": "#041E42",
       "nhl_stats_api_id": 22,
-      "time_zone": "America/Edmonton",
-      "twitter_handle": "EdmontonOilers"
+      "time_zone": "America/Edmonton"
    },
    {
       "name": "Florida Panthers",
@@ -113,8 +101,7 @@
       "abbreviation": "FLA",
       "primary_color": "#041E42",
       "nhl_stats_api_id": 13,
-      "time_zone": "America/New_York",
-      "twitter_handle": "FlaPanthers"
+      "time_zone": "America/New_York"
    },
    {
       "name": "Los Angeles Kings",
@@ -122,8 +109,7 @@
       "abbreviation": "LAK",
       "primary_color": "#111111",
       "nhl_stats_api_id": 26,
-      "time_zone": "America/Los_Angeles",
-      "twitter_handle": "LAKings"
+      "time_zone": "America/Los_Angeles"
    },
    {
       "name": "Minnesota Wild",
@@ -131,8 +117,7 @@
       "abbreviation": "MIN",
       "primary_color": "#154734",
       "nhl_stats_api_id": 30,
-      "time_zone": "America/Chicago",
-      "twitter_handle": "mnwild"
+      "time_zone": "America/Chicago"
    },
    {
       "name": "Montreal Canadiens",
@@ -140,8 +125,7 @@
       "abbreviation": "MTL",
       "primary_color": "#AF1E2D",
       "nhl_stats_api_id": 8,
-      "time_zone": "America/Montreal",
-      "twitter_handle": "CanadiensMTL"
+      "time_zone": "America/Montreal"
    },
    {
       "name": "Nashville Predators",
@@ -149,8 +133,7 @@
       "abbreviation": "NSH",
       "primary_color": "#FFB81C",
       "nhl_stats_api_id": 18,
-      "time_zone": "America/Chicago",
-      "twitter_handle": "predsnhl"
+      "time_zone": "America/Chicago"
    },
    {
       "name": "New Jersey Devils",
@@ -158,8 +141,7 @@
       "abbreviation": "NJD",
       "primary_color": "#CE1126",
       "nhl_stats_api_id": 1,
-      "time_zone": "America/New_York",
-      "twitter_handle": "NHLDevils"
+      "time_zone": "America/New_York"
    },
    {
       "name": "New York Islanders",
@@ -167,8 +149,7 @@
       "abbreviation": "NYI",
       "primary_color": "#00539B",
       "nhl_stats_api_id": 2,
-      "time_zone": "America/New_York",
-      "twitter_handle": "NYIslanders"
+      "time_zone": "America/New_York"
    },
    {
       "name": "New York Rangers",
@@ -176,8 +157,7 @@
       "abbreviation": "NYR",
       "primary_color": "#0038A8",
       "nhl_stats_api_id": 3,
-      "time_zone": "America/New_York",
-      "twitter_handle": "NYRangers"
+      "time_zone": "America/New_York"
    },
    {
       "name": "Ottawa Senators",
@@ -185,8 +165,7 @@
       "abbreviation": "OTT",
       "primary_color": "#C52032",
       "nhl_stats_api_id": 9,
-      "time_zone": "America/New_York",
-      "twitter_handle": "Senators"
+      "time_zone": "America/New_York"
    },
    {
       "name": "Philidelphia Flyers",
@@ -194,8 +173,7 @@
       "abbreviation": "PHI",
       "primary_color": "#F74902",
       "nhl_stats_api_id": 4,
-      "time_zone": "America/New_York",
-      "twitter_handle": "NHLFlyers"
+      "time_zone": "America/New_York"
    },
    {
       "name": "Pittsburgh Penguins",
@@ -203,8 +181,7 @@
       "abbreviation": "PIT",
       "primary_color": "#000000",
       "nhl_stats_api_id": 5,
-      "time_zone": "America/New_York",
-      "twitter_handle": "penguins"
+      "time_zone": "America/New_York"
    },
    {
       "name": "St. Louis Blues",
@@ -212,8 +189,7 @@
       "abbreviation": "STL",
       "primary_color": "#002F87",
       "nhl_stats_api_id": 19,
-      "time_zone": "America/Chicago",
-      "twitter_handle": "StLouisBlues"
+      "time_zone": "America/Chicago"
    },
    {
       "name": "San Jose Sharks",
@@ -221,8 +197,7 @@
       "abbreviation": "SJS",
       "primary_color": "#006D75",
       "nhl_stats_api_id": 28,
-      "time_zone": "America/Los_Angeles",
-      "twitter_handle": "SanJoseSharks"
+      "time_zone": "America/Los_Angeles"
    },
    {
       "name": "Seattle Kraken",
@@ -230,8 +205,7 @@
       "abbreviation": "SEA",
       "primary_color": "#001628",
       "nhl_stats_api_id": 55,
-      "time_zone": "America/Los_Angeles",
-      "twitter_handle": "SeattleKraken"
+      "time_zone": "America/Los_Angeles"
    },
    {
       "name": "Tampa Bay Lightning",
@@ -239,8 +213,7 @@
       "abbreviation": "TBL",
       "primary_color": "#002868",
       "nhl_stats_api_id": 14,
-      "time_zone": "America/New_York",
-      "twitter_handle": "TBLightning"
+      "time_zone": "America/New_York"
    },
    {
       "name": "Toronto Maple Leafs",
@@ -248,8 +221,7 @@
       "abbreviation": "TOR",
       "primary_color": "#00205B",
       "nhl_stats_api_id": 10,
-      "time_zone": "America/New_York",
-      "twitter_handle": "MapleLeafs"
+      "time_zone": "America/New_York"
    },
    {
       "name": "Vancouver Canucks",
@@ -257,8 +229,7 @@
       "abbreviation": "VAN",
       "primary_color": "#00205B",
       "nhl_stats_api_id": 23,
-      "time_zone": "America/Vancouver",
-      "twitter_handle": "VanCanucks"
+      "time_zone": "America/Vancouver"
    },
    {
       "name": "Vegas Golden Knights",
@@ -266,17 +237,14 @@
       "abbreviation": "VGK",
       "primary_color": "#B4975A",
       "nhl_stats_api_id": 54,
-      "time_zone": "America/Los_Angeles",
-      "twitter_handle": "GoldenKnights"
+      "time_zone": "America/Los_Angeles"
    },
    {
       "name": "Washington Capitals",
       "regex": "(washington capitals|washington|capitals|wsh|caps)",
       "abbreviation": "WSH",
       "primary_color": "#",
-      "nhl_stats_api_id": 15,
-      "time_zone": "America/New_York",
-      "twitter_handle": "washcaps"
+      "nhl_stats_api_id": 15
    },
    {
       "name": "Winnipeg Jets",
@@ -284,7 +252,6 @@
       "abbreviation": "WPG",
       "primary_color": "#C8102E",
       "nhl_stats_api_id": 52,
-      "time_zone": "America/Winnipeg",
-      "twitter_handle": "NHLJets"
+      "time_zone": "America/Winnipeg"
    }
 ]
