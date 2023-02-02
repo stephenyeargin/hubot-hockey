@@ -22,8 +22,7 @@
   "dependencies": {
     "ascii-table": "0.0.9",
     "csv-parse": "^5.3.3",
-    "moment-timezone": "^0.5.39",
-    "twitter": "^1.7.1"
+    "moment-timezone": "^0.5.39"
   },
   "peerDependencies": {
     "hubot": "^3"

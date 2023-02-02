@@ -2,14 +2,10 @@
 #   Get the latest hockey playoff odds for your team.
 #
 # Configuration:
-#   HUBOT_TWITTER_CONSUMER_KEY - Optional; Twitter consumer key
-#   HUBOT_TWITTER_CONSUMER_SECRET - Optional; Twitter consumer secret
-#   HUBOT_TWITTER_ACCESS_TOKEN - Optional; Twitter access token
-#   HUBOT_TWITTER_ACCESS_TOKEN_SECRET - Optional; Twitter access token secret
+#   None
 #
 # Commands:
 #   hubot <team or city> - Get the lastest playoff odds from MoneyPuck.com
-#   hubot <team or city> twitter - Get the latest news from Twitter (requires configuration)
 #
 # Author:
 #   stephenyeargin
@@ -20,25 +16,12 @@ moment = require 'moment-timezone'
 csvParser = require 'csv-parse'
 AsciiTable = require 'ascii-table'
 
-# Twitter
-Twitter = require 'twitter'
-twitter_client = new Twitter
-  consumer_key: process.env.HUBOT_TWITTER_CONSUMER_KEY
-  consumer_secret: process.env.HUBOT_TWITTER_CONSUMER_SECRET
-  access_token_key: process.env.HUBOT_TWITTER_ACCESS_TOKEN
-  access_token_secret: process.env.HUBOT_TWITTER_ACCESS_TOKEN_SECRET
-
 module.exports = (robot) ->
   registerDefaultListener = (team) ->
     statsregex = '_team_regex_$'
     robot.respond new RegExp(statsregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
       getNhlStatsData team, msg, ->
         getMoneyPuckData team, msg
-
-  registerTweetListener = (team) ->
-    twitterregex = '_team_regex_ (tweet|twitter)$'
-    robot.respond new RegExp(twitterregex.replace('_team_regex_', team.regex), 'i'), (msg) ->
-      showLatestTweet(team, msg)
 
   getNhlStatsData = (team, msg, cb) ->
     msg.http('https://statsapi.web.nhl.com/api/v1/schedule')
@@ -205,51 +188,9 @@ module.exports = (robot) ->
           if typeof cb == 'function'
             cb()
 
-  showLatestTweet = (team, msg) ->
-    # Skip if no client configured
-    return if missingEnvironmentForTwitterApi(msg)
-    params =
-      screen_name: team.twitter_handle
-    # Retrieve data using credentials
-    twitter_client.get 'statuses/user_timeline', params, (error, tweets, response) ->
-      # Return if error
-      if error || tweets.length == 0
-        robot.logger.error error
-        msg.send "Failed to retrieve tweets"
-        return
-      # Send first tweet
-      robot.logger.debug tweets
-      tweet = tweets[0]
-      switch robot.adapterName
-        when 'slack'
-          msg.send {
-            "text": "<https://twitter.com/#{tweet.user.screen_name}/status/#{tweet.id_str}>",
-            "unfurl_links": true
-          }
-        else
-          msg.send "<#{tweet.user.screen_name}> #{tweet.text} - #{tweet.created_at}"
-
   strCapitalize = (str) ->
     return str.charAt(0).toUpperCase() + str.substring(1)
-
-  # Check for Twitter config
-  missingEnvironmentForTwitterApi = (msg) ->
-    missingAnything = false
-    unless process.env.HUBOT_TWITTER_CONSUMER_KEY?
-      msg.send "Twitter API Client ID is missing: Ensure that HUBOT_TWITTER_CONSUMER_KEY is set."
-      missingAnything |= true
-    unless process.env.HUBOT_TWITTER_CONSUMER_SECRET?
-      msg.send "Twitter API Client Secret is missing: Ensure that HUBOT_TWITTER_CONSUMER_SECRET is set."
-      missingAnything |= true
-    unless process.env.HUBOT_TWITTER_ACCESS_TOKEN?
-      msg.send "Twitter API Access Token is missing: Ensure that HUBOT_TWITTER_ACCESS_TOKEN is set."
-      missingAnything |= true
-    unless process.env.HUBOT_TWITTER_ACCESS_TOKEN_SECRET?
-      msg.send "Twitter API Access Token Secret is missing: Ensure that HUBOT_TWITTER_ACCESS_TOKEN_SECRET is set."
-      missingAnything |= true
-    missingAnything
 
   # Loop through teams and create multiple listeners
   for team_item in hockey_teams
     registerDefaultListener team_item
-    registerTweetListener team_item
