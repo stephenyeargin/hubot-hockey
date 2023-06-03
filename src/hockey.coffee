@@ -56,7 +56,7 @@ module.exports = (robot) ->
         if game.gameType == 'PR'
           gameStatus = gameStatus + ' - Preseason'
         if game.gameType == 'P'
-          gameStatus = gameStatus + " - #{game.seriesSummary.seriesStatus}"
+          gameStatus = gameStatus + " - #{game.seriesSummary.seriesStatus || game.seriesSummary.gameLabel}"
 
         table = new AsciiTable()
         if game.teams.away.leagueRecord.ot? or game.teams.home.leagueRecord.ot?
