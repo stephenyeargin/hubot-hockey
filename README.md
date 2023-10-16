@@ -18,3 +18,4 @@ See full instructions [here](https://github.com/github/hubot/blob/master/docs/sc
 ## Commands
 
 - `hubot <team>` - Show your team's current playoff odds and next game
+- `hubot nhl [division]` - Show division leaders or division standings

@@ -6,6 +6,7 @@
 #
 # Commands:
 #   hubot <team or city> - Get the lastest playoff odds from MoneyPuck.com
+#   hubot nhl [division] - Show division leaders or division standings
 #
 # Author:
 #   stephenyeargin
@@ -75,8 +76,8 @@ module.exports = (robot) ->
           howToWatch = howToWatch + "; TV: " + networks.join(' | ')
 
         # Say it
-        switch robot.adapterName
-          when 'slack'
+        switch true
+          when /slack/.test(robot.adapterName)
             msg.send {
               attachments: [
                 {
@@ -93,7 +94,7 @@ module.exports = (robot) ->
                 }
               ]
             }
-          when 'discord'
+          when /discord/.test(robot.adapterName)
             output = []
             output.push "#{moment(date).format('l')} - #{howToWatch}"
             output.push "```" + table.toString() + "```"
@@ -165,8 +166,8 @@ module.exports = (robot) ->
           fallback = "Odds to " + oddsParts.join(" / ")
 
           # Say it
-          switch robot.adapterName
-            when 'slack'
+          switch true
+            when /slack/.test(robot.adapterName)
               msg.send {
                 attachments: [
                   {
@@ -181,7 +182,7 @@ module.exports = (robot) ->
                   }
                 ]
               }
-            when 'discord'
+            when /discord/.test(robot.adapterName)
               msg.send "__**MoneyPuck.com**__\n" + discordFields.join("\n")
             else
               msg.send fallback
@@ -194,3 +195,67 @@ module.exports = (robot) ->
   # Loop through teams and create multiple listeners
   for team_item in hockey_teams
     registerDefaultListener team_item
+
+  # NHL Standings
+  robot.respond /nhl\s?(atlantic|metro|metropolitan|pacific|central)?\s?(?:standings)?/i, (msg) ->
+    division = msg.match[1] || ''
+    if !division
+      tableTitle = 'Division Leaders'
+    else
+      tableTitle = division.toLowerCase().charAt(0).toUpperCase() + ' Standings'
+    table = new AsciiTable(tableTitle)
+    table.setHeading([
+      'Team',
+      'GP',
+      'W',
+      'L',
+      'OT',
+      'PTS',
+      'L10'
+    ])
+    msg.http('https://statsapi.web.nhl.com/api/v1/standings')
+      .query({
+        date: moment().tz('America/Los_Angeles').format('YYYY-MM-DD'),
+        expand: 'standings.record'
+      })
+      .get() (err, res, body) ->
+        # Catch errors
+        if err || res.statusCode != 200
+          msg.send "Cannot get standings right now."
+          return
+
+        json = JSON.parse(body)
+
+        # No division selected
+        if tableTitle == 'Division Leaders'
+          for d in json.records
+            lastTen = d.teamRecords[0].records.overallRecords.find((r) => r.type == 'lastTen')
+            table.addRow [
+              d.teamRecords[0].team.name,
+              d.teamRecords[0].gamesPlayed,
+              d.teamRecords[0].leagueRecord.wins,
+              d.teamRecords[0].leagueRecord.losses,
+              d.teamRecords[0].leagueRecord.ot,
+              d.teamRecords[0].points,
+              "#{lastTen.wins}-#{lastTen.losses}-#{lastTen.ot}",
+            ]
+        # Division selected
+        else
+          teams = json.records.find((d) => d.division.name.toUpperCase() == division.toUpperCase() || d.division.nameShort.toUpperCase() == division.toUpperCase())
+          for t in teams.teamRecords
+            lastTen = t.records.overallRecords.find((r) => r.type == 'lastTen')
+            table.addRow [
+              t.team.name,
+              t.gamesPlayed,
+              t.leagueRecord.wins,
+              t.leagueRecord.losses,
+              t.leagueRecord.ot,
+              t.points,
+              "#{lastTen.wins}-#{lastTen.losses}-#{lastTen.ot}",
+            ]
+
+        # Format based on adapter
+        if /(slack|discord)/.test(robot.adapterName)
+          msg.send "```" + table.toString() + "```"
+        else
+          msg.send table.toString()
