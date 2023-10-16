@@ -202,7 +202,7 @@ module.exports = (robot) ->
     if !division
       tableTitle = 'Division Leaders'
     else
-      tableTitle = division.toLowerCase().charAt(0).toUpperCase() + ' Standings'
+      tableTitle = "#{strCapitalize(division)} Standings"
     table = new AsciiTable(tableTitle)
     table.setHeading([
       'Team',
