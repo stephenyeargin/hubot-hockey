@@ -69,8 +69,8 @@ module.exports = (robot) => {
       } else {
         gameStatus = 'TBD';
       }
-      if ((game.gameState === 'OFF') && (game.period !== 3)) {
-        gameStatus += `/${game.period}`;
+      if ((game.gameState === 'OFF') && (game.period > 3)) {
+        gameStatus += `/${game.periodDescriptor.otPeriods || ''}${game.periodDescriptor.periodType}`;
       }
 
       if (game.gameType === '1') {
