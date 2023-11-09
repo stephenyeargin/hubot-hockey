@@ -105,13 +105,13 @@ module.exports = (robot) => {
           msg.send({
             attachments: [
               {
-                fallback: `${moment(game.startTimeUTC).format('l')} - ${game.awayTeam.name.default} ${game.awayTeam.score || game.awayTeam.record}, ${game.homeTeam.name.default} ${game.homeTeam.score || game.homeTeam.record} (${gameStatus})`,
+                fallback: `${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${game.awayTeam.name.default} ${game.awayTeam.score || game.awayTeam.record}, ${game.homeTeam.name.default} ${game.homeTeam.score || game.homeTeam.record} (${gameStatus})`,
                 title_link: `https://www.nhl.com/gamecenter/${game.id}`,
                 author_name: 'NHL.com',
                 author_link: 'https://nhl.com',
                 author_icon: 'https://github.com/nhl.png',
                 color: team.primary_color,
-                title: `${moment(game.startTimeUTC).format('l')} - ${gameStatus}`,
+                title: `${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${gameStatus}`,
                 text: `\`\`\`\n${table.toString()}\n\`\`\``,
                 footer: `${howToWatch}`,
                 mrkdwn_in: ['text', 'pretext'],
@@ -120,13 +120,13 @@ module.exports = (robot) => {
           });
           break;
         case /discord/.test(robot.adapterName):
-          output.push(`${moment(game.startTimeUTC).format('l')} - ${howToWatch}`);
+          output.push(`${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${howToWatch}`);
           output.push(`\`\`\`${table.toString()}\`\`\``);
           output.push(`${gameStatus} - https://www.nhl.com/gamecenter/${game.id}`);
           msg.send(output.join(''));
           break;
         default:
-          msg.send(`${moment(game.startTimeUTC).format('l')} - ${howToWatch}`);
+          msg.send(`${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${howToWatch}`);
           msg.send(table.toString());
           msg.send(`${gameStatus} - https://www.nhl.com/gamecenter/${game.id}`);
       }
