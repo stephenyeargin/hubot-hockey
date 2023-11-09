@@ -65,7 +65,7 @@ describe('hubot-hockey', () => {
     );
   });
 
-  it('responds with a completed game and playoff odds', (done) => {
+  it('responds with a future game and playoff odds', (done) => {
     Date.now = () => Date.parse('Tue Nov 8 08:00:00 CST 2023');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
