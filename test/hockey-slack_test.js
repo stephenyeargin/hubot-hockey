@@ -40,7 +40,7 @@ describe('hubot-hockey for slack', () => {
         head: 100,
         body: 200,
       })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule.json`);
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-in-progress.json`);
 
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
@@ -121,7 +121,7 @@ describe('hubot-hockey for slack', () => {
         head: 100,
         body: 200,
       })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule.json`);
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-future.json`);
 
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
@@ -143,13 +143,13 @@ describe('hubot-hockey for slack', () => {
                     author_link: 'https://nhl.com',
                     author_name: 'NHL.com',
                     color: '#FFB81C',
-                    fallback: '11/9/2023 - Nashville Predators 5-6-0, Winnipeg Jets 6-4-2 (7:00 pm CST)',
+                    fallback: '11/9/2023 - Nashville Predators 5-7-0, Winnipeg Jets 6-4-2 (7:00 pm CST)',
                     footer: 'Canada Life Centre; TV: BSSO (A) | TSN3 (H)',
                     mrkdwn_in: [
                       'text',
                       'pretext',
                     ],
-                    text: '```\n  Nashville Predators (5-6-0)  \n  Winnipeg Jets (6-4-2)        \n```',
+                    text: '```\n  Nashville Predators (5-7-0)  \n  Winnipeg Jets (6-4-2)        \n```',
                     title: '11/9/2023 - 7:00 pm CST',
                     title_link: 'https://www.nhl.com/gamecenter/2023020200',
                   },
@@ -194,15 +194,15 @@ describe('hubot-hockey for slack', () => {
     );
   });
 
-  it('responds with a past game and playoff odds', (done) => {
-    Date.now = () => Date.parse('Tue Nov 4 08:00:00 CST 2023');
+  it('responds with a completed game and playoff odds', (done) => {
+    Date.now = () => Date.parse('Tue Nov 7 23:00:00 CST 2023');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
       .delay({
         head: 100,
         body: 200,
       })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule.json`);
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-completed.json`);
 
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
@@ -224,15 +224,15 @@ describe('hubot-hockey for slack', () => {
                     author_link: 'https://nhl.com',
                     author_name: 'NHL.com',
                     color: '#FFB81C',
-                    fallback: '11/4/2023 - Nashville Predators 5, Edmonton Oilers 2 (Final)',
-                    footer: 'Rogers Place',
+                    fallback: '11/7/2023 - Nashville Predators 2, Calgary Flames 4 (Final)',
+                    footer: 'Scotiabank Saddledome',
                     mrkdwn_in: [
                       'text',
                       'pretext',
                     ],
-                    text: '```\n  Nashville Predators   5  \n  Edmonton Oilers       2  \n```',
-                    title: '11/4/2023 - Final',
-                    title_link: 'https://www.nhl.com/gamecenter/2023020159',
+                    text: '```\n  Nashville Predators   2  \n  Calgary Flames        4  \n```',
+                    title: '11/7/2023 - Final',
+                    title_link: 'https://www.nhl.com/gamecenter/2023020186',
                   },
                 ],
               },

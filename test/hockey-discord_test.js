@@ -40,7 +40,7 @@ describe('hubot-hockey for discord', () => {
         head: 100,
         body: 200,
       })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule.json`);
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-in-progress.json`);
 
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')

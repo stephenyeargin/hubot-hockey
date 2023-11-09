@@ -38,7 +38,7 @@ describe('hubot-hockey', () => {
         head: 100,
         body: 200,
       })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule.json`);
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-in-progress.json`);
 
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
@@ -65,7 +65,7 @@ describe('hubot-hockey', () => {
     );
   });
 
-  it('responds with a future game and playoff odds', (done) => {
+  it('responds with a completed game and playoff odds', (done) => {
     Date.now = () => Date.parse('Tue Nov 8 08:00:00 CST 2023');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
@@ -73,7 +73,7 @@ describe('hubot-hockey', () => {
         head: 100,
         body: 200,
       })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule.json`);
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-future.json`);
 
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
@@ -87,7 +87,7 @@ describe('hubot-hockey', () => {
           expect(selfRoom.messages).to.eql([
             ['alice', '@hubot preds'],
             ['hubot', '11/9/2023 - Canada Life Centre; TV: BSSO (A) | TSN3 (H)'],
-            ['hubot', '  Nashville Predators (5-6-0)  \n  Winnipeg Jets (6-4-2)        '],
+            ['hubot', '  Nashville Predators (5-7-0)  \n  Winnipeg Jets (6-4-2)        '],
             ['hubot', '7:00 pm CST - https://www.nhl.com/gamecenter/2023020200'],
             ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%'],
           ]);
@@ -100,15 +100,15 @@ describe('hubot-hockey', () => {
     );
   });
 
-  it('responds with a past game and playoff odds', (done) => {
-    Date.now = () => Date.parse('Tue Nov 4 08:00:00 CST 2023');
+  it('responds with a completed game and playoff odds', (done) => {
+    Date.now = () => Date.parse('Tue Nov 7 23:00:00 CST 2023');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
       .delay({
         head: 100,
         body: 200,
       })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule.json`);
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-completed.json`);
 
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
@@ -121,9 +121,9 @@ describe('hubot-hockey', () => {
         try {
           expect(selfRoom.messages).to.eql([
             ['alice', '@hubot preds'],
-            ['hubot', '11/4/2023 - Rogers Place'],
-            ['hubot', '  Nashville Predators   5  \n  Edmonton Oilers       2  '],
-            ['hubot', 'Final - https://www.nhl.com/gamecenter/2023020159'],
+            ['hubot', '11/7/2023 - Scotiabank Saddledome'],
+            ['hubot', '  Nashville Predators   2  \n  Calgary Flames        4  '],
+            ['hubot', 'Final - https://www.nhl.com/gamecenter/2023020186'],
             ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%'],
           ]);
           done();

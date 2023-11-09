@@ -48,9 +48,11 @@ module.exports = (robot) => {
         return cb;
       }
 
-      const games = json.gamesByDate.find((d) => moment(d.games[0].startTimeUTC) > moment().startOf('day'));
+      // Find the game closest to right now
+      const games = json.gamesByDate.find((d) => moment(d.date) >= moment(json.focusedDate));
+
       // Catch if final game of season played
-      if (games.length === 0) {
+      if (!games || games.length === 0) {
         msg.send('No games scheduled.');
         return cb;
       }
