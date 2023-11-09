@@ -46,7 +46,7 @@
   "main": "index.js",
   "scripts": {
     "release": "release-it",
-    "test": "mocha \"test/**/*.js\" --reporter spec",
+    "test": "mocha \"test/**/*.js\" --reporter spec --exit",
     "prepare": "husky install"
   },
   "volta": {
