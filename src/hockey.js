@@ -17,13 +17,21 @@ const AsciiTable = require('ascii-table');
 const leagueTeams = require('./teams.json');
 
 module.exports = (robot) => {
-  const getNhlStatsData = (team, msg, cb) => msg.http('https://statsapi.web.nhl.com/api/v1/schedule')
-    .query({
-      teamId: team.nhl_stats_api_id,
-      startDate: moment().tz('America/Los_Angeles').format('YYYY-MM-DD'),
-      endDate: moment().tz('America/Los_Angeles').add(90, 'd').format('YYYY-MM-DD'),
-      hydrate: 'linescore,broadcasts(all),game(seriesSummary)',
-    })
+  const strCapitalize = (str) => str.charAt(0).toUpperCase() + str.substring(1);
+  const periodFormat = (i) => {
+    switch (i) {
+      case 1:
+        return '1st';
+      case 2:
+        return '2nd';
+      case 3:
+        return '3rd';
+      default:
+        return `${i}th`;
+    }
+  };
+
+  const getNhlStatsData = (team, msg, cb) => msg.http(`https://api-web.nhle.com/v1/scoreboard/${team.abbreviation.toLowerCase()}/now`)
     .get()((err, res, body) => {
       let gameStatus;
       if (err) {
@@ -31,49 +39,61 @@ module.exports = (robot) => {
         return cb;
       }
       const json = JSON.parse(body);
-      if (!json || (json.dates.length === 0) || (json.dates[0].games.length === 0)) {
+      if (!json || (
+        !json.gamesByDate
+          || json.gamesByDate.length === 0)
+          || (json.gamesByDate[0].length === 0)
+      ) {
         msg.send('No games scheduled.');
         return cb;
       }
-      const {
-        date,
-      } = json.dates[0];
-      const game = json.dates[0].games[0];
 
-      if (game.status.abstractGameState === 'Final') {
+      // Find the game closest to right now
+      const games = json.gamesByDate.find((d) => moment(d.date) >= moment(json.focusedDate));
+
+      // Catch if final game of season played
+      if (!games || games.length === 0) {
+        msg.send('No games scheduled.');
+        return cb;
+      }
+
+      // TODO: Handle doubleheaders, etc.
+      const game = games.games[0];
+
+      if (game.gameState === 'OFF') {
         gameStatus = 'Final';
-      } else if (game.status.abstractGameState === 'Live') {
-        gameStatus = `${game.linescore.currentPeriodTimeRemaining} ${game.linescore.currentPeriodOrdinal}`;
-      } else if ((game.status.detailedState === 'Scheduled') && (game.status.startTimeTBD === false)) {
-        gameStatus = `${moment(game.gameDate).tz(team.time_zone).format('h:mm a z')}`;
+      } else if (game.gameState === 'LIVE') {
+        gameStatus = `${game.clock.timeRemaining} ${periodFormat(game.period)}`;
+      } else if ((game.gameState === 'FUT') && (game.gameScheduleState === 'OK')) {
+        gameStatus = `${moment(game.startTimeUTC).tz(team.time_zone).format('h:mm a z')}`;
       } else {
-        gameStatus = game.status.detailedState;
+        gameStatus = 'TBD';
       }
-      if ((game.status.abstractGameState === 'Final') && (game.linescore.currentPeriodOrdinal !== '3rd')) {
-        gameStatus += `/${game.linescore.currentPeriodOrdinal}`;
+      if ((game.gameState === 'OFF') && (game.period > 3)) {
+        gameStatus += `/${game.periodDescriptor.otPeriods || ''}${game.periodDescriptor.periodType}`;
       }
 
-      if (game.gameType === 'PR') {
+      if (game.gameType === '1') {
         gameStatus += ' - Preseason';
       }
-      if (game.gameType === 'P') {
+      if (game.gameType === '3') {
         gameStatus += ` - ${game.seriesSummary.seriesStatus || game.seriesSummary.gameLabel}`;
       }
 
       const table = new AsciiTable();
-      if ((game.teams.away.leagueRecord.ot != null) || (game.teams.home.leagueRecord.ot != null)) {
-        table.addRow(`${game.teams.away.team.name} (${game.teams.away.leagueRecord.wins}-${game.teams.away.leagueRecord.losses}-${game.teams.away.leagueRecord.ot})`, `${game.teams.away.score}`);
-        table.addRow(`${game.teams.home.team.name} (${game.teams.home.leagueRecord.wins}-${game.teams.home.leagueRecord.losses}-${game.teams.home.leagueRecord.ot})`, `${game.teams.home.score}`);
+      if (game.gameState === 'FUT') {
+        table.addRow(`${game.awayTeam.name.default} (${game.awayTeam.record})`);
+        table.addRow(`${game.homeTeam.name.default} (${game.homeTeam.record})`);
       } else {
-        table.addRow(`${game.teams.away.team.name} (${game.teams.away.leagueRecord.wins}-${game.teams.away.leagueRecord.losses})`, `${game.teams.away.score}`);
-        table.addRow(`${game.teams.home.team.name} (${game.teams.home.leagueRecord.wins}-${game.teams.home.leagueRecord.losses})`, `${game.teams.home.score}`);
+        table.addRow(`${game.awayTeam.name.default}`, `${game.awayTeam.score}`);
+        table.addRow(`${game.homeTeam.name.default}`, `${game.homeTeam.score}`);
       }
       table.removeBorder();
 
-      let howToWatch = game.venue.name;
-      if ((game.status.abstractGameState !== 'Final') && game.broadcasts && (game.broadcasts.length > 0)) {
+      let howToWatch = game.venue.default;
+      if ((game.gameState !== 'OFF') && game.tvBroadcasts && (game.tvBroadcasts.length > 0)) {
         const networks = [];
-        game.broadcasts.forEach((broadcast) => networks.push(`${broadcast.name} (${broadcast.type})`));
+        game.tvBroadcasts.forEach((broadcast) => networks.push(`${broadcast.network} (${broadcast.market})`));
         howToWatch = `${howToWatch}; TV: ${networks.join(' | ')}`;
       }
 
@@ -85,13 +105,13 @@ module.exports = (robot) => {
           msg.send({
             attachments: [
               {
-                fallback: `${moment(date).format('l')} - ${game.teams.away.team.name} ${game.teams.away.score}, ${game.teams.home.team.name} ${game.teams.home.score} (${gameStatus})`,
-                title_link: `https://www.nhl.com/gamecenter/${game.gamePk}`,
+                fallback: `${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${game.awayTeam.name.default} ${game.awayTeam.score || game.awayTeam.record}, ${game.homeTeam.name.default} ${game.homeTeam.score || game.homeTeam.record} (${gameStatus})`,
+                title_link: `https://www.nhl.com/gamecenter/${game.id}`,
                 author_name: 'NHL.com',
                 author_link: 'https://nhl.com',
                 author_icon: 'https://github.com/nhl.png',
                 color: team.primary_color,
-                title: `${moment(date).format('l')} - ${gameStatus}`,
+                title: `${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${gameStatus}`,
                 text: `\`\`\`\n${table.toString()}\n\`\`\``,
                 footer: `${howToWatch}`,
                 mrkdwn_in: ['text', 'pretext'],
@@ -100,15 +120,15 @@ module.exports = (robot) => {
           });
           break;
         case /discord/.test(robot.adapterName):
-          output.push(`${moment(date).format('l')} - ${howToWatch}`);
+          output.push(`${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${howToWatch}`);
           output.push(`\`\`\`${table.toString()}\`\`\``);
-          output.push(`${gameStatus} - https://www.nhl.com/gamecenter/${game.gamePk}`);
+          output.push(`${gameStatus} - https://www.nhl.com/gamecenter/${game.id}`);
           msg.send(output.join(''));
           break;
         default:
-          msg.send(`${moment(date).format('l')} - ${howToWatch}`);
+          msg.send(`${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${howToWatch}`);
           msg.send(table.toString());
-          msg.send(`${gameStatus} - https://www.nhl.com/gamecenter/${game.gamePk}`);
+          msg.send(`${gameStatus} - https://www.nhl.com/gamecenter/${game.id}`);
       }
       if (typeof cb === 'function') {
         return cb();
@@ -212,8 +232,6 @@ module.exports = (robot) => {
       });
   };
 
-  const strCapitalize = (str) => str.charAt(0).toUpperCase() + str.substring(1);
-
   const registerDefaultListener = (team) => {
     const statsRegEx = '_team_regex_$';
     robot.respond(new RegExp(statsRegEx.replace('_team_regex_', team.regex), 'i'), (msg) => getNhlStatsData(team, msg, () => getMoneyPuckData(team, msg)));
@@ -243,53 +261,41 @@ module.exports = (robot) => {
       'PTS',
       'L10',
     ]);
-    msg.http('https://statsapi.web.nhl.com/api/v1/standings')
-      .query({
-        date: moment().tz('America/Los_Angeles').format('YYYY-MM-DD'),
-        expand: 'standings.record',
-      })
+    msg.http('https://api-web.nhle.com/v1/standings/now')
       .get()((err, res, body) => {
         // Catch errors
-        let lastTen;
         if (err || (res.statusCode !== 200)) {
           msg.send('Cannot get standings right now.');
           return;
         }
 
         const json = JSON.parse(body);
+        let standings;
 
         // No division selected
         if (tableTitle === 'Division Leaders') {
-          json.records.forEach((d) => {
-            lastTen = d.teamRecords[0].records.overallRecords.find((r) => r.type === 'lastTen');
-            table.addRow([
-              d.teamRecords[0].team.name,
-              d.teamRecords[0].gamesPlayed,
-              d.teamRecords[0].leagueRecord.wins,
-              d.teamRecords[0].leagueRecord.losses,
-              d.teamRecords[0].leagueRecord.ot,
-              d.teamRecords[0].points,
-              `${lastTen.wins}-${lastTen.losses}-${lastTen.ot}`,
-            ]);
+          const divisions = [];
+          standings = json.standings.filter((t) => {
+            if (!divisions.includes(t.divisionName)) {
+              divisions.push(t.divisionName);
+              return true;
+            }
+            return false;
           });
-        // Division selected
         } else {
-          const teams = json.records.find((d) => (
-            d.division.name.toUpperCase() === division.toUpperCase())
-            || (d.division.nameShort.toUpperCase() === division.toUpperCase()));
-          teams.teamRecords.forEach((t) => {
-            lastTen = t.records.overallRecords.find((r) => r.type === 'lastTen');
-            table.addRow([
-              t.team.name,
-              t.gamesPlayed,
-              t.leagueRecord.wins,
-              t.leagueRecord.losses,
-              t.leagueRecord.ot,
-              t.points,
-              `${lastTen.wins}-${lastTen.losses}-${lastTen.ot}`,
-            ]);
-          });
+          standings = json.standings.filter((t) => t.divisionName.toLowerCase() === division.toLowerCase());
         }
+        standings.forEach((t) => {
+          table.addRow([
+            t.teamName.default,
+            t.gamesPlayed,
+            t.wins,
+            t.losses,
+            t.otLosses,
+            t.points,
+            `${t.l10Wins}-${t.l10Losses}-${t.l10OtLosses}`,
+          ]);
+        });
 
         // Format based on adapter
         if (/(slack|discord)/.test(robot.adapterName)) {

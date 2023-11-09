@@ -1,0 +1,595 @@
+{
+  "focusedDate": "2023-11-08",
+  "focusedDateCount": 10,
+  "clubTimeZone": "US/Central",
+  "clubUTCOffset": "-06:00",
+  "clubScheduleLink": "/predators/schedule",
+  "gamesByDate": [
+    {
+      "date": "2023-11-02",
+      "games": [
+        {
+          "id": 2023020154,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2023-11-02",
+          "gameCenterLink": "/gamecenter/nsh-vs-sea/2023/11/02/2023020154",
+          "venue": {
+            "default": "Climate Pledge Arena"
+          },
+          "startTimeUTC": "2023-11-03T02:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-07:00",
+          "tvBroadcasts": [
+            {
+              "id": 287,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SNE"
+            },
+            {
+              "id": 288,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SNO"
+            },
+            {
+              "id": 375,
+              "market": "A",
+              "countryCode": "US",
+              "network": "BSSO"
+            },
+            {
+              "id": 386,
+              "market": "H",
+              "countryCode": "US",
+              "network": "ROOT-NW"
+            }
+          ],
+          "gameState": "OFF",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "score": 2,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 55,
+            "name": {
+              "default": "Seattle Kraken",
+              "fr": "Kraken de Seattle"
+            },
+            "abbrev": "SEA",
+            "score": 4,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/event/0F005EBFC3744B12?brand=kraken&artistid=2763657&wt.mc_id=NHL_TEAM_SEA_WEB_MIG_GM4&utm_source=nhl.com&utm_medium=client&utm_campaign=NHL_TEAM_SEA&utm_content=WEB_MIG_GM4",
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG"
+          },
+          "threeMinRecap": "/video/recap-predators-at-kraken-11-2-23-6340407361112"
+        }
+      ]
+    },
+    {
+      "date": "2023-11-04",
+      "games": [
+        {
+          "id": 2023020159,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2023-11-04",
+          "gameCenterLink": "/gamecenter/nsh-vs-edm/2023/11/04/2023020159",
+          "venue": {
+            "default": "Rogers Place"
+          },
+          "startTimeUTC": "2023-11-04T19:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-06:00",
+          "tvBroadcasts": [
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN"
+            },
+            {
+              "id": 324,
+              "market": "N",
+              "countryCode": "US",
+              "network": "NHLN"
+            },
+            {
+              "id": 375,
+              "market": "A",
+              "countryCode": "US",
+              "network": "BSSO"
+            }
+          ],
+          "gameState": "OFF",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "score": 5,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 22,
+            "name": {
+              "default": "Edmonton Oilers",
+              "fr": "Oilers d'Edmonton"
+            },
+            "abbrev": "EDM",
+            "score": 2,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/event/11005F17C72C4973?brand=edmontonoilers&artistid=805943&wt.mc_id=NHL_TEAM_EDM_HORIZONTAL_SCOREBOARD_GM6&utm_source=nhl.com&utm_medium=client&utm_campaign=NHL_TEAM_EDM&utm_content=HORIZONTAL_SCOREBOARD_GM6",
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG"
+          },
+          "threeMinRecap": "/video/recap-predators-at-oilers-11-4-23-6340513835112"
+        }
+      ]
+    },
+    {
+      "date": "2023-11-07",
+      "games": [
+        {
+          "id": 2023020186,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2023-11-07",
+          "gameCenterLink": "/gamecenter/nsh-vs-cgy/2023/11/07/2023020186",
+          "venue": {
+            "default": "Scotiabank Saddledome"
+          },
+          "startTimeUTC": "2023-11-08T02:00:00Z",
+          "easternUTCOffset": "-05:00",
+          "venueUTCOffset": "-07:00",
+          "tvBroadcasts": [
+            {
+              "id": 375,
+              "market": "A",
+              "countryCode": "US",
+              "network": "BSSO"
+            },
+            {
+              "id": 289,
+              "market": "H",
+              "countryCode": "CA",
+              "network": "SNW"
+            }
+          ],
+          "gameState": "OFF",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "score": 2,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 20,
+            "name": {
+              "default": "Calgary Flames",
+              "fr": "Flames de Calgary"
+            },
+            "abbrev": "CGY",
+            "score": 4,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/event/11005EF4C0BE3326?brand=calgaryflames&artistid=805907&wt.mc_id=NHL_TEAM_CGY_HORIZONTAL_SCOREBOARD_GM5&utm_source=nhl.com&utm_medium=client&utm_campaign=NHL_TEAM_CGY&utm_content=HORIZONTAL_SCOREBOARD_GM5",
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG"
+          },
+          "threeMinRecap": "/video/recap-predators-at-flames-11-7-23-6340714996112"
+        }
+      ]
+    },
+    {
+      "date": "2023-11-09",
+      "games": [
+        {
+          "id": 2023020200,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2023-11-09",
+          "gameCenterLink": "/gamecenter/nsh-vs-wpg/2023/11/09/2023020200",
+          "venue": {
+            "default": "Canada Life Centre"
+          },
+          "startTimeUTC": "2023-11-10T01:00:00Z",
+          "easternUTCOffset": "-05:00",
+          "venueUTCOffset": "-06:00",
+          "tvBroadcasts": [
+            {
+              "id": 375,
+              "market": "A",
+              "countryCode": "US",
+              "network": "BSSO"
+            },
+            {
+              "id": 292,
+              "market": "H",
+              "countryCode": "CA",
+              "network": "TSN3"
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "5-7-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 52,
+            "name": {
+              "default": "Winnipeg Jets",
+              "fr": "Jets de Winnipeg"
+            },
+            "abbrev": "WPG",
+            "record": "6-4-2",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/WPG_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.ca/event/11005F1DBA654186"
+        }
+      ]
+    },
+    {
+      "date": "2023-11-11",
+      "games": [
+        {
+          "id": 2023020218,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2023-11-11",
+          "gameCenterLink": "/gamecenter/ari-vs-nsh/2023/11/11/2023020218",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2023-11-12T01:00:00Z",
+          "easternUTCOffset": "-05:00",
+          "venueUTCOffset": "-06:00",
+          "tvBroadcasts": [
+            {
+              "id": 375,
+              "market": "H",
+              "countryCode": "US",
+              "network": "BSSO"
+            },
+            {
+              "id": 521,
+              "market": "A",
+              "countryCode": "US",
+              "network": "SCRIPPS"
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 53,
+            "name": {
+              "default": "Arizona Coyotes",
+              "fr": "Coyotes de l'Arizona"
+            },
+            "abbrev": "ARI",
+            "record": "6-5-1",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/ARI_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "5-7-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/nashville-predators-vs-arizona-coyotes-nashville-tennessee-11-11-2023/event/1B005EF1C538417E?brand=predators&landing=s&wt.mc_id=NHL_TEAM_NSH_SINGLE_GAME_TICKETS_PAGE_GM6&CAMEFROM=CFC_PREDATORS_WEB_SINGLEGAME_PREDSWEBSITESINGLEGAMEZG&_ga=2.211655061.1498183413.1693233228-1348356427.1683143766"
+        }
+      ]
+    },
+    {
+      "date": "2023-11-14",
+      "games": [
+        {
+          "id": 2023020234,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2023-11-14",
+          "gameCenterLink": "/gamecenter/ana-vs-nsh/2023/11/14/2023020234",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2023-11-15T01:00:00Z",
+          "easternUTCOffset": "-05:00",
+          "venueUTCOffset": "-06:00",
+          "tvBroadcasts": [
+            {
+              "id": 329,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ESPN+"
+            },
+            {
+              "id": 391,
+              "market": "N",
+              "countryCode": "US",
+              "network": "HULU"
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 24,
+            "name": {
+              "default": "Anaheim Ducks",
+              "fr": "Ducks d'Anaheim"
+            },
+            "abbrev": "ANA",
+            "record": "7-5-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "5-7-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/nashville-predators-vs-anaheim-ducks-nashville-tennessee-11-14-2023/event/1B005EF1C53D41BE?brand=predators&landing=s&wt.mc_id=NHL_TEAM_NSH_SINGLE_GAME_TICKETS_PAGE_GM7&CAMEFROM=CFC_PREDATORS_WEB_SINGLEGAME_PREDSWEBSITESINGLEGAMEZG&_ga=2.211655061.1498183413.1693233228-1348356427.1683143766"
+        }
+      ]
+    },
+    {
+      "date": "2023-11-18",
+      "games": [
+        {
+          "id": 2023020256,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2023-11-18",
+          "gameCenterLink": "/gamecenter/chi-vs-nsh/2023/11/18/2023020256",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2023-11-18T19:00:00Z",
+          "easternUTCOffset": "-05:00",
+          "venueUTCOffset": "-06:00",
+          "tvBroadcasts": [
+            {
+              "id": 375,
+              "market": "H",
+              "countryCode": "US",
+              "network": "BSSO"
+            },
+            {
+              "id": 318,
+              "market": "A",
+              "countryCode": "US",
+              "network": "NBCSCH"
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 16,
+            "name": {
+              "default": "Chicago Blackhawks",
+              "fr": "Blackhawks de Chicago"
+            },
+            "abbrev": "CHI",
+            "record": "4-7-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/CHI_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "5-7-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/nashville-predators-vs-chicago-blackhawks-nashville-tennessee-11-18-2023/event/1B005EF1C54041C0?brand=predators&landing=s&wt.mc_id=NHL_TEAM_NSH_SINGLE_GAME_TICKETS_PAGE_GM8&CAMEFROM=CFC_PREDATORS_WEB_SINGLEGAME_PREDSWEBSITESINGLEGAMEZG&_ga=2.211655061.1498183413.1693233228-1348356427.1683143766"
+        }
+      ]
+    },
+    {
+      "date": "2023-11-20",
+      "games": [
+        {
+          "id": 2023020275,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2023-11-20",
+          "gameCenterLink": "/gamecenter/col-vs-nsh/2023/11/20/2023020275",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2023-11-21T01:00:00Z",
+          "easternUTCOffset": "-05:00",
+          "venueUTCOffset": "-06:00",
+          "tvBroadcasts": [
+            {
+              "id": 375,
+              "market": "H",
+              "countryCode": "US",
+              "network": "BSSO"
+            },
+            {
+              "id": 2,
+              "market": "A",
+              "countryCode": "US",
+              "network": "ALT"
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 21,
+            "name": {
+              "default": "Colorado Avalanche",
+              "fr": "Avalanche du Colorado"
+            },
+            "abbrev": "COL",
+            "record": "8-3-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "5-7-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/nashville-predators-vs-colorado-avalanche-nashville-tennessee-11-20-2023/event/1B005EF1C54341C5?brand=predators&landing=s&wt.mc_id=NHL_TEAM_NSH_SINGLE_GAME_TICKETS_PAGE_GM9&CAMEFROM=CFC_PREDATORS_WEB_SINGLEGAME_PREDSWEBSITESINGLEGAMEZG&_ga=2.211655061.1498183413.1693233228-1348356427.1683143766"
+        }
+      ]
+    },
+    {
+      "date": "2023-11-22",
+      "games": [
+        {
+          "id": 2023020288,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2023-11-22",
+          "gameCenterLink": "/gamecenter/cgy-vs-nsh/2023/11/22/2023020288",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2023-11-23T02:00:00Z",
+          "easternUTCOffset": "-05:00",
+          "venueUTCOffset": "-06:00",
+          "tvBroadcasts": [
+            {
+              "id": 283,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN360"
+            },
+            {
+              "id": 375,
+              "market": "H",
+              "countryCode": "US",
+              "network": "BSSO"
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 20,
+            "name": {
+              "default": "Calgary Flames",
+              "fr": "Flames de Calgary"
+            },
+            "abbrev": "CGY",
+            "record": "4-7-1",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "5-7-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/nashville-predators-vs-calgary-flames-nashville-tennessee-11-22-2023/event/1B005EF1C54741CF?brand=predators&landing=s&wt.mc_id=NHL_TEAM_NSH_SINGLE_GAME_TICKETS_PAGE_GM10&CAMEFROM=CFC_PREDATORS_WEB_SINGLEGAME_PREDSWEBSITESINGLEGAMEZG&_ga=2.5648435.1498183413.1693233228-1348356427.1683143766"
+        }
+      ]
+    },
+    {
+      "date": "2023-11-24",
+      "games": [
+        {
+          "id": 2023020297,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2023-11-24",
+          "gameCenterLink": "/gamecenter/nsh-vs-stl/2023/11/24/2023020297",
+          "venue": {
+            "default": "Enterprise Center"
+          },
+          "startTimeUTC": "2023-11-24T20:00:00Z",
+          "easternUTCOffset": "-05:00",
+          "venueUTCOffset": "-06:00",
+          "tvBroadcasts": [
+            {
+              "id": 375,
+              "market": "A",
+              "countryCode": "US",
+              "network": "BSSO"
+            },
+            {
+              "id": 357,
+              "market": "H",
+              "countryCode": "US",
+              "network": "BSMW"
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "5-7-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 19,
+            "name": {
+              "default": "St. Louis Blues",
+              "fr": "Blues de St. Louis"
+            },
+            "abbrev": "STL",
+            "record": "5-5-1",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/event/06005EDABFA33C8E?brand=blues&artistid=806025&wt.mc_id=NHL_TEAM_STL_WEB_MIG_GM9&utm_source=nhl.com&utm_medium=client&utm_campaign=NHL_TEAM_STL&utm_content=WEB_MIG_GM9"
+        }
+      ]
+    }
+  ]
+}
