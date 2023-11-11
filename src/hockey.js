@@ -261,10 +261,11 @@ module.exports = (robot) => {
       'PTS',
       'L10',
     ]);
-    msg.http('https://api-web.nhle.com/v1/standings/now')
+    msg.http(`https://api-web.nhle.com/v1/standings/${moment().format('YYYY-MM-DD')}`)
       .get()((err, res, body) => {
         // Catch errors
         if (err || (res.statusCode !== 200)) {
+          robot.logger.error(err);
           msg.send('Cannot get standings right now.');
           return;
         }

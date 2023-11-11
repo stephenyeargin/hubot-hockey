@@ -68,7 +68,7 @@ describe('hubot-hockey for discord', () => {
   it('responds with division leader standings', (done) => {
     Date.now = () => Date.parse('Tues Nov 7 22:36:00 CST 2023');
     nock('https://api-web.nhle.com')
-      .get('/v1/standings/now')
+      .get('/v1/standings/2023-11-07')
       .delay({
         head: 100,
         body: 200,
@@ -96,7 +96,7 @@ describe('hubot-hockey for discord', () => {
   it('responds with division standings', (done) => {
     Date.now = () => Date.parse('Tues Nov 7 22:36:00 CST 2023');
     nock('https://api-web.nhle.com')
-      .get('/v1/standings/now')
+      .get('/v1/standings/2023-11-07')
       .delay({
         head: 100,
         body: 200,
