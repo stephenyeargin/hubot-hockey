@@ -261,7 +261,7 @@ module.exports = (robot) => {
       'PTS',
       'L10',
     ]);
-    msg.http(`https://api-web.nhle.com/v1/standings/${moment().format('YYYY-MM-DD')}`)
+    msg.http(`https://api-web.nhle.com/v1/standings/${moment().tz('America/Los_Angeles').format('YYYY-MM-DD')}`)
       .get()((err, res, body) => {
         // Catch errors
         if (err || (res.statusCode !== 200)) {
