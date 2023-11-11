@@ -243,7 +243,7 @@ module.exports = (robot) => {
   });
 
   // NHL Standings
-  robot.respond(/nhl\s?(atlantic|metro|metropolitan|pacific|central)?\s?(?:standings)?/i, (msg) => {
+  robot.respond(/nhl\s?(atlantic|metropolitan|pacific|central)?\s?(?:standings)?/i, (msg) => {
     let tableTitle;
     const division = msg.match[1] || '';
     if (!division) {
@@ -269,7 +269,7 @@ module.exports = (robot) => {
           msg.send('Cannot get standings right now.');
           return;
         }
-
+        console.log(division);
         const json = JSON.parse(body);
         let standings;
 
