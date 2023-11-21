@@ -64,7 +64,7 @@ module.exports = (robot) => {
         gameStatus = 'Final';
       } else if (game.gameState === 'LIVE') {
         gameStatus = `${game.clock.timeRemaining} ${periodFormat(game.period)}`;
-      } else if ((game.gameState === 'FUT') && (game.gameScheduleState === 'OK')) {
+      } else if ((game.gameState === 'FUT' || game.gameState === 'PRE') && (game.gameScheduleState === 'OK')) {
         gameStatus = `${moment(game.startTimeUTC).tz(team.time_zone).format('h:mm a z')}`;
       } else {
         gameStatus = 'TBD';
@@ -81,7 +81,7 @@ module.exports = (robot) => {
       }
 
       const table = new AsciiTable();
-      if (game.gameState === 'FUT') {
+      if (game.gameState === 'FUT' || game.gameState === 'PRE') {
         table.addRow(`${game.awayTeam.name.default} (${game.awayTeam.record})`);
         table.addRow(`${game.homeTeam.name.default} (${game.homeTeam.record})`);
       } else {

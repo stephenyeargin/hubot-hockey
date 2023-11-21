@@ -135,6 +135,41 @@ describe('hubot-hockey', () => {
     );
   });
 
+  it('responds with a pregame and playoff odds', (done) => {
+    Date.now = () => Date.parse('Tue Nov 20 6:41:00 CST 2023');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/nsh/now')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-pregame.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot preds');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot preds'],
+            ['hubot', '11/20/2023 - Bridgestone Arena; TV: BSSO (H) | ALT (A)'],
+            ['hubot', '  Colorado Avalanche (11-5-0)   \n  Nashville Predators (6-10-0)  '],
+            ['hubot', '7:00 pm CST - https://www.nhl.com/gamecenter/2023020275'],
+            ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%'],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
+
   it('responds with division leader standings', (done) => {
     Date.now = () => Date.parse('Tues Nov 7 22:36:00 CST 2023');
     nock('https://api-web.nhle.com')
