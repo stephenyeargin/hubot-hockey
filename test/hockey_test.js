@@ -170,6 +170,41 @@ describe('hubot-hockey', () => {
     );
   });
 
+  it('responds with a final score and playoff odds', (done) => {
+    Date.now = () => Date.parse('Wed Nov 22 23:18:00 CST 2023');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/nsh/now')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-final.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot preds');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot preds'],
+            ['hubot', '11/22/2023 - Bridgestone Arena'],
+            ['hubot', '  Calgary Flames        2  \n  Nashville Predators   4  '],
+            ['hubot', 'Final - https://www.nhl.com/gamecenter/2023020288'],
+            ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%'],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
+
   it('responds with division leader standings', (done) => {
     Date.now = () => Date.parse('Tues Nov 7 22:36:00 CST 2023');
     nock('https://api-web.nhle.com')

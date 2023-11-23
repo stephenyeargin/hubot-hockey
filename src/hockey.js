@@ -60,7 +60,7 @@ module.exports = (robot) => {
       // TODO: Handle doubleheaders, etc.
       const game = games.games[0];
 
-      if (game.gameState === 'OFF') {
+      if (game.gameState === 'OFF' || game.gameState === 'FINAL') {
         gameStatus = 'Final';
       } else if (game.gameState === 'LIVE') {
         gameStatus = `${game.clock.timeRemaining} ${periodFormat(game.period)}`;
@@ -69,7 +69,7 @@ module.exports = (robot) => {
       } else {
         gameStatus = 'TBD';
       }
-      if ((game.gameState === 'OFF') && (game.period > 3)) {
+      if ((game.gameState === 'OFF' || game.gameState === 'FINAL') && (game.period > 3)) {
         gameStatus += `/${game.periodDescriptor.otPeriods || ''}${game.periodDescriptor.periodType}`;
       }
 
@@ -91,7 +91,7 @@ module.exports = (robot) => {
       table.removeBorder();
 
       let howToWatch = game.venue.default;
-      if ((game.gameState !== 'OFF') && game.tvBroadcasts && (game.tvBroadcasts.length > 0)) {
+      if ((game.gameState !== 'OFF' && game.gameState !== 'FINAL') && game.tvBroadcasts && (game.tvBroadcasts.length > 0)) {
         const networks = [];
         game.tvBroadcasts.forEach((broadcast) => networks.push(`${broadcast.network} (${broadcast.market})`));
         howToWatch = `${howToWatch}; TV: ${networks.join(' | ')}`;
@@ -269,7 +269,6 @@ module.exports = (robot) => {
           msg.send('Cannot get standings right now.');
           return;
         }
-        console.log(division);
         const json = JSON.parse(body);
         let standings;
 
@@ -284,6 +283,7 @@ module.exports = (robot) => {
             return false;
           });
         } else {
+          // eslint-disable-next-line max-len
           standings = json.standings.filter((t) => t.divisionName.toLowerCase() === division.toLowerCase());
         }
         standings.forEach((t) => {
