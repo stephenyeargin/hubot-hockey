@@ -4,6 +4,9 @@ on:
 
 name: npm-publish
 
+permissions:
+  contents: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -12,8 +15,15 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "20"
+      - run: npm whoami
       - run: npm ci
       - run: npm test
       - uses: JS-DevTools/npm-publish@v3
+        id: publish
         with:
           token: ${{ secrets.NPM_AUTH_TOKEN }}
+      - if: ${{ steps.publish.outputs.type }}
+        name: Create Release
+        run: |
+          VERSION="v${{ steps.publish.outputs.version }}"
+          gh release create $VERSION --generate-notes
