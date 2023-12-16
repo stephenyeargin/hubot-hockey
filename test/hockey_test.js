@@ -170,6 +170,41 @@ describe('hubot-hockey', () => {
     );
   });
 
+  it('responds with a game in "critical" state and playoff odds', (done) => {
+    Date.now = () => Date.parse('Fri Dec 16 22:28:00 CST 2023');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/nsh/now')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-crit.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot preds');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot preds'],
+            ['hubot', '12/15/2023 - PNC Arena; TV: ESPN+ (N) | HULU (N)'],
+            ['hubot', '  Nashville Predators   6  \n  Carolina Hurricanes   5  '],
+            ['hubot', '04:25 OT - https://www.nhl.com/gamecenter/2023020455'],
+            ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%'],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
+
   it('responds with a final score and playoff odds', (done) => {
     Date.now = () => Date.parse('Wed Nov 22 23:18:00 CST 2023');
     nock('https://api-web.nhle.com')
@@ -195,6 +230,41 @@ describe('hubot-hockey', () => {
             ['hubot', '  Calgary Flames        2  \n  Nashville Predators   4  '],
             ['hubot', 'Final - https://www.nhl.com/gamecenter/2023020288'],
             ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%'],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
+
+  it('responds with a final score in a shootout and playoff odds', (done) => {
+    Date.now = () => Date.parse('Sat Dec 16 10:28:00 CST 2023');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/bos/now')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-final-shootout.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot bruins');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot bruins'],
+            ['hubot', '12/15/2023 - UBS Arena'],
+            ['hubot', '  Boston Bruins        5  \n  New York Islanders   4  '],
+            ['hubot', 'Final/SO - https://www.nhl.com/gamecenter/2023020457'],
+            ['hubot', 'Odds to Make Playoffs: 62.0% / Win Stanley Cup: 3.8%'],
           ]);
           done();
         } catch (err) {

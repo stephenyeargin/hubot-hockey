@@ -18,8 +18,11 @@ const leagueTeams = require('./teams.json');
 
 module.exports = (robot) => {
   const strCapitalize = (str) => str.charAt(0).toUpperCase() + str.substring(1);
-  const periodFormat = (i) => {
-    switch (i) {
+  const periodFormat = (periodDescriptor) => {
+    if (periodDescriptor.type === 'SO') {
+      return 'SO';
+    }
+    switch (periodDescriptor.number) {
       case 1:
         return '1st';
       case 2:
@@ -27,7 +30,10 @@ module.exports = (robot) => {
       case 3:
         return '3rd';
       default:
-        return `${i}th`;
+        if (periodDescriptor.periodType === 'OT' && periodDescriptor.otPeriods > 0) {
+          return `${periodDescriptor.otPeriods}${periodDescriptor.periodType}`;
+        }
+        return `${periodDescriptor.periodType}`;
     }
   };
 
@@ -60,17 +66,17 @@ module.exports = (robot) => {
       // TODO: Handle doubleheaders, etc.
       const game = games.games[0];
 
-      if (game.gameState === 'OFF' || game.gameState === 'FINAL') {
+      if (game.gameState === 'OFF' || game.gameState === 'FINAL' || game.gameState === 'OVER') {
         gameStatus = 'Final';
-      } else if (game.gameState === 'LIVE') {
-        gameStatus = `${game.clock.timeRemaining} ${periodFormat(game.period)}`;
+        if (game.period > 3) {
+          gameStatus = `${gameStatus}/${periodFormat(game.periodDescriptor)}`;
+        }
+      } else if (game.gameState === 'LIVE' || game.gameState === 'CRIT') {
+        gameStatus = `${game.clock.timeRemaining} ${periodFormat(game.periodDescriptor)}`;
       } else if ((game.gameState === 'FUT' || game.gameState === 'PRE') && (game.gameScheduleState === 'OK')) {
         gameStatus = `${moment(game.startTimeUTC).tz(team.time_zone).format('h:mm a z')}`;
       } else {
         gameStatus = 'TBD';
-      }
-      if ((game.gameState === 'OFF' || game.gameState === 'FINAL') && (game.period > 3)) {
-        gameStatus += `/${game.periodDescriptor.otPeriods || ''}${game.periodDescriptor.periodType}`;
       }
 
       if (game.gameType === '1') {

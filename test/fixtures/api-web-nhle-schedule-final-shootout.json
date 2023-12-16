@@ -1,0 +1,82 @@
+{
+  "focusedDate": "2023-12-15",
+  "focusedDateCount": 11,
+  "clubTimeZone": "US/Eastern",
+  "clubUTCOffset": "-05:00",
+  "clubScheduleLink": "/bruins/schedule",
+  "gamesByDate": [
+    {
+      "date": "2023-12-15",
+      "games": [
+        {
+          "id": 2023020457,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2023-12-15",
+          "gameCenterLink": "/gamecenter/bos-vs-nyi/2023/12/15/2023020457",
+          "venue": {
+            "default": "UBS Arena"
+          },
+          "startTimeUTC": "2023-12-16T00:30:00Z",
+          "easternUTCOffset": "-05:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [
+            {
+              "id": 281,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS"
+            },
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN"
+            },
+            {
+              "id": 31,
+              "market": "A",
+              "countryCode": "US",
+              "network": "NESN"
+            },
+            {
+              "id": 409,
+              "market": "H",
+              "countryCode": "US",
+              "network": "MSGSN"
+            }
+          ],
+          "gameState": "OFF",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 6,
+            "name": {
+              "default": "Boston Bruins",
+              "fr": "Bruins de Boston"
+            },
+            "abbrev": "BOS",
+            "score": 5,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/BOS_light.svg"
+          },
+          "homeTeam": {
+            "id": 2,
+            "name": {
+              "default": "New York Islanders",
+              "fr": "Islanders de New York"
+            },
+            "abbrev": "NYI",
+            "score": 4,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NYI_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/event/30005EDCBE092DF7?brand=nyislanders&artistid=805986&wt.mc_id=NHL_TEAM_NYI_WEB_MIG_GM17&utm_source=nhl.com&utm_medium=client&utm_campaign=NHL_TEAM_NYI&utm_content=WEB_MIG_GM17",
+          "period": 5,
+          "periodDescriptor": {
+            "number": 5,
+            "periodType": "SO"
+          },
+          "threeMinRecapFr": "/fr/video/recap-bruins-at-islanders-12-15-23-6343261263112"
+        }
+      ]
+    }
+  ]
+}

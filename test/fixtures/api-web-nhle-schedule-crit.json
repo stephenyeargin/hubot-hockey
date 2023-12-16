@@ -1,0 +1,77 @@
+{
+  "focusedDate": "2023-12-15",
+  "focusedDateCount": 11,
+  "clubTimeZone": "US/Central",
+  "clubUTCOffset": "-06:00",
+  "clubScheduleLink": "/predators/schedule",
+  "gamesByDate": [
+    {
+      "date": "2023-12-15",
+      "games": [
+        {
+          "id": 2023020455,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2023-12-15",
+          "gameCenterLink": "/gamecenter/nsh-vs-car/2023/12/15/2023020455",
+          "venue": {
+            "default": "PNC Arena"
+          },
+          "startTimeUTC": "2023-12-16T00:30:00Z",
+          "easternUTCOffset": "-05:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [
+            {
+              "id": 329,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ESPN+"
+            },
+            {
+              "id": 391,
+              "market": "N",
+              "countryCode": "US",
+              "network": "HULU"
+            }
+          ],
+          "gameState": "CRIT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "score": 6,
+            "sog": 30,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 12,
+            "name": {
+              "default": "Carolina Hurricanes",
+              "fr": "Hurricanes de la Caroline"
+            },
+            "abbrev": "CAR",
+            "score": 5,
+            "sog": 30,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/event/2D005EF49FED3E61?brand=carolinahurricanes&artistid=805908&wt.mc_id=NHL_TEAM_CAR_HORIZONTAL_SCOREBOARD_GM12&utm_source=nhl.com&utm_medium=client&utm_campaign=NHL_TEAM_CAR&utm_content=HORIZONTAL_SCOREBOARD_GM12",
+          "period": 4,
+          "periodDescriptor": {
+            "number": 4,
+            "periodType": "OT"
+          },
+          "clock": {
+            "timeRemaining": "04:25",
+            "secondsRemaining": 265,
+            "running": false,
+            "inIntermission": false
+          }
+        }
+      ]
+    }
+  ]
+}
