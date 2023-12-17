@@ -1,0 +1,83 @@
+{
+    "focusedDate": "2023-12-16",
+    "focusedDateCount": 11,
+    "clubTimeZone": "US/Central",
+    "clubUTCOffset": "-06:00",
+    "clubScheduleLink": "/predators/schedule",
+    "gamesByDate": [
+        {
+            "date": "2023-12-16",
+            "games": [
+                {
+                    "id": 2023020468,
+                    "season": 20232024,
+                    "gameType": 2,
+                    "gameDate": "2023-12-16",
+                    "gameCenterLink": "/gamecenter/wsh-vs-nsh/2023/12/16/2023020468",
+                    "venue": {
+                        "default": "Bridgestone Arena"
+                    },
+                    "startTimeUTC": "2023-12-17T01:00:00Z",
+                    "easternUTCOffset": "-05:00",
+                    "venueUTCOffset": "-06:00",
+                    "tvBroadcasts": [
+                        {
+                            "id": 324,
+                            "market": "N",
+                            "countryCode": "US",
+                            "network": "NHLN"
+                        },
+                        {
+                            "id": 375,
+                            "market": "H",
+                            "countryCode": "US",
+                            "network": "BSSO"
+                        },
+                        {
+                            "id": 517,
+                            "market": "A",
+                            "countryCode": "US",
+                            "network": "MNMT"
+                        }
+                    ],
+                    "gameState": "LIVE",
+                    "gameScheduleState": "OK",
+                    "awayTeam": {
+                        "id": 15,
+                        "name": {
+                            "default": "Washington Capitals",
+                            "fr": "Capitals de Washington"
+                        },
+                        "abbrev": "WSH",
+                        "score": 0,
+                        "sog": 4,
+                        "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_light.svg"
+                    },
+                    "homeTeam": {
+                        "id": 18,
+                        "name": {
+                            "default": "Nashville Predators",
+                            "fr": "Predators de Nashville"
+                        },
+                        "abbrev": "NSH",
+                        "score": 1,
+                        "sog": 8,
+                        "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+                    },
+                    "ticketsLink": "https://www.ticketmaster.com/nashville-predators-vs-washington-capitals-nashville-tennessee-12-16-2023/event/1B005EF1C55E4234?brand=predators&landing=s&wt.mc_id=NHL_TEAM_NSH_SINGLE_GAME_TICKETS_PAGE_GM17&CAMEFROM=CFC_PREDATORS_WEB_SINGLEGAME_PREDSWEBSITESINGLEGAMEZG&_ga=2.43406757.1498183413.1693233228-1348356427.1683143766",
+                    "period": 1,
+                    "periodDescriptor": {
+                        "number": 1,
+                        "periodType": "REG"
+                    },
+                    "clock": {
+                        "timeRemaining": "07:21",
+                        "secondsRemaining": 441,
+                        "running": false,
+                        "inIntermission": true
+                    }
+                }
+            ]
+        }
+    ]
+}

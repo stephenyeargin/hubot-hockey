@@ -73,6 +73,9 @@ module.exports = (robot) => {
         }
       } else if (game.gameState === 'LIVE' || game.gameState === 'CRIT') {
         gameStatus = `${game.clock.timeRemaining} ${periodFormat(game.periodDescriptor)}`;
+        if (game.clock?.inIntermission) {
+          gameStatus += ' Intermission';
+        }
       } else if ((game.gameState === 'FUT' || game.gameState === 'PRE') && (game.gameScheduleState === 'OK')) {
         gameStatus = `${moment(game.startTimeUTC).tz(team.time_zone).format('h:mm a z')}`;
       } else {
@@ -111,7 +114,7 @@ module.exports = (robot) => {
           msg.send({
             attachments: [
               {
-                fallback: `${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${game.awayTeam.name.default} ${game.awayTeam.score || game.awayTeam.record}, ${game.homeTeam.name.default} ${game.homeTeam.score || game.homeTeam.record} (${gameStatus})`,
+                fallback: `${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${table.getRows()[0].join(' ')}, ${table.getRows()[1].join(' ')} (${gameStatus})`,
                 title_link: `https://www.nhl.com/gamecenter/${game.id}`,
                 author_name: 'NHL.com',
                 author_link: 'https://nhl.com',
@@ -306,7 +309,7 @@ module.exports = (robot) => {
 
         // Format based on adapter
         if (/(slack|discord)/.test(robot.adapterName)) {
-          msg.send(`\`\`\`${table.toString()}\`\`\``);
+          msg.send(`\`\`\`\n${table.toString()}\n\`\`\``);
         } else {
           msg.send(table.toString());
         }

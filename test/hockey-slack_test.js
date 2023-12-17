@@ -113,6 +113,84 @@ describe('hubot-hockey for slack', () => {
     );
   });
 
+  it('responds with an in-intermission game and playoff odds', (done) => {
+    Date.now = () => Date.parse('Sat Dec 16 18:41:00 CST 2023');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/nsh/now')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-intermission.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot preds');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot preds'],
+            ['hubot', {
+              attachments: [
+                {
+                  author_icon: 'https://github.com/nhl.png',
+                  author_link: 'https://nhl.com',
+                  author_name: 'NHL.com',
+                  color: '#FFB81C',
+                  fallback: '12/16/2023 - Washington Capitals 0, Nashville Predators 1 (07:21 1st Intermission)',
+                  footer: 'Bridgestone Arena; TV: NHLN (N) | BSSO (H) | MNMT (A)',
+                  mrkdwn_in: [
+                    'text',
+                    'pretext',
+                  ],
+                  text: '```\n  Washington Capitals   0  \n  Nashville Predators   1  \n```',
+                  title: '12/16/2023 - 07:21 1st Intermission',
+                  title_link: 'https://www.nhl.com/gamecenter/2023020468',
+                },
+              ],
+            }],
+            [
+              'hubot',
+              {
+                attachments: [
+                  {
+                    author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
+                    author_link: 'https://moneypuck.com',
+                    author_name: 'MoneyPuck.com',
+                    color: '#FFB81C',
+                    fallback: 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%',
+                    fields: [
+                      {
+                        short: false,
+                        title: 'Make Playoffs',
+                        value: '67.5%',
+                      },
+                      {
+                        short: false,
+                        title: 'Win Stanley Cup',
+                        value: '4.2%',
+                      },
+                    ],
+                    thumb_url: 'http://peter-tanner.com/moneypuck/logos/NSH.png',
+                    title: 'Nashville Predators',
+                  },
+                ],
+              },
+            ],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
+
   it('responds with a future game and playoff odds', (done) => {
     Date.now = () => Date.parse('Tue Nov 8 08:00:00 CST 2023');
     nock('https://api-web.nhle.com')
@@ -143,7 +221,7 @@ describe('hubot-hockey for slack', () => {
                     author_link: 'https://nhl.com',
                     author_name: 'NHL.com',
                     color: '#FFB81C',
-                    fallback: '11/9/2023 - Nashville Predators 5-7-0, Winnipeg Jets 6-4-2 (7:00 pm CST)',
+                    fallback: '11/9/2023 - Nashville Predators (5-7-0), Winnipeg Jets (6-4-2) (7:00 pm CST)',
                     footer: 'Canada Life Centre; TV: BSSO (A) | TSN3 (H)',
                     mrkdwn_in: [
                       'text',
@@ -305,7 +383,7 @@ describe('hubot-hockey for slack', () => {
                     author_link: 'https://nhl.com',
                     author_name: 'NHL.com',
                     color: '#FFB81C',
-                    fallback: '11/20/2023 - Colorado Avalanche 11-5-0, Nashville Predators 6-10-0 (7:00 pm CST)',
+                    fallback: '11/20/2023 - Colorado Avalanche (11-5-0), Nashville Predators (6-10-0) (7:00 pm CST)',
                     footer: 'Bridgestone Arena; TV: BSSO (H) | ALT (A)',
                     mrkdwn_in: [
                       'text',
@@ -373,7 +451,7 @@ describe('hubot-hockey for slack', () => {
         try {
           expect(selfRoom.messages).to.eql([
             ['alice', '@hubot nhl'],
-            ['hubot', "```.-------------------------------------------------------.\n|                   Division Leaders                    |\n|-------------------------------------------------------|\n|         Team         | GP | W  | L | OT | PTS |  L10  |\n|----------------------|----|----|---|----|-----|-------|\n| Vegas Golden Knights | 13 | 11 | 1 |  1 |  23 | 8-1-1 |\n| Boston Bruins        | 12 | 10 | 1 |  1 |  21 | 8-1-1 |\n| New York Rangers     | 12 |  9 | 2 |  1 |  19 | 8-1-1 |\n| Dallas Stars         | 11 |  7 | 3 |  1 |  15 | 6-3-1 |\n'-------------------------------------------------------'```"],
+            ['hubot', "```\n.-------------------------------------------------------.\n|                   Division Leaders                    |\n|-------------------------------------------------------|\n|         Team         | GP | W  | L | OT | PTS |  L10  |\n|----------------------|----|----|---|----|-----|-------|\n| Vegas Golden Knights | 13 | 11 | 1 |  1 |  23 | 8-1-1 |\n| Boston Bruins        | 12 | 10 | 1 |  1 |  21 | 8-1-1 |\n| New York Rangers     | 12 |  9 | 2 |  1 |  19 | 8-1-1 |\n| Dallas Stars         | 11 |  7 | 3 |  1 |  15 | 6-3-1 |\n'-------------------------------------------------------'\n```"],
           ]);
           done();
         } catch (err) {
@@ -401,7 +479,7 @@ describe('hubot-hockey for slack', () => {
         try {
           expect(selfRoom.messages).to.eql([
             ['alice', '@hubot nhl central'],
-            ['hubot', "```.-----------------------------------------------------.\n|                  Central Standings                  |\n|-----------------------------------------------------|\n|        Team         | GP | W | L | OT | PTS |  L10  |\n|---------------------|----|---|---|----|-----|-------|\n| Dallas Stars        | 11 | 7 | 3 |  1 |  15 | 6-3-1 |\n| Colorado Avalanche  | 10 | 7 | 3 |  0 |  14 | 7-3-0 |\n| Winnipeg Jets       | 12 | 6 | 4 |  2 |  14 | 5-3-2 |\n| Minnesota Wild      | 12 | 5 | 5 |  2 |  12 | 4-4-2 |\n| Arizona Coyotes     | 11 | 5 | 5 |  1 |  11 | 4-5-1 |\n| St. Louis Blues     | 11 | 5 | 5 |  1 |  11 | 5-5-0 |\n| Nashville Predators | 11 | 5 | 6 |  0 |  10 | 5-5-0 |\n| Chicago Blackhawks  | 11 | 4 | 7 |  0 |   8 | 3-7-0 |\n'-----------------------------------------------------'```"],
+            ['hubot', "```\n.-----------------------------------------------------.\n|                  Central Standings                  |\n|-----------------------------------------------------|\n|        Team         | GP | W | L | OT | PTS |  L10  |\n|---------------------|----|---|---|----|-----|-------|\n| Dallas Stars        | 11 | 7 | 3 |  1 |  15 | 6-3-1 |\n| Colorado Avalanche  | 10 | 7 | 3 |  0 |  14 | 7-3-0 |\n| Winnipeg Jets       | 12 | 6 | 4 |  2 |  14 | 5-3-2 |\n| Minnesota Wild      | 12 | 5 | 5 |  2 |  12 | 4-4-2 |\n| Arizona Coyotes     | 11 | 5 | 5 |  1 |  11 | 4-5-1 |\n| St. Louis Blues     | 11 | 5 | 5 |  1 |  11 | 5-5-0 |\n| Nashville Predators | 11 | 5 | 6 |  0 |  10 | 5-5-0 |\n| Chicago Blackhawks  | 11 | 4 | 7 |  0 |   8 | 3-7-0 |\n'-----------------------------------------------------'\n```"],
           ]);
           done();
         } catch (err) {

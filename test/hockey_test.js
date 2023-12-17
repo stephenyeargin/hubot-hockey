@@ -65,6 +65,41 @@ describe('hubot-hockey', () => {
     );
   });
 
+  it('responds with an in-intermission game and playoff odds', (done) => {
+    Date.now = () => Date.parse('Sat Dec 16 18:41:00 CST 2023');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/nsh/now')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-intermission.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot preds');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot preds'],
+            ['hubot', '12/16/2023 - Bridgestone Arena; TV: NHLN (N) | BSSO (H) | MNMT (A)'],
+            ['hubot', '  Washington Capitals   0  \n  Nashville Predators   1  '],
+            ['hubot', '07:21 1st Intermission - https://www.nhl.com/gamecenter/2023020468'],
+            ['hubot', 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%'],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
+
   it('responds with a future game and playoff odds', (done) => {
     Date.now = () => Date.parse('Tue Nov 8 08:00:00 CST 2023');
     nock('https://api-web.nhle.com')
