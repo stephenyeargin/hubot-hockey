@@ -3,6 +3,7 @@
 //
 // Configuration:
 //   HUBOT_HOCKEY_EXT_STANDINGS - Show extended standings columns
+//   HUBOT_HOCKEY_HIDE_ODDS - Hide playoff odds
 //
 // Commands:
 //   hubot <team or city> - Get the latest game results
