@@ -2,10 +2,10 @@
 //   Get the latest game results, playoff odds, and standings for your NHL team.
 //
 // Configuration:
-//   None
+//   HUBOT_HOCKEY_EXT_STANDINGS - Show extended standings columns
 //
 // Commands:
-//   hubot <team or city> - Get the latest game results and playoff odds from MoneyPuck.com
+//   hubot <team or city> - Get the latest game results
 //   hubot nhl [division] - Show division leaders or division standings
 //
 // Author:
@@ -17,7 +17,6 @@ const AsciiTable = require('ascii-table');
 const leagueTeams = require('./teams.json');
 
 module.exports = (robot) => {
-  const strCapitalize = (str) => str.charAt(0).toUpperCase() + str.substring(1);
   const periodFormat = (periodDescriptor) => {
     if (periodDescriptor.type === 'SO') {
       return 'SO';
@@ -130,9 +129,9 @@ module.exports = (robot) => {
           break;
         case /discord/.test(robot.adapterName):
           output.push(`${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${howToWatch}`);
-          output.push(`\`\`\`${table.toString()}\`\`\``);
+          output.push(`\`\`\`\n${table.toString()}\n\`\`\``);
           output.push(`${gameStatus} - https://www.nhl.com/gamecenter/${game.id}`);
-          msg.send(output.join(''));
+          msg.send(output.join('\n'));
           break;
         default:
           msg.send(`${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${howToWatch}`);
@@ -145,33 +144,40 @@ module.exports = (robot) => {
       return cb;
     });
 
-  const getMoneyPuckData = (team, msg, cb) => {
+  const getMoneyPuckData = (team, msg) => {
     robot.logger.debug(team);
+
+    // Skip odds if environment variable set
+    if (process.env.HUBOT_HOCKEY_HIDE_ODDS) {
+      return;
+    }
 
     msg.http('https://moneypuck.com/moneypuck/simulations/simulations_recent.csv')
       .get()((err, res, body) => {
         // Catch errors
         if (err || (res.statusCode !== 200)) {
           msg.send('Cannot get your playoff odds right now.');
-          return cb();
+          return;
         }
 
         // Parse the CSV file into lines
-        return csvParser.parse(body, {}, (err1, output) => {
+        csvParser.parse(body, {}, (err1, output) => {
           if (err1) {
             msg.send(err1);
-            return cb;
+            return;
           }
 
           // Extract only appropriate row (all odds for given team)
           let odds = [];
 
           output.forEach((row) => {
-            if ((row[0] === 'ALL') && (row[1] === team.abbreviation)) { odds = row; }
+            if ((row[0] === 'ALL') && (row[1] === team.abbreviation)) {
+              odds = row;
+            }
           });
           if (!odds) {
             msg.send(`Could not find your odds for team ${team.abbreviation}`);
-            return cb;
+            return;
           }
 
           // Extract relevant columns
@@ -204,7 +210,7 @@ module.exports = (robot) => {
           // Bail if odds are irrelevant
           if (oddsParts.length === 0) {
             robot.logger.debug('No reason to show the odds.');
-            return cb();
+            return;
           }
 
           const fallback = `Odds to ${oddsParts.join(' / ')}`;
@@ -233,10 +239,6 @@ module.exports = (robot) => {
             default:
               msg.send(fallback);
           }
-          if (typeof cb === 'function') {
-            return cb();
-          }
-          return cb;
         });
       });
   };
@@ -252,24 +254,64 @@ module.exports = (robot) => {
   });
 
   // NHL Standings
-  robot.respond(/nhl\s?(atlantic|metropolitan|pacific|central)?\s?(?:standings)?/i, (msg) => {
+  robot.respond(/nhl\s?(.*)?\s?(?:standings)?/i, (msg) => {
     let tableTitle;
-    const division = msg.match[1] || '';
-    if (!division) {
+    let filter = msg.match[1] || '';
+    switch (filter.toLowerCase().trim()) {
+      case 'a':
+      case 'atlantic':
+        filter = 'Atlantic';
+        break;
+      case 'm':
+      case 'metro':
+      case 'metropolitan':
+        filter = 'Metropolitan';
+        break;
+      case 'p':
+      case 'pacific':
+        filter = 'Pacific';
+        break;
+      case 'c':
+      case 'central':
+        filter = 'Central';
+        break;
+      case 'w':
+      case 'west':
+      case 'western':
+        filter = 'Western';
+        break;
+      case 'e':
+      case 'east':
+      case 'eastern':
+        filter = 'Eastern';
+        break;
+      default:
+        filter = '';
+    }
+
+    // Set Table Title
+    if (!filter) {
       tableTitle = 'Division Leaders';
+    } else if (filter === 'Western' || filter === 'Eastern') {
+      tableTitle = `${filter} Conference Standings`;
     } else {
-      tableTitle = `${strCapitalize(division)} Standings`;
+      tableTitle = `${filter} Division Standings`;
     }
     const table = new AsciiTable(tableTitle);
-    table.setHeading([
+    const headingRow = [
       'Team',
       'GP',
       'W',
       'L',
       'OT',
       'PTS',
-      'L10',
-    ]);
+    ];
+    if (process.env.HUBOT_HOCKEY_EXT_STANDINGS) {
+      headingRow.push('P%');
+      headingRow.push('L10');
+      headingRow.push('STRK');
+    }
+    table.setHeading(headingRow);
     msg.http(`https://api-web.nhle.com/v1/standings/${moment().tz('America/Los_Angeles').format('YYYY-MM-DD')}`)
       .get()((err, res, body) => {
         // Catch errors
@@ -293,18 +335,23 @@ module.exports = (robot) => {
           });
         } else {
           // eslint-disable-next-line max-len
-          standings = json.standings.filter((t) => t.divisionName.toLowerCase() === division.toLowerCase());
+          standings = json.standings.filter((t) => t.divisionName === filter || t.conferenceName === filter);
         }
         standings.forEach((t) => {
-          table.addRow([
+          const row = [
             t.teamName.default,
             t.gamesPlayed,
             t.wins,
             t.losses,
             t.otLosses,
             t.points,
-            `${t.l10Wins}-${t.l10Losses}-${t.l10OtLosses}`,
-          ]);
+          ];
+          if (process.env.HUBOT_HOCKEY_EXT_STANDINGS) {
+            row.push(t.pointPctg.toFixed(3));
+            row.push(`${t.l10Wins}-${t.l10Losses}-${t.l10OtLosses}`);
+            row.push(`${t.streakCode}${t.streakCount}`);
+          }
+          table.addRow(row);
         });
 
         // Format based on adapter
