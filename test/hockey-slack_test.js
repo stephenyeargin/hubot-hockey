@@ -68,7 +68,11 @@ describe('hubot-hockey for slack', () => {
                       'text',
                       'pretext',
                     ],
-                    text: '```\n  Nashville Predators   2  \n  Calgary Flames        3  \n```',
+                    text:
+                    '```\n'
+                     + '  Nashville Predators   2  \n'
+                     + '  Calgary Flames        3  \n'
+                     + '```',
                     title: '11/7/2023 - 09:04 3rd',
                     title_link: 'https://www.nhl.com/gamecenter/2023020186',
                   },
@@ -147,7 +151,11 @@ describe('hubot-hockey for slack', () => {
                     'text',
                     'pretext',
                   ],
-                  text: '```\n  Washington Capitals   0  \n  Nashville Predators   1  \n```',
+                  text:
+                    '```\n'
+                    + '  Washington Capitals   0  \n'
+                    + '  Nashville Predators   1  \n'
+                    + '```',
                   title: '12/16/2023 - 07:21 1st Intermission',
                   title_link: 'https://www.nhl.com/gamecenter/2023020468',
                 },
@@ -227,7 +235,11 @@ describe('hubot-hockey for slack', () => {
                       'text',
                       'pretext',
                     ],
-                    text: '```\n  Nashville Predators (5-7-0)  \n  Winnipeg Jets (6-4-2)        \n```',
+                    text:
+                      '```\n'
+                       + '  Nashville Predators (5-7-0)  \n'
+                       + '  Winnipeg Jets (6-4-2)        \n'
+                       + '```',
                     title: '11/9/2023 - 7:00 pm CST',
                     title_link: 'https://www.nhl.com/gamecenter/2023020200',
                   },
@@ -308,7 +320,11 @@ describe('hubot-hockey for slack', () => {
                       'text',
                       'pretext',
                     ],
-                    text: '```\n  Nashville Predators   2  \n  Calgary Flames        4  \n```',
+                    text:
+                    '```\n'
+                     + '  Nashville Predators   2  \n'
+                     + '  Calgary Flames        4  \n'
+                     + '```',
                     title: '11/7/2023 - Final',
                     title_link: 'https://www.nhl.com/gamecenter/2023020186',
                   },
@@ -389,7 +405,11 @@ describe('hubot-hockey for slack', () => {
                       'text',
                       'pretext',
                     ],
-                    text: '```\n  Colorado Avalanche (11-5-0)   \n  Nashville Predators (6-10-0)  \n```',
+                    text:
+                      '```\n'
+                       + '  Colorado Avalanche (11-5-0)   \n'
+                       + '  Nashville Predators (6-10-0)  \n'
+                       + '```',
                     title: '11/20/2023 - 7:00 pm CST',
                     title_link: 'https://www.nhl.com/gamecenter/2023020275',
                   },
@@ -451,7 +471,21 @@ describe('hubot-hockey for slack', () => {
         try {
           expect(selfRoom.messages).to.eql([
             ['alice', '@hubot nhl'],
-            ['hubot', "```\n.-------------------------------------------------------.\n|                   Division Leaders                    |\n|-------------------------------------------------------|\n|         Team         | GP | W  | L | OT | PTS |  L10  |\n|----------------------|----|----|---|----|-----|-------|\n| Vegas Golden Knights | 13 | 11 | 1 |  1 |  23 | 8-1-1 |\n| Boston Bruins        | 12 | 10 | 1 |  1 |  21 | 8-1-1 |\n| New York Rangers     | 12 |  9 | 2 |  1 |  19 | 8-1-1 |\n| Dallas Stars         | 11 |  7 | 3 |  1 |  15 | 6-3-1 |\n'-------------------------------------------------------'\n```"],
+            [
+              'hubot',
+              '```\n'
+              + '.-----------------------------------------------.\n'
+              + '|               Division Leaders                |\n'
+              + '|-----------------------------------------------|\n'
+              + '|         Team         | GP | W  | L | OT | PTS |\n'
+              + '|----------------------|----|----|---|----|-----|\n'
+              + '| Vegas Golden Knights | 13 | 11 | 1 |  1 |  23 |\n'
+              + '| Boston Bruins        | 12 | 10 | 1 |  1 |  21 |\n'
+              + '| New York Rangers     | 12 |  9 | 2 |  1 |  19 |\n'
+              + '| Dallas Stars         | 11 |  7 | 3 |  1 |  15 |\n'
+              + "'-----------------------------------------------'\n"
+              + '```',
+            ],
           ]);
           done();
         } catch (err) {
@@ -479,7 +513,25 @@ describe('hubot-hockey for slack', () => {
         try {
           expect(selfRoom.messages).to.eql([
             ['alice', '@hubot nhl central'],
-            ['hubot', "```\n.-----------------------------------------------------.\n|                  Central Standings                  |\n|-----------------------------------------------------|\n|        Team         | GP | W | L | OT | PTS |  L10  |\n|---------------------|----|---|---|----|-----|-------|\n| Dallas Stars        | 11 | 7 | 3 |  1 |  15 | 6-3-1 |\n| Colorado Avalanche  | 10 | 7 | 3 |  0 |  14 | 7-3-0 |\n| Winnipeg Jets       | 12 | 6 | 4 |  2 |  14 | 5-3-2 |\n| Minnesota Wild      | 12 | 5 | 5 |  2 |  12 | 4-4-2 |\n| Arizona Coyotes     | 11 | 5 | 5 |  1 |  11 | 4-5-1 |\n| St. Louis Blues     | 11 | 5 | 5 |  1 |  11 | 5-5-0 |\n| Nashville Predators | 11 | 5 | 6 |  0 |  10 | 5-5-0 |\n| Chicago Blackhawks  | 11 | 4 | 7 |  0 |   8 | 3-7-0 |\n'-----------------------------------------------------'\n```"],
+            [
+              'hubot',
+              '```\n'
+              + '.---------------------------------------------.\n'
+              + '|         Central Division Standings          |\n'
+              + '|---------------------------------------------|\n'
+              + '|        Team         | GP | W | L | OT | PTS |\n'
+              + '|---------------------|----|---|---|----|-----|\n'
+              + '| Dallas Stars        | 11 | 7 | 3 |  1 |  15 |\n'
+              + '| Colorado Avalanche  | 10 | 7 | 3 |  0 |  14 |\n'
+              + '| Winnipeg Jets       | 12 | 6 | 4 |  2 |  14 |\n'
+              + '| Minnesota Wild      | 12 | 5 | 5 |  2 |  12 |\n'
+              + '| Arizona Coyotes     | 11 | 5 | 5 |  1 |  11 |\n'
+              + '| St. Louis Blues     | 11 | 5 | 5 |  1 |  11 |\n'
+              + '| Nashville Predators | 11 | 5 | 6 |  0 |  10 |\n'
+              + '| Chicago Blackhawks  | 11 | 4 | 7 |  0 |   8 |\n'
+              + "'---------------------------------------------'\n"
+              + '```',
+            ],
           ]);
           done();
         } catch (err) {
