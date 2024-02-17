@@ -244,7 +244,8 @@
       "regex": "(washington capitals|washington|capitals|wsh|caps)",
       "abbreviation": "WSH",
       "primary_color": "#",
-      "nhl_stats_api_id": 15
+      "nhl_stats_api_id": 15,
+      "time_zone": "America/New_York"
    },
    {
       "name": "Winnipeg Jets",
