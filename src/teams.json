@@ -147,8 +147,8 @@
     "time_zone": "America/New_York"
   },
   {
-    "name": "Philidelphia Flyers",
-    "regex": "(philidelphia flyers|philidelphia|flyers|phi|philly)",
+    "name": "Philadelphia Flyers",
+    "regex": "(philadelphia flyers|philadelphia|flyers|phi|philly)",
     "abbreviation": "PHI",
     "primary_color": "#F74902",
     "time_zone": "America/New_York"
@@ -213,7 +213,7 @@
     "name": "Washington Capitals",
     "regex": "(washington capitals|washington|capitals|wsh|caps)",
     "abbreviation": "WSH",
-    "primary_color": "#",
+    "primary_color": "#041E42",
     "time_zone": "America/New_York"
   },
   {
