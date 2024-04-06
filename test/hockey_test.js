@@ -477,6 +477,58 @@ describe('hubot-hockey', () => {
       500,
     );
   });
+
+  it('responds with conference standings with clinched positions', (done) => {
+    Date.now = () => Date.parse('Sat Apr 6 16:30:00 CST 2024');
+    nock('https://api-web.nhle.com')
+      .get('/v1/standings/2024-04-06')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings-clinch.json`);
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot nhl west');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot nhl west'],
+            [
+              'hubot',
+              '.--------------------------------------------------.\n'
+            + '|           Western Conference Standings           |\n'
+            + '|--------------------------------------------------|\n'
+            + '|          Team          | GP | W  | L  | OT | PTS |\n'
+            + '|------------------------|----|----|----|----|-----|\n'
+            + '| Dallas Stars (x)       | 76 | 48 | 19 |  9 | 105 |\n'
+            + '| Vancouver Canucks (x)  | 76 | 47 | 21 |  8 | 102 |\n'
+            + '| Colorado Avalanche (x) | 77 | 48 | 23 |  6 | 102 |\n'
+            + '| Winnipeg Jets (x)      | 76 | 46 | 24 |  6 |  98 |\n'
+            + '| Edmonton Oilers (x)    | 75 | 46 | 24 |  5 |  97 |\n'
+            + '| Nashville Predators    | 76 | 44 | 28 |  4 |  92 |\n'
+            + '| Vegas Golden Knights   | 76 | 42 | 26 |  8 |  92 |\n'
+            + '| Los Angeles Kings      | 76 | 40 | 25 | 11 |  91 |\n'
+            + '| St. Louis Blues        | 76 | 40 | 32 |  4 |  84 |\n'
+            + '| Minnesota Wild         | 75 | 36 | 30 |  9 |  81 |\n'
+            + '| Seattle Kraken (e)     | 76 | 32 | 31 | 13 |  77 |\n'
+            + '| Calgary Flames (e)     | 75 | 34 | 36 |  5 |  73 |\n'
+            + '| Arizona Coyotes (e)    | 76 | 32 | 39 |  5 |  69 |\n'
+            + '| Anaheim Ducks (e)      | 77 | 25 | 48 |  4 |  54 |\n'
+            + '| Chicago Blackhawks (e) | 75 | 22 | 48 |  5 |  49 |\n'
+            + '| San Jose Sharks (e)    | 75 | 17 | 50 |  8 |  42 |\n'
+            + '\'--------------------------------------------------\'',
+            ],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
 });
 
 describe('hubot-hockey HUBOT_HOCKEY_EXT_STANDINGS=true', () => {
