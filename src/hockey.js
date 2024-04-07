@@ -350,7 +350,7 @@ module.exports = (robot) => {
         }
         standings.forEach((t) => {
           let clinchIndicator = t.clinchIndicator ? ` (${t.clinchIndicator})` : '';
-          clinchIndicator = isEliminated(t, standings) ? ' (e)' : clinchIndicator;
+          clinchIndicator = isEliminated(t, json.standings) ? ' (e)' : clinchIndicator;
           const row = [
             `${t.teamName.default}${clinchIndicator}`,
             t.gamesPlayed,
