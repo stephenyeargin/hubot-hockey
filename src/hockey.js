@@ -244,6 +244,16 @@ module.exports = (robot) => {
       });
   };
 
+  const isEliminated = (team, standings) => {
+    const lastWildcard = standings
+      .find((t) => t.conferenceAbbrev === team.conferenceAbbrev && t.wildcardSequence === 2) || {};
+    const maxPoints = ((82 - team.gamesPlayed) * 2) + team.points;
+    if (lastWildcard.points > maxPoints) {
+      return true;
+    }
+    return false;
+  };
+
   const registerDefaultListener = (team) => {
     const statsRegEx = '_team_regex_$';
     robot.respond(new RegExp(statsRegEx.replace('_team_regex_', team.regex), 'i'), (msg) => getNhlStatsData(team, msg, () => getMoneyPuckData(team, msg)));
@@ -339,8 +349,10 @@ module.exports = (robot) => {
           standings = json.standings.filter((t) => t.divisionName === filter || t.conferenceName === filter);
         }
         standings.forEach((t) => {
+          let clinchIndicator = t.clinchIndicator ? ` (${t.clinchIndicator})` : '';
+          clinchIndicator = isEliminated(t, json.standings) ? ' (e)' : clinchIndicator;
           const row = [
-            t.teamName.default,
+            `${t.teamName.default}${clinchIndicator}`,
             t.gamesPlayed,
             t.wins,
             t.losses,
