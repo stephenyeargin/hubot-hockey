@@ -43,8 +43,22 @@ describe('hubot-hockey for slack', () => {
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-in-progress.json`);
 
     nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-11-07 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    nock('https://www.sportsclubstats.com')
+      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
+      .replyWithFile(
+        200,
+        `${__dirname}/fixtures/sports-club-stats.json`,
+        {
+          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
+        },
+      );
 
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
@@ -84,11 +98,33 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
+                    author_icon: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
+                    author_link: 'https://sportsclubstats.com',
+                    author_name: 'Sports Club Stats',
+                    color: '#FFB81C',
+                    fallback: 'Sports Club Stats: 77.7% to Make Playoffs',
+                    fields: [
+                      {
+                        sort: true,
+                        title: 'Make Playoffs',
+                        value: '77.7%',
+                      },
+                    ],
+                    thumb_url: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
+                  },
+                ],
+              },
+            ],
+            [
+              'hubot',
+              {
+                attachments: [
+                  {
                     author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
-                    fallback: 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%',
+                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
                     fields: [
                       {
                         short: false,
@@ -128,8 +164,22 @@ describe('hubot-hockey for slack', () => {
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-intermission.json`);
 
     nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-12-16 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    nock('https://www.sportsclubstats.com')
+      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
+      .replyWithFile(
+        200,
+        `${__dirname}/fixtures/sports-club-stats.json`,
+        {
+          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
+        },
+      );
 
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
@@ -166,11 +216,33 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
+                    author_icon: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
+                    author_link: 'https://sportsclubstats.com',
+                    author_name: 'Sports Club Stats',
+                    color: '#FFB81C',
+                    fallback: 'Sports Club Stats: 77.7% to Make Playoffs',
+                    fields: [
+                      {
+                        sort: true,
+                        title: 'Make Playoffs',
+                        value: '77.7%',
+                      },
+                    ],
+                    thumb_url: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
+                  },
+                ],
+              },
+            ],
+            [
+              'hubot',
+              {
+                attachments: [
+                  {
                     author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
-                    fallback: 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%',
+                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
                     fields: [
                       {
                         short: false,
@@ -210,8 +282,22 @@ describe('hubot-hockey for slack', () => {
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-future.json`);
 
     nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-11-07 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    nock('https://www.sportsclubstats.com')
+      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
+      .replyWithFile(
+        200,
+        `${__dirname}/fixtures/sports-club-stats.json`,
+        {
+          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
+        },
+      );
 
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
@@ -251,11 +337,33 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
+                    author_icon: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
+                    author_link: 'https://sportsclubstats.com',
+                    author_name: 'Sports Club Stats',
+                    color: '#FFB81C',
+                    fallback: 'Sports Club Stats: 77.7% to Make Playoffs',
+                    fields: [
+                      {
+                        sort: true,
+                        title: 'Make Playoffs',
+                        value: '77.7%',
+                      },
+                    ],
+                    thumb_url: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
+                  },
+                ],
+              },
+            ],
+            [
+              'hubot',
+              {
+                attachments: [
+                  {
                     author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
-                    fallback: 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%',
+                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
                     fields: [
                       {
                         short: false,
@@ -295,8 +403,22 @@ describe('hubot-hockey for slack', () => {
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-completed.json`);
 
     nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-11-07 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    nock('https://www.sportsclubstats.com')
+      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
+      .replyWithFile(
+        200,
+        `${__dirname}/fixtures/sports-club-stats.json`,
+        {
+          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
+        },
+      );
 
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
@@ -336,11 +458,33 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
+                    author_icon: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
+                    author_link: 'https://sportsclubstats.com',
+                    author_name: 'Sports Club Stats',
+                    color: '#FFB81C',
+                    fallback: 'Sports Club Stats: 77.7% to Make Playoffs',
+                    fields: [
+                      {
+                        sort: true,
+                        title: 'Make Playoffs',
+                        value: '77.7%',
+                      },
+                    ],
+                    thumb_url: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
+                  },
+                ],
+              },
+            ],
+            [
+              'hubot',
+              {
+                attachments: [
+                  {
                     author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
-                    fallback: 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%',
+                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
                     fields: [
                       {
                         short: false,
@@ -380,8 +524,22 @@ describe('hubot-hockey for slack', () => {
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-pregame.json`);
 
     nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-11-20 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    nock('https://www.sportsclubstats.com')
+      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
+      .replyWithFile(
+        200,
+        `${__dirname}/fixtures/sports-club-stats.json`,
+        {
+          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
+        },
+      );
 
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
@@ -421,11 +579,33 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
+                    author_icon: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
+                    author_link: 'https://sportsclubstats.com',
+                    author_name: 'Sports Club Stats',
+                    color: '#FFB81C',
+                    fallback: 'Sports Club Stats: 77.7% to Make Playoffs',
+                    fields: [
+                      {
+                        sort: true,
+                        title: 'Make Playoffs',
+                        value: '77.7%',
+                      },
+                    ],
+                    thumb_url: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
+                  },
+                ],
+              },
+            ],
+            [
+              'hubot',
+              {
+                attachments: [
+                  {
                     author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
-                    fallback: 'Odds to Make Playoffs: 67.5% / Win Stanley Cup: 4.2%',
+                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
                     fields: [
                       {
                         short: false,

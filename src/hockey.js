@@ -7,7 +7,7 @@
 //
 // Commands:
 //   hubot <team or city> - Get the latest game results
-//   hubot nhl [division] - Show division leaders or division standings
+//   hubot nhl [<division>|<conference>] - Show division leaders or division / conference standings
 //
 // Author:
 //   stephenyeargin
@@ -37,7 +37,7 @@ module.exports = (robot) => {
     }
   };
 
-  const getNhlStatsData = (team, msg, cb) => msg.http(`https://api-web.nhle.com/v1/scoreboard/${team.abbreviation.toLowerCase()}/now`)
+  const postGameResults = (team, msg, cb) => msg.http(`https://api-web.nhle.com/v1/scoreboard/${team.abbreviation.toLowerCase()}/now`)
     .get()((err, res, body) => {
       let gameStatus;
       if (err) {
@@ -145,7 +145,75 @@ module.exports = (robot) => {
       return cb;
     });
 
-  const getMoneyPuckData = (team, msg) => {
+  const postSportsClubStatsOdds = (team, msg) => {
+    // Skip odds if environment variable set
+    if (process.env.HUBOT_HOCKEY_HIDE_ODDS) {
+      return;
+    }
+
+    msg.http('https://www.sportsclubstats.com/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
+      .get()((err, res, body) => {
+        // Catch errors
+        if (err || (res.statusCode !== 200)) {
+          robot.logger.error(err);
+          msg.send('Cannot get your playoff odds right now.');
+          return;
+        }
+
+        // Skip if odds are stale
+        const date = moment(new Date(res.headers['last-modified'].trim()), 'YYYY-MM-DD');
+        if (date.diff(moment(), 'day') < -1) {
+          robot.logger.info(`Odds are stale: ${res.headers['last-modified']}`);
+          return;
+        }
+
+        const json = JSON.parse(body);
+        const history = json.data.find((d) => d.label === team.name);
+        if (!history) {
+          msg.send(`Could not find your odds for team ${team.name}`);
+          return;
+        }
+        const makePlayoffs = history.data[history.data.length - 1];
+        if (makePlayoffs === 0) {
+          robot.logger.info('Odds are zero.');
+          return;
+        }
+
+        const fallback = `Sports Club Stats: ${makePlayoffs.toFixed(1)}% to Make Playoffs`;
+
+        // Say it
+        switch (true) {
+          case /slack/.test(robot.adapterName):
+            msg.send({
+              attachments: [
+                {
+                  author_icon: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
+                  author_link: 'https://sportsclubstats.com',
+                  author_name: 'Sports Club Stats',
+                  fallback,
+                  thumb_url: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
+                  color: team.primary_color,
+                  fields: [
+                    {
+                      title: 'Make Playoffs',
+                      value: `${makePlayoffs.toFixed(1)}%`,
+                      sort: true,
+                    },
+                  ],
+                },
+              ],
+            });
+            break;
+          case /discord/.test(robot.adapterName):
+            msg.send(`__**SportsClubStats.com**__\n**Make Playoffs:** ${makePlayoffs.toFixed(1)}%`);
+            break;
+          default:
+            msg.send(fallback);
+        }
+      });
+  };
+
+  const postMoneyPuckOdds = (team, msg) => {
     robot.logger.debug(team);
 
     // Skip odds if environment variable set
@@ -153,94 +221,111 @@ module.exports = (robot) => {
       return;
     }
 
-    msg.http('https://moneypuck.com/moneypuck/simulations/simulations_recent.csv')
-      .get()((err, res, body) => {
+    msg.http('https://moneypuck.com/moneypuck/simulations/update_date.txt')
+      .get()((err1, res1, body1) => {
         // Catch errors
-        if (err || (res.statusCode !== 200)) {
+        if (err1 || (res1.statusCode !== 200)) {
+          robot.logger.error(err1);
           msg.send('Cannot get your playoff odds right now.');
           return;
         }
 
-        // Parse the CSV file into lines
-        csvParser.parse(body, {}, (err1, output) => {
-          if (err1) {
-            msg.send(err1);
-            return;
-          }
+        // Skip if odds are stale
+        const date = moment(body1.trim(), 'YYYY-MM-DD');
+        if (date.diff(moment(), 'day') < -1) {
+          return;
+        }
 
-          // Extract only appropriate row (all odds for given team)
-          let odds = [];
-
-          output.forEach((row) => {
-            if ((row[0] === 'ALL') && (row[1] === team.abbreviation)) {
-              odds = row;
+        msg.http('https://moneypuck.com/moneypuck/simulations/simulations_recent.csv')
+          .get()((err2, res2, body2) => {
+            // Catch errors
+            if (err2 || (res2.statusCode !== 200)) {
+              robot.logger.error(err2);
+              msg.send('Cannot get your playoff odds right now.');
+              return;
             }
-          });
-          if (!odds) {
-            msg.send(`Could not find your odds for team ${team.abbreviation}`);
-            return;
-          }
 
-          // Extract relevant columns
-          const makePlayoffs = odds[output[0].indexOf('madePlayoffs')] * 100;
-          const winCup = odds[output[0].indexOf('wonCup')] * 100;
+            // Parse the CSV file into lines
+            csvParser.parse(body2, {}, (csvErr, output) => {
+              if (csvErr) {
+                msg.send(csvErr);
+                return;
+              }
 
-          const oddsParts = [];
-          const slackFields = [];
-          const discordFields = [];
-          if ((makePlayoffs > 0) && (makePlayoffs < 100)) {
-            oddsParts.push(`Make Playoffs: ${makePlayoffs.toFixed(1)}%`);
-            slackFields.push({
-              title: 'Make Playoffs',
-              value: `${makePlayoffs.toFixed(1)}%`,
-              short: false,
-            });
-            discordFields.push(`**Make Playoffs:** ${makePlayoffs.toFixed(1)}%`);
-          }
+              // Extract only appropriate row (all odds for given team)
+              let odds = [];
 
-          if ((winCup > 0) && (winCup < 100)) {
-            oddsParts.push(`Win Stanley Cup: ${winCup.toFixed(1)}%`);
-            slackFields.push({
-              title: 'Win Stanley Cup',
-              value: `${winCup.toFixed(1)}%`,
-              short: false,
-            });
-            discordFields.push(`**Win Stanley Cup:** ${winCup.toFixed(1)}%`);
-          }
-
-          // Bail if odds are irrelevant
-          if (oddsParts.length === 0) {
-            robot.logger.debug('No reason to show the odds.');
-            return;
-          }
-
-          const fallback = `Odds to ${oddsParts.join(' / ')}`;
-
-          // Say it
-          switch (true) {
-            case /slack/.test(robot.adapterName):
-              msg.send({
-                attachments: [
-                  {
-                    author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
-                    author_link: 'https://moneypuck.com',
-                    author_name: 'MoneyPuck.com',
-                    fallback,
-                    thumb_url: `http://peter-tanner.com/moneypuck/logos/${team.abbreviation}.png`,
-                    title: team.name,
-                    color: team.primary_color,
-                    fields: slackFields,
-                  },
-                ],
+              output.forEach((row) => {
+                if ((row[0] === 'ALL') && (row[1] === team.abbreviation)) {
+                  odds = row;
+                }
               });
-              break;
-            case /discord/.test(robot.adapterName):
-              msg.send(`__**MoneyPuck.com**__\n${discordFields.join('\n')}`);
-              break;
-            default:
-              msg.send(fallback);
-          }
-        });
+              if (!odds) {
+                msg.send(`Could not find your odds for team ${team.abbreviation}`);
+                return;
+              }
+
+              // Extract relevant columns
+              const makePlayoffs = odds[output[0].indexOf('madePlayoffs')] * 100;
+              const winCup = odds[output[0].indexOf('wonCup')] * 100;
+
+              const oddsParts = [];
+              const slackFields = [];
+              const discordFields = [];
+              if ((makePlayoffs > 0) && (makePlayoffs < 100)) {
+                oddsParts.push(`${makePlayoffs.toFixed(1)}% to Make Playoffs`);
+                slackFields.push({
+                  title: 'Make Playoffs',
+                  value: `${makePlayoffs.toFixed(1)}%`,
+                  short: false,
+                });
+                discordFields.push(`**Make Playoffs:** ${makePlayoffs.toFixed(1)}%`);
+              }
+
+              if ((winCup > 0) && (winCup < 100)) {
+                oddsParts.push(`${winCup.toFixed(1)}% to Win Stanley Cup`);
+                slackFields.push({
+                  title: 'Win Stanley Cup',
+                  value: `${winCup.toFixed(1)}%`,
+                  short: false,
+                });
+                discordFields.push(`**Win Stanley Cup:** ${winCup.toFixed(1)}%`);
+              }
+
+              // Bail if odds are irrelevant
+              if (oddsParts.length === 0) {
+                robot.logger.debug('No reason to show the odds.');
+                return;
+              }
+
+              const fallback = `MoneyPuck: ${oddsParts.join(' / ')}`;
+
+              // Say it
+              switch (true) {
+                case /slack/.test(robot.adapterName):
+                  msg.send({
+                    attachments: [
+                      {
+                        author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
+                        author_link: 'https://moneypuck.com',
+                        author_name: 'MoneyPuck.com',
+                        fallback,
+                        thumb_url: `http://peter-tanner.com/moneypuck/logos/${team.abbreviation}.png`,
+                        title: team.name,
+                        color: team.primary_color,
+                        fields: slackFields,
+                      },
+                    ],
+                  });
+                  break;
+                case /discord/.test(robot.adapterName):
+                  msg.send(`__**MoneyPuck.com**__\n${discordFields.join('\n')}`);
+                  break;
+                default:
+                  msg.send(fallback);
+              }
+            });
+          });
       });
   };
 
@@ -256,7 +341,10 @@ module.exports = (robot) => {
 
   const registerDefaultListener = (team) => {
     const statsRegEx = '_team_regex_$';
-    robot.respond(new RegExp(statsRegEx.replace('_team_regex_', team.regex), 'i'), (msg) => getNhlStatsData(team, msg, () => getMoneyPuckData(team, msg)));
+    robot.respond(new RegExp(statsRegEx.replace('_team_regex_', team.regex), 'i'), (msg) => postGameResults(team, msg, () => Promise.all([
+      postSportsClubStatsOdds(team, msg),
+      postMoneyPuckOdds(team, msg),
+    ])));
   };
 
   // Loop through teams and create multiple listeners
