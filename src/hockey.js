@@ -151,12 +151,11 @@ module.exports = (robot) => {
       return;
     }
 
-    msg.http('https://www.sportsclubstats.com/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
+    msg.http('http://www.sportsclubstats.com/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
       .get()((err, res, body) => {
         // Catch errors
         if (err || (res.statusCode !== 200)) {
           robot.logger.error(err);
-          msg.send('Cannot get your playoff odds right now.');
           return;
         }
 
@@ -226,7 +225,6 @@ module.exports = (robot) => {
         // Catch errors
         if (err1 || (res1.statusCode !== 200)) {
           robot.logger.error(err1);
-          msg.send('Cannot get your playoff odds right now.');
           return;
         }
 
@@ -241,7 +239,6 @@ module.exports = (robot) => {
             // Catch errors
             if (err2 || (res2.statusCode !== 200)) {
               robot.logger.error(err2);
-              msg.send('Cannot get your playoff odds right now.');
               return;
             }
 
@@ -416,7 +413,6 @@ module.exports = (robot) => {
         // Catch errors
         if (err || (res.statusCode !== 200)) {
           robot.logger.error(err);
-          msg.send('Cannot get standings right now.');
           return;
         }
         const json = JSON.parse(body);

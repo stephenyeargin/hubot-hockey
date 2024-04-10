@@ -50,7 +50,7 @@ describe('hubot-hockey for discord', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    nock('https://www.sportsclubstats.com')
+    nock('http://www.sportsclubstats.com')
       .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
       .replyWithFile(
         200,
