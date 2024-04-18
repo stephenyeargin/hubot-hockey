@@ -701,6 +701,58 @@ describe('hubot-hockey', () => {
       500,
     );
   });
+
+  it('responds with conference standings and resolves tied records', (done) => {
+    Date.now = () => Date.parse('Sat Apr 6 16:30:00 CST 2024');
+    nock('https://api-web.nhle.com')
+      .get('/v1/standings/2024-04-06')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings-tie.json`);
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot nhl east');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot nhl east'],
+            [
+              'hubot',
+              '.-----------------------------------------------------.\n'
+            + '|            Eastern Conference Standings             |\n'
+            + '|-----------------------------------------------------|\n'
+            + '|           Team            | GP | W  | L  | OT | PTS |\n'
+            + '|---------------------------|----|----|----|----|-----|\n'
+            + '| New York Rangers (p)      | 82 | 55 | 23 |  4 | 114 |\n'
+            + '| Carolina Hurricanes (x)   | 82 | 52 | 23 |  7 | 111 |\n'
+            + '| Florida Panthers (y)      | 82 | 52 | 24 |  6 | 110 |\n'
+            + '| Boston Bruins (x)         | 82 | 47 | 20 | 15 | 109 |\n'
+            + '| Toronto Maple Leafs (x)   | 82 | 46 | 26 | 10 | 102 |\n'
+            + '| Tampa Bay Lightning (x)   | 82 | 45 | 29 |  8 |  98 |\n'
+            + '| New York Islanders (x)    | 82 | 39 | 27 | 16 |  94 |\n'
+            + '| Washington Capitals (x)   | 82 | 40 | 31 | 11 |  91 |\n'
+            + '| Detroit Red Wings (e)     | 82 | 41 | 32 |  9 |  91 |\n'
+            + '| Pittsburgh Penguins (e)   | 82 | 38 | 32 | 12 |  88 |\n'
+            + '| Philadelphia Flyers (e)   | 82 | 38 | 33 | 11 |  87 |\n'
+            + '| Buffalo Sabres (e)        | 82 | 39 | 37 |  6 |  84 |\n'
+            + '| New Jersey Devils (e)     | 82 | 38 | 39 |  5 |  81 |\n'
+            + '| Ottawa Senators (e)       | 82 | 37 | 41 |  4 |  78 |\n'
+            + '| Montréal Canadiens (e)    | 82 | 30 | 36 | 16 |  76 |\n'
+            + '| Columbus Blue Jackets (e) | 82 | 27 | 43 | 12 |  66 |\n'
+            + '\'-----------------------------------------------------\'',
+            ],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
 });
 
 describe('hubot-hockey HUBOT_HOCKEY_EXT_STANDINGS=true', () => {

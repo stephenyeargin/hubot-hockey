@@ -333,6 +333,14 @@ module.exports = (robot) => {
     if (lastWildcard.points > maxPoints) {
       return true;
     }
+    if (lastWildcard.points === maxPoints) {
+      if (team.regulationWins < lastWildcard.regulationWins) {
+        return true;
+      }
+      if (team.regulationPlusOtWins < lastWildcard.regulationPlusOtWins) {
+        return true;
+      }
+    }
     return false;
   };
 
