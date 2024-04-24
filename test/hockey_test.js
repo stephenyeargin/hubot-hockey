@@ -69,7 +69,7 @@ describe('hubot-hockey', () => {
             [
               'hubot',
               '  Nashville Predators   2  \n'
-              + '  Calgary Flames        3  ',
+            + '  Calgary Flames        3  ',
             ],
             ['hubot', '09:04 3rd - https://www.nhl.com/gamecenter/2023020186'],
             ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
@@ -123,7 +123,7 @@ describe('hubot-hockey', () => {
             [
               'hubot',
               '  Washington Capitals   0  \n'
-              + '  Nashville Predators   1  ',
+            + '  Nashville Predators   1  ',
             ],
             ['hubot', '07:21 1st Intermission - https://www.nhl.com/gamecenter/2023020468'],
             ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
@@ -177,7 +177,7 @@ describe('hubot-hockey', () => {
             [
               'hubot',
               '  Nashville Predators (5-7-0)  \n'
-              + '  Winnipeg Jets (6-4-2)        ',
+            + '  Winnipeg Jets (6-4-2)        ',
             ],
             ['hubot', '7:00 pm CST - https://www.nhl.com/gamecenter/2023020200'],
             ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
@@ -231,7 +231,7 @@ describe('hubot-hockey', () => {
             [
               'hubot',
               '  Nashville Predators   2  \n'
-              + '  Calgary Flames        4  ',
+            + '  Calgary Flames        4  ',
             ],
             ['hubot', 'Final - https://www.nhl.com/gamecenter/2023020186'],
             ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
@@ -339,11 +339,121 @@ describe('hubot-hockey', () => {
             [
               'hubot',
               '  Nashville Predators   6  \n'
-              + '  Carolina Hurricanes   5  ',
+            + '  Carolina Hurricanes   5  ',
             ],
             ['hubot', '04:25 OT - https://www.nhl.com/gamecenter/2023020455'],
             ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
             ['hubot', 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup'],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
+
+  it('responds with a future playoff game and series status', (done) => {
+    Date.now = () => Date.parse('Tue Apr 23 12:00:00 CST 2024');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/nsh/now')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-future-playoff.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-04-23 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    nock('http://www.sportsclubstats.com')
+      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
+      .replyWithFile(
+        200,
+        `${__dirname}/fixtures/sports-club-stats.json`,
+        {
+          'last-modified': 'Sun, 21 Apr 2024 10:28:00 GMT',
+        },
+      );
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot preds');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot preds'],
+            ['hubot', '4/23/2024 - Rogers Arena; TV: ESPN2 (N) | SN (N) | TVAS2 (N) | BSSO (A)'],
+            [
+              'hubot',
+              '  Nashville Predators  \n'
+            + '  Vancouver Canucks    ',
+            ],
+            [
+              'hubot',
+              '9:00 pm CDT - R1 Game 2 (VAN 1 - NSH 0) - https://www.nhl.com/gamecenter/2023030172',
+            ],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
+
+  it('responds with a completed playoff game and series status', (done) => {
+    Date.now = () => Date.parse('Tue Apr 24 9:00:00 CST 2024');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/nsh/now')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-completed-playoff.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-04-23 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    nock('http://www.sportsclubstats.com')
+      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
+      .replyWithFile(
+        200,
+        `${__dirname}/fixtures/sports-club-stats.json`,
+        {
+          'last-modified': 'Sun, 21 Apr 2024 10:28:00 GMT',
+        },
+      );
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot preds');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot preds'],
+            ['hubot', '4/23/2024 - Rogers Arena'],
+            [
+              'hubot',
+              '  Nashville Predators   4  \n'
+            + '  Vancouver Canucks     1  ',
+            ],
+            [
+              'hubot',
+              'Final - R1 Game 2 (VAN 1 - NSH 1) - https://www.nhl.com/gamecenter/2023030172',
+            ],
           ]);
           done();
         } catch (err) {
@@ -534,15 +644,15 @@ describe('hubot-hockey', () => {
             [
               'hubot',
               '.-----------------------------------------------.\n'
-              + '|               Division Leaders                |\n'
-              + '|-----------------------------------------------|\n'
-              + '|         Team         | GP | W  | L | OT | PTS |\n'
-              + '|----------------------|----|----|---|----|-----|\n'
-              + '| Vegas Golden Knights | 13 | 11 | 1 |  1 |  23 |\n'
-              + '| Boston Bruins        | 12 | 10 | 1 |  1 |  21 |\n'
-              + '| New York Rangers     | 12 |  9 | 2 |  1 |  19 |\n'
-              + '| Dallas Stars         | 11 |  7 | 3 |  1 |  15 |\n'
-              + "'-----------------------------------------------'",
+            + '|               Division Leaders                |\n'
+            + '|-----------------------------------------------|\n'
+            + '|         Team         | GP | W  | L | OT | PTS |\n'
+            + '|----------------------|----|----|---|----|-----|\n'
+            + '| Vegas Golden Knights | 13 | 11 | 1 |  1 |  23 |\n'
+            + '| Boston Bruins        | 12 | 10 | 1 |  1 |  21 |\n'
+            + '| New York Rangers     | 12 |  9 | 2 |  1 |  19 |\n'
+            + '| Dallas Stars         | 11 |  7 | 3 |  1 |  15 |\n'
+            + "'-----------------------------------------------'",
             ],
           ]);
           done();
@@ -574,19 +684,19 @@ describe('hubot-hockey', () => {
             [
               'hubot',
               '.---------------------------------------------.\n'
-              + '|         Central Division Standings          |\n'
-              + '|---------------------------------------------|\n'
-              + '|        Team         | GP | W | L | OT | PTS |\n'
-              + '|---------------------|----|---|---|----|-----|\n'
-              + '| Dallas Stars        | 11 | 7 | 3 |  1 |  15 |\n'
-              + '| Colorado Avalanche  | 10 | 7 | 3 |  0 |  14 |\n'
-              + '| Winnipeg Jets       | 12 | 6 | 4 |  2 |  14 |\n'
-              + '| Minnesota Wild      | 12 | 5 | 5 |  2 |  12 |\n'
-              + '| Arizona Coyotes     | 11 | 5 | 5 |  1 |  11 |\n'
-              + '| St. Louis Blues     | 11 | 5 | 5 |  1 |  11 |\n'
-              + '| Nashville Predators | 11 | 5 | 6 |  0 |  10 |\n'
-              + '| Chicago Blackhawks  | 11 | 4 | 7 |  0 |   8 |\n'
-              + "'---------------------------------------------'",
+            + '|         Central Division Standings          |\n'
+            + '|---------------------------------------------|\n'
+            + '|        Team         | GP | W | L | OT | PTS |\n'
+            + '|---------------------|----|---|---|----|-----|\n'
+            + '| Dallas Stars        | 11 | 7 | 3 |  1 |  15 |\n'
+            + '| Colorado Avalanche  | 10 | 7 | 3 |  0 |  14 |\n'
+            + '| Winnipeg Jets       | 12 | 6 | 4 |  2 |  14 |\n'
+            + '| Minnesota Wild      | 12 | 5 | 5 |  2 |  12 |\n'
+            + '| Arizona Coyotes     | 11 | 5 | 5 |  1 |  11 |\n'
+            + '| St. Louis Blues     | 11 | 5 | 5 |  1 |  11 |\n'
+            + '| Nashville Predators | 11 | 5 | 6 |  0 |  10 |\n'
+            + '| Chicago Blackhawks  | 11 | 4 | 7 |  0 |   8 |\n'
+            + "'---------------------------------------------'",
             ],
           ]);
           done();
@@ -618,27 +728,27 @@ describe('hubot-hockey', () => {
             [
               'hubot',
               '.------------------------------------------------.\n'
-              + '|          Western Conference Standings          |\n'
-              + '|------------------------------------------------|\n'
-              + '|         Team         | GP | W  | L  | OT | PTS |\n'
-              + '|----------------------|----|----|----|----|-----|\n'
-              + '| Vegas Golden Knights | 13 | 11 |  1 |  1 |  23 |\n'
-              + '| Vancouver Canucks    | 12 |  9 |  2 |  1 |  19 |\n'
-              + '| Los Angeles Kings    | 11 |  7 |  2 |  2 |  16 |\n'
-              + '| Dallas Stars         | 11 |  7 |  3 |  1 |  15 |\n'
-              + '| Colorado Avalanche   | 10 |  7 |  3 |  0 |  14 |\n'
-              + '| Anaheim Ducks        | 11 |  7 |  4 |  0 |  14 |\n'
-              + '| Winnipeg Jets        | 12 |  6 |  4 |  2 |  14 |\n'
-              + '| Minnesota Wild       | 12 |  5 |  5 |  2 |  12 |\n'
-              + '| Arizona Coyotes      | 11 |  5 |  5 |  1 |  11 |\n'
-              + '| St. Louis Blues      | 11 |  5 |  5 |  1 |  11 |\n'
-              + '| Nashville Predators  | 11 |  5 |  6 |  0 |  10 |\n'
-              + '| Seattle Kraken       | 12 |  4 |  6 |  2 |  10 |\n'
-              + '| Chicago Blackhawks   | 11 |  4 |  7 |  0 |   8 |\n'
-              + '| Calgary Flames       | 11 |  3 |  7 |  1 |   7 |\n'
-              + '| Edmonton Oilers      | 11 |  2 |  8 |  1 |   5 |\n'
-              + '| San Jose Sharks      | 11 |  0 | 10 |  1 |   1 |\n'
-              + "'------------------------------------------------'",
+            + '|          Western Conference Standings          |\n'
+            + '|------------------------------------------------|\n'
+            + '|         Team         | GP | W  | L  | OT | PTS |\n'
+            + '|----------------------|----|----|----|----|-----|\n'
+            + '| Vegas Golden Knights | 13 | 11 |  1 |  1 |  23 |\n'
+            + '| Vancouver Canucks    | 12 |  9 |  2 |  1 |  19 |\n'
+            + '| Los Angeles Kings    | 11 |  7 |  2 |  2 |  16 |\n'
+            + '| Dallas Stars         | 11 |  7 |  3 |  1 |  15 |\n'
+            + '| Colorado Avalanche   | 10 |  7 |  3 |  0 |  14 |\n'
+            + '| Anaheim Ducks        | 11 |  7 |  4 |  0 |  14 |\n'
+            + '| Winnipeg Jets        | 12 |  6 |  4 |  2 |  14 |\n'
+            + '| Minnesota Wild       | 12 |  5 |  5 |  2 |  12 |\n'
+            + '| Arizona Coyotes      | 11 |  5 |  5 |  1 |  11 |\n'
+            + '| St. Louis Blues      | 11 |  5 |  5 |  1 |  11 |\n'
+            + '| Nashville Predators  | 11 |  5 |  6 |  0 |  10 |\n'
+            + '| Seattle Kraken       | 12 |  4 |  6 |  2 |  10 |\n'
+            + '| Chicago Blackhawks   | 11 |  4 |  7 |  0 |   8 |\n'
+            + '| Calgary Flames       | 11 |  3 |  7 |  1 |   7 |\n'
+            + '| Edmonton Oilers      | 11 |  2 |  8 |  1 |   5 |\n'
+            + '| San Jose Sharks      | 11 |  0 | 10 |  1 |   1 |\n'
+            + "'------------------------------------------------'",
             ],
           ]);
           done();
@@ -794,15 +904,15 @@ describe('hubot-hockey HUBOT_HOCKEY_EXT_STANDINGS=true', () => {
             [
               'hubot',
               '.----------------------------------------------------------------------.\n'
-              + '|                           Division Leaders                           |\n'
-              + '|----------------------------------------------------------------------|\n'
-              + '|         Team         | GP | W  | L | OT | PTS |  P%   |  L10  | STRK |\n'
-              + '|----------------------|----|----|---|----|-----|-------|-------|------|\n'
-              + '| Vegas Golden Knights | 13 | 11 | 1 |  1 |  23 | 0.885 | 8-1-1 | L1   |\n'
-              + '| Boston Bruins        | 12 | 10 | 1 |  1 |  21 | 0.875 | 8-1-1 | W1   |\n'
-              + '| New York Rangers     | 12 |  9 | 2 |  1 |  19 | 0.792 | 8-1-1 | W1   |\n'
-              + '| Dallas Stars         | 11 |  7 | 3 |  1 |  15 | 0.682 | 6-3-1 | L2   |\n'
-              + "'----------------------------------------------------------------------'",
+            + '|                           Division Leaders                           |\n'
+            + '|----------------------------------------------------------------------|\n'
+            + '|         Team         | GP | W  | L | OT | PTS |  P%   |  L10  | STRK |\n'
+            + '|----------------------|----|----|---|----|-----|-------|-------|------|\n'
+            + '| Vegas Golden Knights | 13 | 11 | 1 |  1 |  23 | 0.885 | 8-1-1 | L1   |\n'
+            + '| Boston Bruins        | 12 | 10 | 1 |  1 |  21 | 0.875 | 8-1-1 | W1   |\n'
+            + '| New York Rangers     | 12 |  9 | 2 |  1 |  19 | 0.792 | 8-1-1 | W1   |\n'
+            + '| Dallas Stars         | 11 |  7 | 3 |  1 |  15 | 0.682 | 6-3-1 | L2   |\n'
+            + "'----------------------------------------------------------------------'",
             ],
           ]);
           done();
@@ -855,7 +965,7 @@ describe('hubot-hockey HUBOT_HOCKEY_HIDE_ODDS=true', () => {
             [
               'hubot',
               '  Nashville Predators   2  \n'
-              + '  Calgary Flames        3  ',
+            + '  Calgary Flames        3  ',
             ],
             ['hubot', '09:04 3rd - https://www.nhl.com/gamecenter/2023020186'],
           ]);

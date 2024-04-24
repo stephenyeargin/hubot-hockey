@@ -1,0 +1,650 @@
+{
+  "focusedDate": "2024-04-23",
+  "focusedDateCount": 9,
+  "clubTimeZone": "US/Central",
+  "clubUTCOffset": "-05:00",
+  "clubScheduleLink": "/predators/schedule",
+  "gamesByDate": [
+    {
+      "date": "2024-04-13",
+      "games": [
+        {
+          "id": 2023021278,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2024-04-13",
+          "gameCenterLink": "/gamecenter/cbj-vs-nsh/2024/04/13/2023021278",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2024-04-14T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [
+            {
+              "id": 375,
+              "market": "H",
+              "countryCode": "US",
+              "network": "BSSO",
+              "sequenceNumber": 70
+            },
+            {
+              "id": 347,
+              "market": "A",
+              "countryCode": "US",
+              "network": "BSOH",
+              "sequenceNumber": 72
+            }
+          ],
+          "gameState": "OFF",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 29,
+            "name": {
+              "default": "Columbus Blue Jackets",
+              "fr": "Blue Jackets de Columbus"
+            },
+            "abbrev": "CBJ",
+            "score": 4,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/CBJ_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "score": 6,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/nashville-predators-vs-columbus-blue-jackets-nashville-tennessee-04-13-2024/event/1B005EF1C51540F3?brand=predators&landing=s&wt.mc_id=NHL_TEAM_NSH_SINGLE_GAME_TICKETS_PAGE_GM41&CAMEFROM=CFC_PREDATORS_WEB_SINGLEGAME_PREDSWEBSITESINGLEGAMEZG&_ga=2.48640678.1498183413.1693233228-1348356427.1683143766",
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG"
+          },
+          "threeMinRecap": "/video/recap-blue-jackets-at-predators-4-13-24-6350898801112"
+        }
+      ]
+    },
+    {
+      "date": "2024-04-15",
+      "games": [
+        {
+          "id": 2023021289,
+          "season": 20232024,
+          "gameType": 2,
+          "gameDate": "2024-04-15",
+          "gameCenterLink": "/gamecenter/nsh-vs-pit/2024/04/15/2023021289",
+          "venue": {
+            "default": "PPG Paints Arena"
+          },
+          "startTimeUTC": "2024-04-15T23:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-04:00",
+          "tvBroadcasts": [
+            {
+              "id": 375,
+              "market": "A",
+              "countryCode": "US",
+              "network": "BSSO",
+              "sequenceNumber": 70
+            },
+            {
+              "id": 543,
+              "market": "H",
+              "countryCode": "US",
+              "network": "SN-PIT+",
+              "sequenceNumber": 1
+            }
+          ],
+          "gameState": "OFF",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "score": 2,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 5,
+            "name": {
+              "default": "Pittsburgh Penguins",
+              "fr": "Penguins de Pittsburgh"
+            },
+            "abbrev": "PIT",
+            "score": 4,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/PIT_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/event/16005ED7DA0F63F8?brand=penguins&artistid=806005&wt.mc_id=NHL_TEAM_PIT_WEB_MIG_GM41&utm_source=nhl.com&utm_medium=client&utm_campaign=NHL_TEAM_PIT&utm_content=WEB_MIG_GM41&CAMEFROM=NHLPENGUINS_NHL_WEB_MIG",
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG"
+          },
+          "threeMinRecap": "/video/recap-predators-at-penguins-4-15-24-6350996287112"
+        }
+      ]
+    },
+    {
+      "date": "2024-04-21",
+      "games": [
+        {
+          "id": 2023030171,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-04-21",
+          "gameCenterLink": "/gamecenter/nsh-vs-van/2024/04/21/2023030171",
+          "venue": {
+            "default": "Rogers Arena"
+          },
+          "startTimeUTC": "2024-04-22T02:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-07:00",
+          "tvBroadcasts": [
+            {
+              "id": 309,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ESPN",
+              "sequenceNumber": 2
+            },
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN",
+              "sequenceNumber": 21
+            },
+            {
+              "id": 283,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN360",
+              "sequenceNumber": 23
+            },
+            {
+              "id": 4,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "CBC",
+              "sequenceNumber": 24
+            },
+            {
+              "id": 281,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS",
+              "sequenceNumber": 31
+            },
+            {
+              "id": 375,
+              "market": "A",
+              "countryCode": "US",
+              "network": "BSSO",
+              "sequenceNumber": 70
+            }
+          ],
+          "gameState": "OFF",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "score": 2,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 23,
+            "name": {
+              "default": "Vancouver Canucks",
+              "fr": "Canucks de Vancouver"
+            },
+            "abbrev": "VAN",
+            "score": 4,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg"
+          },
+          "ticketsLink": "https://www.nhl.com/predators/tickets/",
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG"
+          },
+          "seriesStatus": {
+            "round": 1,
+            "seriesAbbrev": "R1",
+            "game": 1,
+            "topSeedTeamAbbrev": "VAN",
+            "topSeedWins": 1,
+            "bottomSeedTeamAbbrev": "NSH",
+            "bottomSeedWins": 0
+          },
+          "threeMinRecap": "/video/recap-predators-at-canucks-4-21-24-6351390129112",
+          "threeMinRecapFr": "/fr/video/recap-predators-at-canucks-4-21-24-6351391404112"
+        }
+      ]
+    },
+    {
+      "date": "2024-04-23",
+      "games": [
+        {
+          "id": 2023030172,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-04-23",
+          "gameCenterLink": "/gamecenter/nsh-vs-van/2024/04/23/2023030172",
+          "venue": {
+            "default": "Rogers Arena"
+          },
+          "startTimeUTC": "2024-04-24T02:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-07:00",
+          "tvBroadcasts": [
+            {
+              "id": 307,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ESPN2",
+              "sequenceNumber": 3
+            },
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN",
+              "sequenceNumber": 21
+            },
+            {
+              "id": 291,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS2",
+              "sequenceNumber": 33
+            },
+            {
+              "id": 375,
+              "market": "A",
+              "countryCode": "US",
+              "network": "BSSO",
+              "sequenceNumber": 70
+            }
+          ],
+          "gameState": "PRE",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 23,
+            "name": {
+              "default": "Vancouver Canucks",
+              "fr": "Canucks de Vancouver"
+            },
+            "abbrev": "VAN",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg"
+          },
+          "ticketsLink": "https://www.nhl.com/predators/tickets/",
+          "seriesStatus": {
+            "round": 1,
+            "seriesAbbrev": "R1",
+            "game": 2,
+            "topSeedTeamAbbrev": "VAN",
+            "topSeedWins": 1,
+            "bottomSeedTeamAbbrev": "NSH",
+            "bottomSeedWins": 0
+          }
+        }
+      ]
+    },
+    {
+      "date": "2024-04-26",
+      "games": [
+        {
+          "id": 2023030173,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-04-26",
+          "gameCenterLink": "/gamecenter/van-vs-nsh/2024/04/26/2023030173",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2024-04-26T23:30:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [
+            {
+              "id": 403,
+              "market": "N",
+              "countryCode": "US",
+              "network": "TBS",
+              "sequenceNumber": 5
+            },
+            {
+              "id": 519,
+              "market": "N",
+              "countryCode": "US",
+              "network": "MAX",
+              "sequenceNumber": 9
+            },
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN",
+              "sequenceNumber": 21
+            },
+            {
+              "id": 291,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS2",
+              "sequenceNumber": 33
+            },
+            {
+              "id": 375,
+              "market": "H",
+              "countryCode": "US",
+              "network": "BSSO",
+              "sequenceNumber": 70
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 23,
+            "name": {
+              "default": "Vancouver Canucks",
+              "fr": "Canucks de Vancouver"
+            },
+            "abbrev": "VAN",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/event/1B006085AE3069E8?brand=predators&artistid=805978&wt.mc_id=NHL_TEAM_NSH_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD1_GM1&utm_source=nhl.com&utm_medium=client&utm_campaign=NHL_TEAM_NSH&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD1_GM1",
+          "seriesStatus": {
+            "round": 1,
+            "seriesAbbrev": "R1",
+            "game": 3,
+            "topSeedTeamAbbrev": "VAN",
+            "topSeedWins": 1,
+            "bottomSeedTeamAbbrev": "NSH",
+            "bottomSeedWins": 0
+          }
+        }
+      ]
+    },
+    {
+      "date": "2024-04-28",
+      "games": [
+        {
+          "id": 2023030174,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-04-28",
+          "gameCenterLink": "/gamecenter/van-vs-nsh/2024/04/28/2023030174",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2024-04-28T21:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [
+            {
+              "id": 403,
+              "market": "N",
+              "countryCode": "US",
+              "network": "TBS",
+              "sequenceNumber": 5
+            },
+            {
+              "id": 501,
+              "market": "N",
+              "countryCode": "US",
+              "network": "truTV",
+              "sequenceNumber": 6
+            },
+            {
+              "id": 519,
+              "market": "N",
+              "countryCode": "US",
+              "network": "MAX",
+              "sequenceNumber": 9
+            },
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN",
+              "sequenceNumber": 21
+            },
+            {
+              "id": 281,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS",
+              "sequenceNumber": 31
+            },
+            {
+              "id": 375,
+              "market": "H",
+              "countryCode": "US",
+              "network": "BSSO",
+              "sequenceNumber": 70
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 23,
+            "name": {
+              "default": "Vancouver Canucks",
+              "fr": "Canucks de Vancouver"
+            },
+            "abbrev": "VAN",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/event/1B006085AE3969F1?brand=predators&artistid=805978&wt.mc_id=NHL_TEAM_NSH_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD1_GM2&utm_source=nhl.com&utm_medium=client&utm_campaign=NHL_TEAM_NSH&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD1_GM2",
+          "seriesStatus": {
+            "round": 1,
+            "seriesAbbrev": "R1",
+            "game": 4,
+            "topSeedTeamAbbrev": "VAN",
+            "topSeedWins": 1,
+            "bottomSeedTeamAbbrev": "NSH",
+            "bottomSeedWins": 0
+          }
+        }
+      ]
+    },
+    {
+      "date": "2024-04-30",
+      "games": [
+        {
+          "id": 2023030175,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-04-30",
+          "gameCenterLink": "/gamecenter/nsh-vs-van/2024/04/30/2023030175",
+          "venue": {
+            "default": "Rogers Arena"
+          },
+          "startTimeUTC": "2024-04-30T16:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-07:00",
+          "tvBroadcasts": [],
+          "gameState": "FUT",
+          "gameScheduleState": "TBD",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 23,
+            "name": {
+              "default": "Vancouver Canucks",
+              "fr": "Canucks de Vancouver"
+            },
+            "abbrev": "VAN",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg"
+          },
+          "ticketsLink": "https://www.nhl.com/predators/tickets/",
+          "seriesStatus": {
+            "round": 1,
+            "seriesAbbrev": "R1",
+            "game": 5,
+            "topSeedTeamAbbrev": "VAN",
+            "topSeedWins": 1,
+            "bottomSeedTeamAbbrev": "NSH",
+            "bottomSeedWins": 0
+          }
+        }
+      ]
+    },
+    {
+      "date": "2024-05-03",
+      "games": [
+        {
+          "id": 2023030176,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-05-03",
+          "gameCenterLink": "/gamecenter/van-vs-nsh/2024/05/03/2023030176",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2024-05-03T16:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [],
+          "gameState": "FUT",
+          "gameScheduleState": "TBD",
+          "awayTeam": {
+            "id": 23,
+            "name": {
+              "default": "Vancouver Canucks",
+              "fr": "Canucks de Vancouver"
+            },
+            "abbrev": "VAN",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/event/1B006085AE3F69FD?brand=predators&artistid=805978&wt.mc_id=NHL_TEAM_NSH_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD1_GM3&utm_source=nhl.com&utm_medium=client&utm_campaign=NHL_TEAM_NSH&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD1_GM3",
+          "seriesStatus": {
+            "round": 1,
+            "seriesAbbrev": "R1",
+            "game": 6,
+            "topSeedTeamAbbrev": "VAN",
+            "topSeedWins": 1,
+            "bottomSeedTeamAbbrev": "NSH",
+            "bottomSeedWins": 0
+          }
+        }
+      ]
+    },
+    {
+      "date": "2024-05-05",
+      "games": [
+        {
+          "id": 2023030177,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-05-05",
+          "gameCenterLink": "/gamecenter/nsh-vs-van/2024/05/05/2023030177",
+          "venue": {
+            "default": "Rogers Arena"
+          },
+          "startTimeUTC": "2024-05-05T16:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-07:00",
+          "tvBroadcasts": [],
+          "gameState": "FUT",
+          "gameScheduleState": "TBD",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 23,
+            "name": {
+              "default": "Vancouver Canucks",
+              "fr": "Canucks de Vancouver"
+            },
+            "abbrev": "VAN",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg"
+          },
+          "ticketsLink": "https://www.nhl.com/predators/tickets/",
+          "seriesStatus": {
+            "round": 1,
+            "seriesAbbrev": "R1",
+            "game": 7,
+            "topSeedTeamAbbrev": "VAN",
+            "topSeedWins": 1,
+            "bottomSeedTeamAbbrev": "NSH",
+            "bottomSeedWins": 0
+          }
+        }
+      ]
+    }
+  ]
+}

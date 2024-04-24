@@ -82,17 +82,30 @@ module.exports = (robot) => {
         gameStatus = 'TBD';
       }
 
-      if (game.gameType === '1') {
+      if (game.gameType === 1) {
         gameStatus += ' - Preseason';
       }
-      if (game.gameType === '3') {
-        gameStatus += ` - ${game.seriesSummary.seriesStatus || game.seriesSummary.gameLabel}`;
+      if (game.gameType === 3) {
+        const {
+          seriesAbbrev,
+          game: gameNumber,
+          topSeedTeamAbbrev,
+          topSeedWins,
+          bottomSeedTeamAbbrev,
+          bottomSeedWins,
+        } = game.seriesStatus;
+        gameStatus += ` - ${seriesAbbrev} Game ${gameNumber} (${topSeedTeamAbbrev} ${topSeedWins} - ${bottomSeedTeamAbbrev} ${bottomSeedWins})`;
       }
 
       const table = new AsciiTable();
       if (game.gameState === 'FUT' || game.gameState === 'PRE') {
-        table.addRow(`${game.awayTeam.name.default} (${game.awayTeam.record})`);
-        table.addRow(`${game.homeTeam.name.default} (${game.homeTeam.record})`);
+        if (game.gameType !== 3) {
+          table.addRow(`${game.awayTeam.name.default} (${game.awayTeam.record})`);
+          table.addRow(`${game.homeTeam.name.default} (${game.homeTeam.record})`);
+        } else {
+          table.addRow(`${game.awayTeam.name.default}`);
+          table.addRow(`${game.homeTeam.name.default}`);
+        }
       } else {
         table.addRow(`${game.awayTeam.name.default}`, `${game.awayTeam.score}`);
         table.addRow(`${game.homeTeam.name.default}`, `${game.homeTeam.score}`);
