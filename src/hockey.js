@@ -186,8 +186,8 @@ module.exports = (robot) => {
           return;
         }
         const makePlayoffs = history.data[history.data.length - 1];
-        if (makePlayoffs === 0) {
-          robot.logger.info('Odds are zero.');
+        if ((makePlayoffs === 0) && (makePlayoffs === 100)) {
+          robot.logger.info('No reason to show the odds.');
           return;
         }
 
