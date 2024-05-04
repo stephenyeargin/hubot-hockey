@@ -86,15 +86,28 @@ module.exports = (robot) => {
         gameStatus += ' - Preseason';
       }
       if (game.gameType === 3) {
-        const {
-          seriesAbbrev,
-          game: gameNumber,
-          topSeedTeamAbbrev,
-          topSeedWins,
-          bottomSeedTeamAbbrev,
-          bottomSeedWins,
-        } = game.seriesStatus;
-        gameStatus += ` - ${seriesAbbrev} Game ${gameNumber} (${topSeedTeamAbbrev} ${topSeedWins} - ${bottomSeedTeamAbbrev} ${bottomSeedWins})`;
+        const getSeriesStatusString = (seriesStatus) => {
+          const {
+            topSeedTeamAbbrev,
+            topSeedWins,
+            bottomSeedTeamAbbrev,
+            bottomSeedWins,
+          } = seriesStatus;
+          if (topSeedWins === bottomSeedWins) {
+            return `Tied ${topSeedWins}-${bottomSeedWins}`;
+          }
+          const leadingTeamAbbrev = topSeedWins > bottomSeedWins
+            ? topSeedTeamAbbrev
+            : bottomSeedTeamAbbrev;
+          const leadingTeamWins = topSeedWins > bottomSeedWins ? topSeedWins : bottomSeedWins;
+          const trailingTeamWins = topSeedWins < bottomSeedWins ? topSeedWins : bottomSeedWins;
+          if (leadingTeamWins === 4) {
+            return `${leadingTeamAbbrev} wins ${leadingTeamWins}-${trailingTeamWins}`;
+          }
+          return `${leadingTeamAbbrev} leads ${leadingTeamWins}-${trailingTeamWins}`;
+        };
+
+        gameStatus += ` - ${game.seriesStatus.seriesAbbrev} Game ${game.seriesStatus.game} (${getSeriesStatusString(game.seriesStatus)})`;
       }
 
       const table = new AsciiTable();

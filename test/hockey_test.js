@@ -397,7 +397,7 @@ describe('hubot-hockey', () => {
             ],
             [
               'hubot',
-              '9:00 pm CDT - R1 Game 2 (VAN 1 - NSH 0) - https://www.nhl.com/gamecenter/2023030172',
+              '9:00 pm CDT - R1 Game 2 (VAN leads 1-0) - https://www.nhl.com/gamecenter/2023030172',
             ],
           ]);
           done();
@@ -452,7 +452,62 @@ describe('hubot-hockey', () => {
             ],
             [
               'hubot',
-              'Final - R1 Game 2 (VAN 1 - NSH 1) - https://www.nhl.com/gamecenter/2023030172',
+              'Final - R1 Game 2 (Tied 1-1) - https://www.nhl.com/gamecenter/2023030172',
+            ],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
+
+  it('responds with a completed playoff series', (done) => {
+    Date.now = () => Date.parse('Fri May 3 22:00:00 CST 2024');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/nsh/now')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-eliminated.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-05-03 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    nock('http://www.sportsclubstats.com')
+      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
+      .replyWithFile(
+        200,
+        `${__dirname}/fixtures/sports-club-stats.json`,
+        {
+          'last-modified': 'Sun, 21 Apr 2024 10:28:00 GMT',
+        },
+      );
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot preds');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot preds'],
+            ['hubot', '5/3/2024 - Bridgestone Arena'],
+            [
+              'hubot',
+              '  Vancouver Canucks     1  \n'
+            + '  Nashville Predators   0  ',
+            ],
+            [
+              'hubot',
+              'Final - R1 Game 6 (VAN wins 4-2) - https://www.nhl.com/gamecenter/2023030176',
             ],
           ]);
           done();
