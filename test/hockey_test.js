@@ -409,6 +409,61 @@ describe('hubot-hockey', () => {
     );
   });
 
+  it('responds with an in-progress playoff game and series status', (done) => {
+    Date.now = () => Date.parse('Sat Jun 15 21:01:00 CST 2024');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/edm/now')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-in-progress-playoff.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-04-23 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    nock('http://www.sportsclubstats.com')
+      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
+      .replyWithFile(
+        200,
+        `${__dirname}/fixtures/sports-club-stats.json`,
+        {
+          'last-modified': 'Sun, 21 Apr 2024 10:28:00 GMT',
+        },
+      );
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot oilers');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot oilers'],
+            ['hubot', '6/15/2024 - Rogers Place; TV: ABC (N) | ESPN+ (N) | SN (N) | CBC (N) | TVAS (N)'],
+            [
+              'hubot',
+              '  Florida Panthers   1  \n'
+            + '  Edmonton Oilers    6  ',
+            ],
+            [
+              'hubot',
+              '02:36 2nd - SCF Game 4 (FLA leads 3-0) - https://www.nhl.com/gamecenter/2023030414',
+            ],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
+
   it('responds with a completed playoff game and series status', (done) => {
     Date.now = () => Date.parse('Tue Apr 24 9:00:00 CST 2024');
     nock('https://api-web.nhle.com')

@@ -1,0 +1,655 @@
+{
+  "focusedDate": "2024-06-15",
+  "focusedDateCount": 7,
+  "clubTimeZone": "America/Edmonton",
+  "clubUTCOffset": "-06:00",
+  "clubScheduleLink": "/oilers/schedule",
+  "gamesByDate": [
+    {
+      "date": "2024-06-08",
+      "games": [
+        {
+          "id": 2023030411,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-06-08",
+          "gameCenterLink": "/gamecenter/edm-vs-fla/2024/06/08/2023030411",
+          "venue": {
+            "default": "Amerant Bank Arena"
+          },
+          "startTimeUTC": "2024-06-09T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-04:00",
+          "tvBroadcasts": [
+            {
+              "id": 384,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ABC",
+              "sequenceNumber": 1
+            },
+            {
+              "id": 329,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ESPN+",
+              "sequenceNumber": 7
+            },
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN",
+              "sequenceNumber": 21
+            },
+            {
+              "id": 4,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "CBC",
+              "sequenceNumber": 24
+            },
+            {
+              "id": 281,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS",
+              "sequenceNumber": 31
+            }
+          ],
+          "gameState": "OFF",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 22,
+            "name": {
+              "default": "Edmonton Oilers",
+              "fr": "Oilers d'Edmonton"
+            },
+            "abbrev": "EDM",
+            "score": 0,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg"
+          },
+          "homeTeam": {
+            "id": 13,
+            "name": {
+              "default": "Florida Panthers",
+              "fr": "Panthers de la Floride"
+            },
+            "abbrev": "FLA",
+            "score": 3,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg"
+          },
+          "ticketsLink": "https://seatgeek.com/florida-panthers-tickets/6-8-2024-sunrise-florida-amerant-bank-arena/nhl/6402849?aid=15999&pid=apppush&rid=60324&utm_medium=partnership&utm_source=panthers_ticketing&utm_campaign=website",
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "seriesStatus": {
+            "round": 4,
+            "seriesAbbrev": "SCF",
+            "game": 1,
+            "topSeedTeamAbbrev": "FLA",
+            "topSeedWins": 1,
+            "bottomSeedTeamAbbrev": "EDM",
+            "bottomSeedWins": 0
+          },
+          "threeMinRecap": "/video/recap-oilers-at-panthers-6-8-24-6354653805112",
+          "threeMinRecapFr": "/fr/video/recap-oilers-at-panthers-6-8-24-6354654694112"
+        }
+      ]
+    },
+    {
+      "date": "2024-06-10",
+      "games": [
+        {
+          "id": 2023030412,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-06-10",
+          "gameCenterLink": "/gamecenter/edm-vs-fla/2024/06/10/2023030412",
+          "venue": {
+            "default": "Amerant Bank Arena"
+          },
+          "startTimeUTC": "2024-06-11T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-04:00",
+          "tvBroadcasts": [
+            {
+              "id": 384,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ABC",
+              "sequenceNumber": 1
+            },
+            {
+              "id": 329,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ESPN+",
+              "sequenceNumber": 7
+            },
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN",
+              "sequenceNumber": 21
+            },
+            {
+              "id": 4,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "CBC",
+              "sequenceNumber": 24
+            },
+            {
+              "id": 281,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS",
+              "sequenceNumber": 31
+            }
+          ],
+          "gameState": "OFF",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 22,
+            "name": {
+              "default": "Edmonton Oilers",
+              "fr": "Oilers d'Edmonton"
+            },
+            "abbrev": "EDM",
+            "score": 1,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg"
+          },
+          "homeTeam": {
+            "id": 13,
+            "name": {
+              "default": "Florida Panthers",
+              "fr": "Panthers de la Floride"
+            },
+            "abbrev": "FLA",
+            "score": 4,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg"
+          },
+          "ticketsLink": "https://seatgeek.com/florida-panthers-tickets/6-10-2024-sunrise-florida-amerant-bank-arena/nhl/6403612?aid=15999&pid=apppush&rid=60324&utm_medium=partnership&utm_source=panthers_ticketing&utm_campaign=website",
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "seriesStatus": {
+            "round": 4,
+            "seriesAbbrev": "SCF",
+            "game": 2,
+            "topSeedTeamAbbrev": "FLA",
+            "topSeedWins": 2,
+            "bottomSeedTeamAbbrev": "EDM",
+            "bottomSeedWins": 0
+          },
+          "threeMinRecap": "/video/recap-oilers-at-panthers-6-10-24-6354777223112",
+          "threeMinRecapFr": "/fr/video/recap-oilers-at-panthers-6-10-24-6354777641112"
+        }
+      ]
+    },
+    {
+      "date": "2024-06-13",
+      "games": [
+        {
+          "id": 2023030413,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-06-13",
+          "gameCenterLink": "/gamecenter/fla-vs-edm/2024/06/13/2023030413",
+          "venue": {
+            "default": "Rogers Place"
+          },
+          "startTimeUTC": "2024-06-14T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-06:00",
+          "tvBroadcasts": [
+            {
+              "id": 384,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ABC",
+              "sequenceNumber": 1
+            },
+            {
+              "id": 329,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ESPN+",
+              "sequenceNumber": 7
+            },
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN",
+              "sequenceNumber": 21
+            },
+            {
+              "id": 4,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "CBC",
+              "sequenceNumber": 24
+            },
+            {
+              "id": 281,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS",
+              "sequenceNumber": 31
+            }
+          ],
+          "gameState": "OFF",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 13,
+            "name": {
+              "default": "Florida Panthers",
+              "fr": "Panthers de la Floride"
+            },
+            "abbrev": "FLA",
+            "score": 4,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg"
+          },
+          "homeTeam": {
+            "id": 22,
+            "name": {
+              "default": "Edmonton Oilers",
+              "fr": "Oilers d'Edmonton"
+            },
+            "abbrev": "EDM",
+            "score": 3,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.ca/event/1100607BD0CA41DB?brand=edmontonoilers&artistid=805943&wt.mc_id=NHL_TEAM_EDM_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD4_GM1&utm_source=nhl.ca&utm_medium=client&utm_campaign=NHL_TEAM_EDM&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD4_GM1",
+          "period": 3,
+          "periodDescriptor": {
+            "number": 3,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "seriesStatus": {
+            "round": 4,
+            "seriesAbbrev": "SCF",
+            "game": 3,
+            "topSeedTeamAbbrev": "FLA",
+            "topSeedWins": 3,
+            "bottomSeedTeamAbbrev": "EDM",
+            "bottomSeedWins": 0
+          },
+          "threeMinRecapFr": "/fr/video/recap-panthers-at-oilers-6-13-24-6354976847112"
+        }
+      ]
+    },
+    {
+      "date": "2024-06-15",
+      "games": [
+        {
+          "id": 2023030414,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-06-15",
+          "gameCenterLink": "/gamecenter/fla-vs-edm/2024/06/15/2023030414",
+          "venue": {
+            "default": "Rogers Place"
+          },
+          "startTimeUTC": "2024-06-16T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-06:00",
+          "tvBroadcasts": [
+            {
+              "id": 384,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ABC",
+              "sequenceNumber": 1
+            },
+            {
+              "id": 329,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ESPN+",
+              "sequenceNumber": 7
+            },
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN",
+              "sequenceNumber": 21
+            },
+            {
+              "id": 4,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "CBC",
+              "sequenceNumber": 24
+            },
+            {
+              "id": 281,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS",
+              "sequenceNumber": 31
+            }
+          ],
+          "gameState": "LIVE",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 13,
+            "name": {
+              "default": "Florida Panthers",
+              "fr": "Panthers de la Floride"
+            },
+            "abbrev": "FLA",
+            "score": 1,
+            "sog": 16,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg"
+          },
+          "homeTeam": {
+            "id": 22,
+            "name": {
+              "default": "Edmonton Oilers",
+              "fr": "Oilers d'Edmonton"
+            },
+            "abbrev": "EDM",
+            "score": 6,
+            "sog": 28,
+            "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.ca/event/1100607BD0D041DF?brand=edmontonoilers&artistid=805943&wt.mc_id=NHL_TEAM_EDM_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD4_GM2&utm_source=nhl.ca&utm_medium=client&utm_campaign=NHL_TEAM_EDM&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD4_GM2",
+          "period": 2,
+          "periodDescriptor": {
+            "number": 2,
+            "periodType": "REG",
+            "maxRegulationPeriods": 3
+          },
+          "clock": {
+            "timeRemaining": "02:36",
+            "secondsRemaining": 156,
+            "running": false,
+            "inIntermission": false
+          },
+          "seriesStatus": {
+            "round": 4,
+            "seriesAbbrev": "SCF",
+            "game": 4,
+            "topSeedTeamAbbrev": "FLA",
+            "topSeedWins": 3,
+            "bottomSeedTeamAbbrev": "EDM",
+            "bottomSeedWins": 0
+          }
+        }
+      ]
+    },
+    {
+      "date": "2024-06-18",
+      "games": [
+        {
+          "id": 2023030415,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-06-18",
+          "gameCenterLink": "/gamecenter/edm-vs-fla/2024/06/18/2023030415",
+          "venue": {
+            "default": "Amerant Bank Arena"
+          },
+          "startTimeUTC": "2024-06-19T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-04:00",
+          "tvBroadcasts": [
+            {
+              "id": 384,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ABC",
+              "sequenceNumber": 1
+            },
+            {
+              "id": 329,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ESPN+",
+              "sequenceNumber": 7
+            },
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN",
+              "sequenceNumber": 21
+            },
+            {
+              "id": 4,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "CBC",
+              "sequenceNumber": 24
+            },
+            {
+              "id": 281,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS",
+              "sequenceNumber": 31
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 22,
+            "name": {
+              "default": "Edmonton Oilers",
+              "fr": "Oilers d'Edmonton"
+            },
+            "abbrev": "EDM",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg"
+          },
+          "homeTeam": {
+            "id": 13,
+            "name": {
+              "default": "Florida Panthers",
+              "fr": "Panthers de la Floride"
+            },
+            "abbrev": "FLA",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg"
+          },
+          "ticketsLink": "https://seatgeek.com/florida-panthers-tickets/6-18-2024-sunrise-florida-amerant-bank-arena/nhl/6403611?aid=15999&pid=apppush&rid=60324&utm_medium=partnership&utm_source=panthers_ticketing&utm_campaign=website",
+          "seriesStatus": {
+            "round": 4,
+            "seriesAbbrev": "SCF",
+            "game": 5,
+            "topSeedTeamAbbrev": "FLA",
+            "topSeedWins": 3,
+            "bottomSeedTeamAbbrev": "EDM",
+            "bottomSeedWins": 0
+          }
+        }
+      ]
+    },
+    {
+      "date": "2024-06-21",
+      "games": [
+        {
+          "id": 2023030416,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-06-21",
+          "gameCenterLink": "/gamecenter/fla-vs-edm/2024/06/21/2023030416",
+          "venue": {
+            "default": "Rogers Place"
+          },
+          "startTimeUTC": "2024-06-22T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-06:00",
+          "tvBroadcasts": [
+            {
+              "id": 384,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ABC",
+              "sequenceNumber": 1
+            },
+            {
+              "id": 329,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ESPN+",
+              "sequenceNumber": 7
+            },
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN",
+              "sequenceNumber": 21
+            },
+            {
+              "id": 4,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "CBC",
+              "sequenceNumber": 24
+            },
+            {
+              "id": 281,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS",
+              "sequenceNumber": 31
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 13,
+            "name": {
+              "default": "Florida Panthers",
+              "fr": "Panthers de la Floride"
+            },
+            "abbrev": "FLA",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg"
+          },
+          "homeTeam": {
+            "id": 22,
+            "name": {
+              "default": "Edmonton Oilers",
+              "fr": "Oilers d'Edmonton"
+            },
+            "abbrev": "EDM",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.ca/event/1100607BD0D541E1?brand=edmontonoilers&artistid=805943&wt.mc_id=NHL_TEAM_EDM_HORIZONTAL_SCOREBOARD_PLAYOFFS_RD4_GM3&utm_source=nhl.ca&utm_medium=client&utm_campaign=NHL_TEAM_EDM&utm_content=HORIZONTAL_SCOREBOARD_PLAYOFFS_RD4_GM3",
+          "seriesStatus": {
+            "round": 4,
+            "seriesAbbrev": "SCF",
+            "game": 6,
+            "topSeedTeamAbbrev": "FLA",
+            "topSeedWins": 3,
+            "bottomSeedTeamAbbrev": "EDM",
+            "bottomSeedWins": 0
+          }
+        }
+      ]
+    },
+    {
+      "date": "2024-06-24",
+      "games": [
+        {
+          "id": 2023030417,
+          "season": 20232024,
+          "gameType": 3,
+          "gameDate": "2024-06-24",
+          "gameCenterLink": "/gamecenter/edm-vs-fla/2024/06/24/2023030417",
+          "venue": {
+            "default": "Amerant Bank Arena"
+          },
+          "startTimeUTC": "2024-06-25T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-04:00",
+          "tvBroadcasts": [
+            {
+              "id": 384,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ABC",
+              "sequenceNumber": 1
+            },
+            {
+              "id": 329,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ESPN+",
+              "sequenceNumber": 7
+            },
+            {
+              "id": 282,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "SN",
+              "sequenceNumber": 21
+            },
+            {
+              "id": 4,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "CBC",
+              "sequenceNumber": 24
+            },
+            {
+              "id": 281,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "TVAS",
+              "sequenceNumber": 31
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 22,
+            "name": {
+              "default": "Edmonton Oilers",
+              "fr": "Oilers d'Edmonton"
+            },
+            "abbrev": "EDM",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg"
+          },
+          "homeTeam": {
+            "id": 13,
+            "name": {
+              "default": "Florida Panthers",
+              "fr": "Panthers de la Floride"
+            },
+            "abbrev": "FLA",
+            "record": "0-0-0",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg"
+          },
+          "ticketsLink": "https://seatgeek.com/florida-panthers-tickets/6-24-2024-sunrise-florida-amerant-bank-arena/nhl/6403610?aid=15999&pid=apppush&rid=60324&utm_medium=partnership&utm_source=panthers_ticketing&utm_campaign=website",
+          "seriesStatus": {
+            "round": 4,
+            "seriesAbbrev": "SCF",
+            "game": 7,
+            "topSeedTeamAbbrev": "FLA",
+            "topSeedWins": 3,
+            "bottomSeedTeamAbbrev": "EDM",
+            "bottomSeedWins": 0
+          }
+        }
+      ]
+    }
+  ]
+}
