@@ -7,13 +7,6 @@
     "time_zone": "America/Los_Angeles"
   },
   {
-    "name": "Arizona Coyotes",
-    "regex": "(arizona coyotes|arizona|coyotes|ari|phoenix coyotes|phoenix|phx|yotes)",
-    "abbreviation": "ARI",
-    "primary_color": "#8C2633",
-    "time_zone": "America/Phoenix"
-  },
-  {
     "name": "Boston Bruins",
     "regex": "(boston bruins|boston|bruins|bos)",
     "abbreviation": "BOS",
@@ -194,6 +187,13 @@
     "abbreviation": "TOR",
     "primary_color": "#00205B",
     "time_zone": "America/New_York"
+  },
+  {
+    "name": "Utah Hockey Club",
+    "regex": "(utah hockey club|utah|uhc|uta|slc|salt lake city)",
+    "abbreviation": "UTA",
+    "primary_color": "#6CACE4",
+    "time_zone": "America/Denver"
   },
   {
     "name": "Vancouver Canucks",
