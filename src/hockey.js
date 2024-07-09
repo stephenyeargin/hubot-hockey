@@ -466,6 +466,12 @@ module.exports = (robot) => {
           // eslint-disable-next-line max-len
           standings = json.standings.filter((t) => t.divisionName === filter || t.conferenceName === filter);
         }
+
+        if (standings.length === 0) {
+          msg.send('Standings available when season starts.');
+          return;
+        }
+
         standings.forEach((t) => {
           let clinchIndicator = t.clinchIndicator ? ` (${t.clinchIndicator})` : '';
           clinchIndicator = isEliminated(t, json.standings) ? ' (e)' : clinchIndicator;

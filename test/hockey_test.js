@@ -1033,6 +1033,37 @@ describe('hubot-hockey HUBOT_HOCKEY_EXT_STANDINGS=true', () => {
       500,
     );
   });
+
+  it('responds with standings during the off-season', (done) => {
+    Date.now = () => Date.parse('Tues Jul 9 18:36:00 CST 2024');
+    nock('https://api-web.nhle.com')
+      .get('/v1/standings/2024-07-09')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings-offseason.json`);
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot nhl');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot nhl'],
+            [
+              'hubot',
+              'Standings available when season starts.',
+            ],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
 });
 
 describe('hubot-hockey HUBOT_HOCKEY_HIDE_ODDS=true', () => {
