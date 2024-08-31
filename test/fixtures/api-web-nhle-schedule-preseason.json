@@ -1,0 +1,594 @@
+{
+  "focusedDate": "2024-10-04",
+  "focusedDateCount": 10,
+  "clubTimeZone": "US/Central",
+  "clubUTCOffset": "-05:00",
+  "clubScheduleLink": "/predators/schedule",
+  "gamesByDate": [
+    {
+      "date": "2024-09-27",
+      "games": [
+        {
+          "id": 2024010044,
+          "season": 20242025,
+          "gameType": 1,
+          "gameDate": "2024-09-27",
+          "gameCenterLink": "/gamecenter/nsh-vs-tbl/2024/09/27/2024010044",
+          "venue": {
+            "default": "Amalie Arena"
+          },
+          "startTimeUTC": "2024-09-27T23:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-04:00",
+          "tvBroadcasts": [],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "commonName": {
+              "default": "Predators"
+            },
+            "placeNameWithPreposition": {
+              "default": "Nashville",
+              "fr": "de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "47-30-5",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 14,
+            "name": {
+              "default": "Tampa Bay Lightning",
+              "fr": "Lightning de Tampa Bay"
+            },
+            "commonName": {
+              "default": "Lightning"
+            },
+            "placeNameWithPreposition": {
+              "default": "Tampa Bay",
+              "fr": "de Tampa Bay"
+            },
+            "abbrev": "TBL",
+            "record": "45-29-8",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/event/0D006101A9553000?brand=tblightning&artistid=806028&wt.mc_id=NHL_TEAM_TBL_HORIZONTAL_SCOREBOARD_GM3&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_TEAM_TBL&utm_content=HORIZONTAL_SCOREBOARD_GM3",
+          "ticketsLinkFr": "https://www.nhl.com/fr/predators/tickets/"
+        }
+      ]
+    },
+    {
+      "date": "2024-09-28",
+      "games": [
+        {
+          "id": 2024010057,
+          "season": 20242025,
+          "gameType": 1,
+          "gameDate": "2024-09-28",
+          "gameCenterLink": "/gamecenter/tbl-vs-nsh/2024/09/28/2024010057",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2024-09-29T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 14,
+            "name": {
+              "default": "Tampa Bay Lightning",
+              "fr": "Lightning de Tampa Bay"
+            },
+            "commonName": {
+              "default": "Lightning"
+            },
+            "placeNameWithPreposition": {
+              "default": "Tampa Bay",
+              "fr": "de Tampa Bay"
+            },
+            "abbrev": "TBL",
+            "record": "45-29-8",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "commonName": {
+              "default": "Predators"
+            },
+            "placeNameWithPreposition": {
+              "default": "Nashville",
+              "fr": "de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "47-30-5",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.nhl.com/predators/tickets/",
+          "ticketsLinkFr": "https://www.nhl.com/fr/predators/tickets/"
+        }
+      ]
+    },
+    {
+      "date": "2024-10-02",
+      "games": [
+        {
+          "id": 2024010080,
+          "season": 20242025,
+          "gameType": 1,
+          "gameDate": "2024-10-02",
+          "gameCenterLink": "/gamecenter/nsh-vs-car/2024/10/02/2024010080",
+          "venue": {
+            "default": "PNC Arena"
+          },
+          "startTimeUTC": "2024-10-02T23:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-04:00",
+          "tvBroadcasts": [],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "commonName": {
+              "default": "Predators"
+            },
+            "placeNameWithPreposition": {
+              "default": "Nashville",
+              "fr": "de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "47-30-5",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 12,
+            "name": {
+              "default": "Carolina Hurricanes",
+              "fr": "Hurricanes de la Caroline"
+            },
+            "commonName": {
+              "default": "Hurricanes"
+            },
+            "placeNameWithPreposition": {
+              "default": "Carolina",
+              "fr": "de la Caroline"
+            },
+            "abbrev": "CAR",
+            "record": "52-23-7",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg"
+          },
+          "ticketsLink": "https://www.nhl.com/predators/tickets/",
+          "ticketsLinkFr": "https://www.nhl.com/fr/predators/tickets/"
+        }
+      ]
+    },
+    {
+      "date": "2024-10-05",
+      "games": [
+        {
+          "id": 2024010099,
+          "season": 20242025,
+          "gameType": 1,
+          "gameDate": "2024-10-05",
+          "gameCenterLink": "/gamecenter/car-vs-nsh/2024/10/05/2024010099",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2024-10-05T21:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 12,
+            "name": {
+              "default": "Carolina Hurricanes",
+              "fr": "Hurricanes de la Caroline"
+            },
+            "commonName": {
+              "default": "Hurricanes"
+            },
+            "placeNameWithPreposition": {
+              "default": "Carolina",
+              "fr": "de la Caroline"
+            },
+            "abbrev": "CAR",
+            "record": "52-23-7",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "commonName": {
+              "default": "Predators"
+            },
+            "placeNameWithPreposition": {
+              "default": "Nashville",
+              "fr": "de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "47-30-5",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.nhl.com/predators/tickets/",
+          "ticketsLinkFr": "https://www.nhl.com/fr/predators/tickets/"
+        }
+      ]
+    },
+    {
+      "date": "2024-10-10",
+      "games": [
+        {
+          "id": 2024020017,
+          "season": 20242025,
+          "gameType": 2,
+          "gameDate": "2024-10-10",
+          "gameCenterLink": "/gamecenter/dal-vs-nsh/2024/10/10/2024020017",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2024-10-11T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [
+            {
+              "id": 329,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ESPN+",
+              "sequenceNumber": 6
+            },
+            {
+              "id": 391,
+              "market": "N",
+              "countryCode": "US",
+              "network": "HULU",
+              "sequenceNumber": 7
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 25,
+            "name": {
+              "default": "Dallas Stars",
+              "fr": "Stars de Dallas"
+            },
+            "commonName": {
+              "default": "Stars"
+            },
+            "placeNameWithPreposition": {
+              "default": "Dallas",
+              "fr": "de Dallas"
+            },
+            "abbrev": "DAL",
+            "record": "52-21-9",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/DAL_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "commonName": {
+              "default": "Predators"
+            },
+            "placeNameWithPreposition": {
+              "default": "Nashville",
+              "fr": "de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "47-30-5",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.nhl.com/predators/tickets/",
+          "ticketsLinkFr": "https://www.nhl.com/fr/predators/tickets/"
+        }
+      ]
+    },
+    {
+      "date": "2024-10-12",
+      "games": [
+        {
+          "id": 2024020028,
+          "season": 20242025,
+          "gameType": 2,
+          "gameDate": "2024-10-12",
+          "gameCenterLink": "/gamecenter/nsh-vs-det/2024/10/12/2024020028",
+          "venue": {
+            "default": "Little Caesars Arena"
+          },
+          "startTimeUTC": "2024-10-12T23:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-04:00",
+          "tvBroadcasts": [],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "commonName": {
+              "default": "Predators"
+            },
+            "placeNameWithPreposition": {
+              "default": "Nashville",
+              "fr": "de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "47-30-5",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "homeTeam": {
+            "id": 17,
+            "name": {
+              "default": "Detroit Red Wings",
+              "fr": "Red Wings de Detroit"
+            },
+            "commonName": {
+              "default": "Red Wings"
+            },
+            "placeNameWithPreposition": {
+              "default": "Detroit",
+              "fr": "de Detroit"
+            },
+            "abbrev": "DET",
+            "record": "41-32-9",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/DET_light.svg"
+          },
+          "ticketsLink": "https://www.ticketmaster.com/event/080060E2A5EC255A?brand=redwings&artistid=805938&wt.mc_id=NHL_TEAM_DET_HORIZONTAL_SCOREBOARD_GM2&utm_source=NHL.com&utm_medium=client&utm_campaign=NHL_TEAM_DET&utm_content=HORIZONTAL_SCOREBOARD_GM2",
+          "ticketsLinkFr": "https://www.nhl.com/fr/predators/tickets/"
+        }
+      ]
+    },
+    {
+      "date": "2024-10-15",
+      "games": [
+        {
+          "id": 2024020053,
+          "season": 20242025,
+          "gameType": 2,
+          "gameDate": "2024-10-15",
+          "gameCenterLink": "/gamecenter/sea-vs-nsh/2024/10/15/2024020053",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2024-10-16T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 55,
+            "name": {
+              "default": "Seattle Kraken",
+              "fr": "Kraken de Seattle"
+            },
+            "commonName": {
+              "default": "Kraken"
+            },
+            "placeNameWithPreposition": {
+              "default": "Seattle",
+              "fr": "de Seattle"
+            },
+            "abbrev": "SEA",
+            "record": "34-35-13",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "commonName": {
+              "default": "Predators"
+            },
+            "placeNameWithPreposition": {
+              "default": "Nashville",
+              "fr": "de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "47-30-5",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.nhl.com/predators/tickets/",
+          "ticketsLinkFr": "https://www.nhl.com/fr/predators/tickets/"
+        }
+      ]
+    },
+    {
+      "date": "2024-10-17",
+      "games": [
+        {
+          "id": 2024020069,
+          "season": 20242025,
+          "gameType": 2,
+          "gameDate": "2024-10-17",
+          "gameCenterLink": "/gamecenter/edm-vs-nsh/2024/10/17/2024020069",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2024-10-18T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 22,
+            "name": {
+              "default": "Edmonton Oilers",
+              "fr": "Oilers d'Edmonton"
+            },
+            "commonName": {
+              "default": "Oilers"
+            },
+            "placeNameWithPreposition": {
+              "default": "Edmonton",
+              "fr": "d'Edmonton"
+            },
+            "abbrev": "EDM",
+            "record": "49-27-6",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "commonName": {
+              "default": "Predators"
+            },
+            "placeNameWithPreposition": {
+              "default": "Nashville",
+              "fr": "de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "47-30-5",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.nhl.com/predators/tickets/",
+          "ticketsLinkFr": "https://www.nhl.com/fr/predators/tickets/"
+        }
+      ]
+    },
+    {
+      "date": "2024-10-19",
+      "games": [
+        {
+          "id": 2024020076,
+          "season": 20242025,
+          "gameType": 2,
+          "gameDate": "2024-10-19",
+          "gameCenterLink": "/gamecenter/det-vs-nsh/2024/10/19/2024020076",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2024-10-19T18:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 17,
+            "name": {
+              "default": "Detroit Red Wings",
+              "fr": "Red Wings de Detroit"
+            },
+            "commonName": {
+              "default": "Red Wings"
+            },
+            "placeNameWithPreposition": {
+              "default": "Detroit",
+              "fr": "de Detroit"
+            },
+            "abbrev": "DET",
+            "record": "41-32-9",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/DET_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "commonName": {
+              "default": "Predators"
+            },
+            "placeNameWithPreposition": {
+              "default": "Nashville",
+              "fr": "de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "47-30-5",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.nhl.com/predators/tickets/",
+          "ticketsLinkFr": "https://www.nhl.com/fr/predators/tickets/"
+        }
+      ]
+    },
+    {
+      "date": "2024-10-22",
+      "games": [
+        {
+          "id": 2024020101,
+          "season": 20242025,
+          "gameType": 2,
+          "gameDate": "2024-10-22",
+          "gameCenterLink": "/gamecenter/bos-vs-nsh/2024/10/22/2024020101",
+          "venue": {
+            "default": "Bridgestone Arena"
+          },
+          "startTimeUTC": "2024-10-23T00:45:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-05:00",
+          "tvBroadcasts": [],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 6,
+            "name": {
+              "default": "Boston Bruins",
+              "fr": "Bruins de Boston"
+            },
+            "commonName": {
+              "default": "Bruins"
+            },
+            "placeNameWithPreposition": {
+              "default": "Boston",
+              "fr": "de Boston"
+            },
+            "abbrev": "BOS",
+            "record": "47-20-15",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/BOS_light.svg"
+          },
+          "homeTeam": {
+            "id": 18,
+            "name": {
+              "default": "Nashville Predators",
+              "fr": "Predators de Nashville"
+            },
+            "commonName": {
+              "default": "Predators"
+            },
+            "placeNameWithPreposition": {
+              "default": "Nashville",
+              "fr": "de Nashville"
+            },
+            "abbrev": "NSH",
+            "record": "47-30-5",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+          },
+          "ticketsLink": "https://www.nhl.com/predators/tickets/",
+          "ticketsLinkFr": "https://www.nhl.com/fr/predators/tickets/"
+        }
+      ]
+    }
+  ]
+}

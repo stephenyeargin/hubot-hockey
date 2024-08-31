@@ -17,6 +17,22 @@ const csvParser = require('csv-parse');
 const AsciiTable = require('ascii-table');
 const leagueTeams = require('./teams.json');
 
+const BEFORE_GAME_STATES = [
+  'FUT', // Future game
+  'PRE', // Pre-game
+];
+
+const LIVE_GAME_STATES = [
+  'LIVE', // Live
+  'CRIT', // Critical, last five minutes
+];
+
+const AFTER_GAME_STATES = [
+  'OVER', // Recently completed
+  'FINAL', // Game ended, focused
+  'OFF', // Game ended, not focused
+];
+
 module.exports = (robot) => {
   const periodFormat = (periodDescriptor) => {
     if (periodDescriptor.type === 'SO') {
@@ -54,8 +70,24 @@ module.exports = (robot) => {
         return cb;
       }
 
-      // Find the game closest to right now
-      const games = json.gamesByDate.find((d) => moment(d.date) >= moment(json.focusedDate));
+      let games;
+
+      // Determine if there is a  game.gameState of FUT before focusedDate (e.g. preseason)
+      const focusedDate = moment(json.focusedDate);
+      if (
+        json.gamesByDate.find(
+          (d) => moment(d.date) <= focusedDate && d.games.find(
+            (g) => BEFORE_GAME_STATES.includes(g.gameState),
+          ),
+        )) {
+        games = json.gamesByDate.find(
+          (d) => moment(d.date) <= focusedDate && d.games.find(
+            (g) => BEFORE_GAME_STATES.includes(g.gameState),
+          ),
+        );
+      } else {
+        games = json.gamesByDate.find((d) => moment(d.date) >= focusedDate);
+      }
 
       // Catch if final game of season played
       if (!games || games.length === 0) {
@@ -66,17 +98,17 @@ module.exports = (robot) => {
       // TODO: Handle doubleheaders, etc.
       const game = games.games[0];
 
-      if (game.gameState === 'OFF' || game.gameState === 'FINAL' || game.gameState === 'OVER') {
+      if (AFTER_GAME_STATES.includes(game.gameState)) {
         gameStatus = 'Final';
         if (game.period > 3) {
           gameStatus = `${gameStatus}/${periodFormat(game.periodDescriptor)}`;
         }
-      } else if (game.gameState === 'LIVE' || game.gameState === 'CRIT') {
+      } else if (LIVE_GAME_STATES.includes(game.gameState)) {
         gameStatus = `${game.clock.timeRemaining} ${periodFormat(game.periodDescriptor)}`;
         if (game.clock?.inIntermission) {
           gameStatus += ' Intermission';
         }
-      } else if ((game.gameState === 'FUT' || game.gameState === 'PRE') && (game.gameScheduleState === 'OK')) {
+      } else if (BEFORE_GAME_STATES.includes(game.gameState) && (game.gameScheduleState === 'OK')) {
         gameStatus = `${moment(game.startTimeUTC).tz(team.time_zone).format('h:mm a z')}`;
       } else {
         gameStatus = 'TBD';
@@ -111,7 +143,7 @@ module.exports = (robot) => {
       }
 
       const table = new AsciiTable();
-      if (game.gameState === 'FUT' || game.gameState === 'PRE') {
+      if (BEFORE_GAME_STATES.includes(game.gameState)) {
         if (game.gameType !== 3) {
           table.addRow(`${game.awayTeam.name.default} (${game.awayTeam.record})`);
           table.addRow(`${game.homeTeam.name.default} (${game.homeTeam.record})`);
@@ -126,7 +158,11 @@ module.exports = (robot) => {
       table.removeBorder();
 
       let howToWatch = game.venue.default;
-      if ((game.gameState !== 'OFF' && game.gameState !== 'FINAL') && game.tvBroadcasts && (game.tvBroadcasts.length > 0)) {
+      if (
+        !AFTER_GAME_STATES.includes(game.gameState)
+        && game.tvBroadcasts
+        && (game.tvBroadcasts.length > 0)
+      ) {
         const networks = [];
         game.tvBroadcasts.forEach((broadcast) => networks.push(`${broadcast.network} (${broadcast.market})`));
         howToWatch = `${howToWatch}; TV: ${networks.join(' | ')}`;
