@@ -682,6 +682,58 @@ describe('hubot-hockey', () => {
     );
   });
 
+  it('responds with a preseason game before focus date', (done) => {
+    Date.now = () => Date.parse('Fri Aug 30 13:10:00 CDT 2024');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/nsh/now')
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-preseason.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-12-16 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    nock('http://www.sportsclubstats.com')
+      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
+      .replyWithFile(
+        200,
+        `${__dirname}/fixtures/sports-club-stats.json`,
+        {
+          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
+        },
+      );
+
+    const selfRoom = room;
+    selfRoom.user.say('alice', '@hubot preds');
+    setTimeout(
+      () => {
+        try {
+          expect(selfRoom.messages).to.eql([
+            ['alice', '@hubot preds'],
+            ['hubot', '9/27/2024 - Amalie Arena'],
+            [
+              'hubot',
+              '  Nashville Predators (47-30-5)  \n'
+              + '  Tampa Bay Lightning (45-29-8)  ',
+            ],
+            ['hubot', '6:00 pm CDT - Preseason - https://www.nhl.com/gamecenter/2024010044'],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      500,
+    );
+  });
+
   it('responds with a final score and no odds if they are stale', (done) => {
     Date.now = () => Date.parse('Sat Dec 16 10:28:00 CST 2023');
     nock('https://api-web.nhle.com')
