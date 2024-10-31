@@ -21,6 +21,15 @@ describe('hubot-hockey', () => {
     nock.disableNetConnect();
     room = helper.createRoom();
     nock.disableNetConnect();
+
+    // Re-used in every call
+    nock('https://api-web.nhle.com')
+      .get(/\/v1\/standings\/\d{4}-\d{2}-\d{2}/)
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings.json`);
   });
 
   afterEach(() => {
@@ -68,8 +77,8 @@ describe('hubot-hockey', () => {
             ['hubot', '11/7/2023 - Scotiabank Saddledome; TV: BSSO (A) | SNW (H)'],
             [
               'hubot',
-              '  Nashville Predators   2  \n'
-            + '  Calgary Flames        3  ',
+              '  Nashville Predators (5-6-0)   2  \n'
+            + '  Calgary Flames (3-7-1)        3  ',
             ],
             ['hubot', '09:04 3rd - https://www.nhl.com/gamecenter/2023020186'],
             ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
@@ -122,8 +131,8 @@ describe('hubot-hockey', () => {
             ['hubot', '12/16/2023 - Bridgestone Arena; TV: NHLN (N) | BSSO (H) | MNMT (A)'],
             [
               'hubot',
-              '  Washington Capitals   0  \n'
-            + '  Nashville Predators   1  ',
+              '  Washington Capitals (5-4-1)   0  \n'
+            + '  Nashville Predators (5-6-0)   1  ',
             ],
             ['hubot', '07:21 1st Intermission - https://www.nhl.com/gamecenter/2023020468'],
             ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
@@ -230,8 +239,8 @@ describe('hubot-hockey', () => {
             ['hubot', '11/7/2023 - Scotiabank Saddledome'],
             [
               'hubot',
-              '  Nashville Predators   2  \n'
-            + '  Calgary Flames        4  ',
+              '  Nashville Predators (5-6-0)   2  \n'
+            + '  Calgary Flames (3-7-1)        4  ',
             ],
             ['hubot', 'Final - https://www.nhl.com/gamecenter/2023020186'],
             ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
@@ -338,8 +347,8 @@ describe('hubot-hockey', () => {
             ['hubot', '12/15/2023 - PNC Arena; TV: ESPN+ (N) | HULU (N)'],
             [
               'hubot',
-              '  Nashville Predators   6  \n'
-            + '  Carolina Hurricanes   5  ',
+              '  Nashville Predators (5-6-0)   6  \n'
+            + '  Carolina Hurricanes (8-5-0)   5  ',
             ],
             ['hubot', '04:25 OT - https://www.nhl.com/gamecenter/2023020455'],
             ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
@@ -447,8 +456,8 @@ describe('hubot-hockey', () => {
             ['hubot', '6/15/2024 - Rogers Place; TV: ABC (N) | ESPN+ (N) | SN (N) | CBC (N) | TVAS (N)'],
             [
               'hubot',
-              '  Florida Panthers   1  \n'
-            + '  Edmonton Oilers    6  ',
+              '  Florida Panthers (6-4-1)   1  \n'
+            + '  Edmonton Oilers (2-8-1)    6  ',
             ],
             [
               'hubot',
@@ -502,8 +511,8 @@ describe('hubot-hockey', () => {
             ['hubot', '4/23/2024 - Rogers Arena'],
             [
               'hubot',
-              '  Nashville Predators   4  \n'
-            + '  Vancouver Canucks     1  ',
+              '  Nashville Predators (5-6-0)   4  \n'
+            + '  Vancouver Canucks (9-2-1)     1  ',
             ],
             [
               'hubot',
@@ -557,8 +566,8 @@ describe('hubot-hockey', () => {
             ['hubot', '5/3/2024 - Bridgestone Arena'],
             [
               'hubot',
-              '  Vancouver Canucks     1  \n'
-            + '  Nashville Predators   0  ',
+              '  Vancouver Canucks (9-2-1)     1  \n'
+            + '  Nashville Predators (5-6-0)   0  ',
             ],
             [
               'hubot',
@@ -612,8 +621,8 @@ describe('hubot-hockey', () => {
             ['hubot', '11/22/2023 - Bridgestone Arena'],
             [
               'hubot',
-              '  Calgary Flames        2  \n'
-              + '  Nashville Predators   4  ',
+              '  Calgary Flames (3-7-1)        2  \n'
+            + '  Nashville Predators (5-6-0)   4  ',
             ],
             ['hubot', 'Final - https://www.nhl.com/gamecenter/2023020288'],
             ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
@@ -666,8 +675,8 @@ describe('hubot-hockey', () => {
             ['hubot', '12/15/2023 - UBS Arena'],
             [
               'hubot',
-              '  Boston Bruins        5  \n'
-              + '  New York Islanders   4  ',
+              '  Boston Bruins (10-1-1)       5  \n'
+            + '  New York Islanders (5-3-3)   4  ',
             ],
             ['hubot', 'Final/SO - https://www.nhl.com/gamecenter/2023020457'],
             ['hubot', 'Sports Club Stats: 100.0% to Make Playoffs'],
@@ -772,8 +781,8 @@ describe('hubot-hockey', () => {
             ['hubot', '12/15/2023 - UBS Arena'],
             [
               'hubot',
-              '  Boston Bruins        5  \n'
-              + '  New York Islanders   4  ',
+              '  Boston Bruins (10-1-1)       5  \n'
+            + '  New York Islanders (5-3-3)   4  ',
             ],
             ['hubot', 'Final/SO - https://www.nhl.com/gamecenter/2023020457'],
           ]);
@@ -784,6 +793,24 @@ describe('hubot-hockey', () => {
       },
       500,
     );
+  });
+});
+
+describe('hubot-hockey league standings', () => {
+  let room = null;
+
+  beforeEach(() => {
+    process.env.HUBOT_LOG_LEVEL = 'error';
+    nock.disableNetConnect();
+    room = helper.createRoom();
+    nock.disableNetConnect();
+  });
+
+  afterEach(() => {
+    delete process.env.HUBOT_LOG_LEVEL;
+    Date.now = originalDateNow;
+    nock.cleanAll();
+    room.destroy();
   });
 
   it('responds with division leader standings', (done) => {
@@ -1127,6 +1154,15 @@ describe('hubot-hockey HUBOT_HOCKEY_HIDE_ODDS=true', () => {
     nock.disableNetConnect();
     room = helper.createRoom();
     nock.disableNetConnect();
+
+    // Re-used in every call
+    nock('https://api-web.nhle.com')
+      .get(/\/v1\/standings\/\d{4}-\d{2}-\d{2}/)
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings.json`);
   });
 
   afterEach(() => {
@@ -1157,8 +1193,8 @@ describe('hubot-hockey HUBOT_HOCKEY_HIDE_ODDS=true', () => {
             ['hubot', '11/7/2023 - Scotiabank Saddledome; TV: BSSO (A) | SNW (H)'],
             [
               'hubot',
-              '  Nashville Predators   2  \n'
-            + '  Calgary Flames        3  ',
+              '  Nashville Predators (5-6-0)   2  \n'
+            + '  Calgary Flames (3-7-1)        3  ',
             ],
             ['hubot', '09:04 3rd - https://www.nhl.com/gamecenter/2023020186'],
           ]);

@@ -23,6 +23,15 @@ describe('hubot-hockey for discord', () => {
     process.env.HUBOT_LOG_LEVEL = 'error';
     nock.disableNetConnect();
     room = helper.createRoom();
+
+    // Re-used in every call
+    nock('https://api-web.nhle.com')
+      .get(/\/v1\/standings\/\d{4}-\d{2}-\d{2}/)
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings.json`);
   });
 
   afterEach(() => {
@@ -71,8 +80,8 @@ describe('hubot-hockey for discord', () => {
               'hubot',
               '11/7/2023 - Scotiabank Saddledome; TV: BSSO (A) | SNW (H)\n'
               + '```\n'
-              + '  Nashville Predators   2  \n'
-              + '  Calgary Flames        3  \n'
+              + '  Nashville Predators (5-6-0)   2  \n'
+              + '  Calgary Flames (3-7-1)        3  \n'
               + '```\n'
               + '09:04 3rd - https://www.nhl.com/gamecenter/2023020186',
             ],

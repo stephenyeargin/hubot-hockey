@@ -53,14 +53,44 @@ module.exports = (robot) => {
     }
   };
 
-  const postGameResults = (team, msg, cb) => msg.http(`https://api-web.nhle.com/v1/scoreboard/${team.abbreviation.toLowerCase()}/now`)
-    .get()((err, res, body) => {
+  const getScoreboard = (team) => new Promise((resolve, reject) => {
+    robot.http(`https://api-web.nhle.com/v1/scoreboard/${team.abbreviation.toLowerCase()}/now`)
+      .get()((err, res, body) => {
+        if (err) {
+          robot.logger.error(err);
+          reject(err);
+        }
+        const json = JSON.parse(body);
+        resolve(json);
+      });
+  });
+
+  const getStandings = () => new Promise((resolve, reject) => {
+    robot.http(`https://api-web.nhle.com/v1/standings/${moment().tz('America/Los_Angeles').format('YYYY-MM-DD')}`)
+      .get()((err, res, body) => {
+        if (err) {
+          robot.logger.error(err);
+          reject(err);
+        }
+        const json = JSON.parse(body);
+        resolve(json);
+      });
+  });
+
+  const getTeamRecord = (team, standings) => {
+    const teamRecord = standings.standings?.find((t) => t.teamAbbrev.default === team.abbrev);
+    return `${teamRecord.wins}-${teamRecord.losses}-${teamRecord.otLosses}`;
+  };
+
+  const postGameResults = (team, msg, cb) => Promise.all([
+    getStandings(),
+    getScoreboard(team),
+  ])
+    .then((results) => {
+      const [standings, scoreboard] = results;
+
       let gameStatus;
-      if (err) {
-        robot.logger.error(err);
-        return cb;
-      }
-      const json = JSON.parse(body);
+      const json = scoreboard;
       if (!json || (
         !json.gamesByDate
           || json.gamesByDate.length === 0)
@@ -152,8 +182,8 @@ module.exports = (robot) => {
           table.addRow(`${game.homeTeam.name.default}`);
         }
       } else {
-        table.addRow(`${game.awayTeam.name.default}`, `${game.awayTeam.score}`);
-        table.addRow(`${game.homeTeam.name.default}`, `${game.homeTeam.score}`);
+        table.addRow(`${game.awayTeam.name.default} (${getTeamRecord(game.awayTeam, standings)})`, `${game.awayTeam.score}`);
+        table.addRow(`${game.homeTeam.name.default} (${getTeamRecord(game.homeTeam, standings)})`, `${game.homeTeam.score}`);
       }
       table.removeBorder();
 
@@ -170,13 +200,19 @@ module.exports = (robot) => {
 
       const output = [];
 
+      const formatFallback = () => {
+        const date = moment(game.startTimeUTC).tz(team.time_zone).format('l');
+        const tableRows = table.getRows();
+        return `${date} - ${tableRows[0].join(' ')}, ${tableRows[1].join(' ')} (${gameStatus})`;
+      };
+
       // Say it
       switch (true) {
         case /slack/.test(robot.adapterName):
           msg.send({
             attachments: [
               {
-                fallback: `${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${table.getRows()[0].join(' ')}, ${table.getRows()[1].join(' ')} (${gameStatus})`,
+                fallback: formatFallback(),
                 title_link: `https://www.nhl.com/gamecenter/${game.id}`,
                 author_name: 'NHL.com',
                 author_link: 'https://nhl.com',
@@ -201,6 +237,13 @@ module.exports = (robot) => {
           msg.send(table.toString());
           msg.send(`${gameStatus} - https://www.nhl.com/gamecenter/${game.id}`);
       }
+      return cb;
+    })
+    .catch((err) => {
+      robot.logger.error(err);
+      return cb;
+    })
+    .finally(() => {
       if (typeof cb === 'function') {
         return cb();
       }

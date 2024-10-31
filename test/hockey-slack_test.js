@@ -23,6 +23,15 @@ describe('hubot-hockey for slack', () => {
     process.env.HUBOT_LOG_LEVEL = 'error';
     nock.disableNetConnect();
     room = helper.createRoom();
+
+    // Re-used in every call
+    nock('https://api-web.nhle.com')
+      .get(/\/v1\/standings\/\d{4}-\d{2}-\d{2}/)
+      .delay({
+        head: 100,
+        body: 200,
+      })
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings.json`);
   });
 
   afterEach(() => {
@@ -76,7 +85,7 @@ describe('hubot-hockey for slack', () => {
                     author_link: 'https://nhl.com',
                     author_name: 'NHL.com',
                     color: '#FFB81C',
-                    fallback: '11/7/2023 - Nashville Predators 2, Calgary Flames 3 (09:04 3rd)',
+                    fallback: '11/7/2023 - Nashville Predators (5-6-0) 2, Calgary Flames (3-7-1) 3 (09:04 3rd)',
                     footer: 'Scotiabank Saddledome; TV: BSSO (A) | SNW (H)',
                     mrkdwn_in: [
                       'text',
@@ -84,8 +93,8 @@ describe('hubot-hockey for slack', () => {
                     ],
                     text:
                     '```\n'
-                     + '  Nashville Predators   2  \n'
-                     + '  Calgary Flames        3  \n'
+                     + '  Nashville Predators (5-6-0)   2  \n'
+                     + '  Calgary Flames (3-7-1)        3  \n'
                      + '```',
                     title: '11/7/2023 - 09:04 3rd',
                     title_link: 'https://www.nhl.com/gamecenter/2023020186',
@@ -195,7 +204,7 @@ describe('hubot-hockey for slack', () => {
                   author_link: 'https://nhl.com',
                   author_name: 'NHL.com',
                   color: '#FFB81C',
-                  fallback: '12/16/2023 - Washington Capitals 0, Nashville Predators 1 (07:21 1st Intermission)',
+                  fallback: '12/16/2023 - Washington Capitals (5-4-1) 0, Nashville Predators (5-6-0) 1 (07:21 1st Intermission)',
                   footer: 'Bridgestone Arena; TV: NHLN (N) | BSSO (H) | MNMT (A)',
                   mrkdwn_in: [
                     'text',
@@ -203,8 +212,8 @@ describe('hubot-hockey for slack', () => {
                   ],
                   text:
                     '```\n'
-                    + '  Washington Capitals   0  \n'
-                    + '  Nashville Predators   1  \n'
+                    + '  Washington Capitals (5-4-1)   0  \n'
+                    + '  Nashville Predators (5-6-0)   1  \n'
                     + '```',
                   title: '12/16/2023 - 07:21 1st Intermission',
                   title_link: 'https://www.nhl.com/gamecenter/2023020468',
@@ -436,7 +445,7 @@ describe('hubot-hockey for slack', () => {
                     author_link: 'https://nhl.com',
                     author_name: 'NHL.com',
                     color: '#FFB81C',
-                    fallback: '11/7/2023 - Nashville Predators 2, Calgary Flames 4 (Final)',
+                    fallback: '11/7/2023 - Nashville Predators (5-6-0) 2, Calgary Flames (3-7-1) 4 (Final)',
                     footer: 'Scotiabank Saddledome',
                     mrkdwn_in: [
                       'text',
@@ -444,8 +453,8 @@ describe('hubot-hockey for slack', () => {
                     ],
                     text:
                     '```\n'
-                     + '  Nashville Predators   2  \n'
-                     + '  Calgary Flames        4  \n'
+                     + '  Nashville Predators (5-6-0)   2  \n'
+                     + '  Calgary Flames (3-7-1)        4  \n'
                      + '```',
                     title: '11/7/2023 - Final',
                     title_link: 'https://www.nhl.com/gamecenter/2023020186',
