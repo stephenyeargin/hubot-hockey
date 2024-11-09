@@ -250,73 +250,6 @@ module.exports = (robot) => {
       return cb;
     });
 
-  const postSportsClubStatsOdds = (team, msg) => {
-    // Skip odds if environment variable set
-    if (process.env.HUBOT_HOCKEY_HIDE_ODDS) {
-      return;
-    }
-
-    msg.http('http://www.sportsclubstats.com/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .get()((err, res, body) => {
-        // Catch errors
-        if (err || (res.statusCode !== 200)) {
-          robot.logger.error(err);
-          return;
-        }
-
-        // Skip if odds are stale
-        const date = moment(new Date(res.headers['last-modified'].trim()), 'YYYY-MM-DD');
-        if (date.diff(moment(), 'day') < -1) {
-          robot.logger.info(`Odds are stale: ${res.headers['last-modified']}`);
-          return;
-        }
-
-        const json = JSON.parse(body);
-        const history = json.data.find((d) => d.label === team.name);
-        if (!history) {
-          msg.send(`Could not find your odds for team ${team.name}`);
-          return;
-        }
-        const makePlayoffs = history.data[history.data.length - 1];
-        if ((makePlayoffs === 0) && (makePlayoffs === 100)) {
-          robot.logger.info('No reason to show the odds.');
-          return;
-        }
-
-        const fallback = `Sports Club Stats: ${makePlayoffs.toFixed(1)}% to Make Playoffs`;
-
-        // Say it
-        switch (true) {
-          case /slack/.test(robot.adapterName):
-            msg.send({
-              attachments: [
-                {
-                  author_icon: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
-                  author_link: 'https://sportsclubstats.com',
-                  author_name: 'Sports Club Stats',
-                  fallback,
-                  thumb_url: 'https://github.com/stephenyeargin/hubot-hockey/assets/80459/251b9816-8e05-4e34-b87b-10d0295823ab',
-                  color: team.primary_color,
-                  fields: [
-                    {
-                      title: 'Make Playoffs',
-                      value: `${makePlayoffs.toFixed(1)}%`,
-                      sort: true,
-                    },
-                  ],
-                },
-              ],
-            });
-            break;
-          case /discord/.test(robot.adapterName):
-            msg.send(`__**SportsClubStats.com**__\n**Make Playoffs:** ${makePlayoffs.toFixed(1)}%`);
-            break;
-          default:
-            msg.send(fallback);
-        }
-      });
-  };
-
   const postMoneyPuckOdds = (team, msg) => {
     robot.logger.debug(team);
 
@@ -452,7 +385,6 @@ module.exports = (robot) => {
   const registerDefaultListener = (team) => {
     const statsRegEx = '_team_regex_$';
     robot.respond(new RegExp(statsRegEx.replace('_team_regex_', team.regex), 'i'), (msg) => postGameResults(team, msg, () => Promise.all([
-      postSportsClubStatsOdds(team, msg),
       postMoneyPuckOdds(team, msg),
     ])));
   };

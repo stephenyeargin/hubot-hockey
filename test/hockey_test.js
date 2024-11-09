@@ -57,16 +57,6 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
-        },
-      );
-
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
     setTimeout(
@@ -81,7 +71,6 @@ describe('hubot-hockey', () => {
             + '  Calgary Flames (3-7-1)        3  ',
             ],
             ['hubot', '09:04 3rd - https://www.nhl.com/gamecenter/2023020186'],
-            ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
             ['hubot', 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup'],
           ]);
           done();
@@ -111,16 +100,6 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
-        },
-      );
-
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
     setTimeout(
@@ -135,7 +114,6 @@ describe('hubot-hockey', () => {
             + '  Nashville Predators (5-6-0)   1  ',
             ],
             ['hubot', '07:21 1st Intermission - https://www.nhl.com/gamecenter/2023020468'],
-            ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
             ['hubot', 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup'],
           ]);
           done();
@@ -165,16 +143,6 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
-        },
-      );
-
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
     setTimeout(
@@ -189,7 +157,6 @@ describe('hubot-hockey', () => {
             + '  Winnipeg Jets (6-4-2)        ',
             ],
             ['hubot', '7:00 pm CST - https://www.nhl.com/gamecenter/2023020200'],
-            ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
             ['hubot', 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup'],
           ]);
           done();
@@ -219,16 +186,6 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
-        },
-      );
-
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
     setTimeout(
@@ -243,7 +200,6 @@ describe('hubot-hockey', () => {
             + '  Calgary Flames (3-7-1)        4  ',
             ],
             ['hubot', 'Final - https://www.nhl.com/gamecenter/2023020186'],
-            ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
             ['hubot', 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup'],
           ]);
           done();
@@ -273,16 +229,6 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
-        },
-      );
-
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
     setTimeout(
@@ -297,7 +243,6 @@ describe('hubot-hockey', () => {
               + '  Nashville Predators (6-10-0)  ',
             ],
             ['hubot', '7:00 pm CST - https://www.nhl.com/gamecenter/2023020275'],
-            ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
             ['hubot', 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup'],
           ]);
           done();
@@ -327,16 +272,6 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
-        },
-      );
-
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
     setTimeout(
@@ -351,7 +286,6 @@ describe('hubot-hockey', () => {
             + '  Carolina Hurricanes (8-5-0)   5  ',
             ],
             ['hubot', '04:25 OT - https://www.nhl.com/gamecenter/2023020455'],
-            ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
             ['hubot', 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup'],
           ]);
           done();
@@ -380,16 +314,6 @@ describe('hubot-hockey', () => {
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
-
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sun, 21 Apr 2024 10:28:00 GMT',
-        },
-      );
 
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
@@ -436,16 +360,6 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sun, 21 Apr 2024 10:28:00 GMT',
-        },
-      );
-
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot oilers');
     setTimeout(
@@ -490,16 +404,6 @@ describe('hubot-hockey', () => {
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
-
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sun, 21 Apr 2024 10:28:00 GMT',
-        },
-      );
 
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
@@ -546,16 +450,6 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sun, 21 Apr 2024 10:28:00 GMT',
-        },
-      );
-
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
     setTimeout(
@@ -601,16 +495,6 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
-        },
-      );
-
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
     setTimeout(
@@ -625,7 +509,6 @@ describe('hubot-hockey', () => {
             + '  Nashville Predators (5-6-0)   4  ',
             ],
             ['hubot', 'Final - https://www.nhl.com/gamecenter/2023020288'],
-            ['hubot', 'Sports Club Stats: 77.7% to Make Playoffs'],
             ['hubot', 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup'],
           ]);
           done();
@@ -655,16 +538,6 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
-        },
-      );
-
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot bruins');
     setTimeout(
@@ -679,7 +552,6 @@ describe('hubot-hockey', () => {
             + '  New York Islanders (5-3-3)   4  ',
             ],
             ['hubot', 'Final/SO - https://www.nhl.com/gamecenter/2023020457'],
-            ['hubot', 'Sports Club Stats: 100.0% to Make Playoffs'],
             ['hubot', 'MoneyPuck: 62.0% to Make Playoffs / 3.8% to Win Stanley Cup'],
           ]);
           done();
@@ -708,16 +580,6 @@ describe('hubot-hockey', () => {
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
-
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
-        },
-      );
 
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
@@ -760,16 +622,6 @@ describe('hubot-hockey', () => {
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
-
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Wed, 14 Dec 2023 10:28:00 GMT',
-        },
-      );
 
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot bruins');
