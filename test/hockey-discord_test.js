@@ -59,16 +59,6 @@ describe('hubot-hockey for discord', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    nock('http://www.sportsclubstats.com')
-      .get('/d/NHL_ChanceWillMakePlayoffs_Small_A.json')
-      .replyWithFile(
-        200,
-        `${__dirname}/fixtures/sports-club-stats.json`,
-        {
-          'last-modified': 'Sat, 16 Dec 2023 10:28:00 GMT',
-        },
-      );
-
     const selfRoom = room;
     selfRoom.user.say('alice', '@hubot preds');
     setTimeout(
@@ -84,10 +74,6 @@ describe('hubot-hockey for discord', () => {
               + '  Calgary Flames (3-7-1)        3  \n'
               + '```\n'
               + '09:04 3rd - https://www.nhl.com/gamecenter/2023020186',
-            ],
-            [
-              'hubot',
-              '__**SportsClubStats.com**__\n**Make Playoffs:** 77.7%',
             ],
             [
               'hubot',
