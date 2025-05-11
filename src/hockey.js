@@ -79,6 +79,9 @@ module.exports = (robot) => {
 
   const getTeamRecord = (team, standings) => {
     const teamRecord = standings.standings?.find((t) => t.teamAbbrev.default === team.abbrev);
+    if (!teamRecord) {
+      return '';
+    }
     return `${teamRecord.wins}-${teamRecord.losses}-${teamRecord.otLosses}`;
   };
 
@@ -181,6 +184,9 @@ module.exports = (robot) => {
           table.addRow(`${game.awayTeam.name.default}`);
           table.addRow(`${game.homeTeam.name.default}`);
         }
+      } else if (standings.standings.length === 0) {
+        table.addRow(`${game.awayTeam.name.default}`, `${game.awayTeam.score}`);
+        table.addRow(`${game.homeTeam.name.default}`, `${game.homeTeam.score}`);
       } else {
         table.addRow(`${game.awayTeam.name.default} (${getTeamRecord(game.awayTeam, standings)})`, `${game.awayTeam.score}`);
         table.addRow(`${game.homeTeam.name.default} (${getTeamRecord(game.homeTeam, standings)})`, `${game.homeTeam.score}`);
