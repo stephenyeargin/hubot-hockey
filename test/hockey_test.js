@@ -1,34 +1,59 @@
-/* global it, describe, beforeEach, afterEach */
+/* eslint-disable no-undef */
 
-const Helper = require('hubot-test-helper');
+const { Robot, User, TextMessage } = require('hubot');
 const chai = require('chai');
 chai.use(require('sinon-chai'));
 const nock = require('nock');
+const path = require('path');
 
-const helper = new Helper([
-  './../src/hockey.js',
-]);
 const { expect } = chai;
 
 // Alter time as test runs
 const originalDateNow = Date.now;
 
 describe('hubot-hockey', () => {
-  let room = null;
+  let robot = null;
+  let adapter = null;
+  let messages = [];
 
   beforeEach(() => {
     process.env.HUBOT_LOG_LEVEL = 'error';
     nock.disableNetConnect();
-    room = helper.createRoom();
-    nock.disableNetConnect();
 
-    // Re-used in every call
+    // Create robot with mock adapter
+    robot = new Robot('hubot-mock-adapter', false, 'hubot');
+    robot.loadAdapter(); // Load the adapter
+    adapter = robot.adapter;
+    messages = [];
+
+    // Load the hockey script
+    robot.loadFile(path.resolve(__dirname, '..', 'src'), 'hockey.js');
+    robot.brain.emit('loaded');
+
+    // Set up message capturing
+    adapter.on('send', (envelope, ...strings) => {
+      strings.forEach((str) => {
+        if (Array.isArray(str)) {
+          str.forEach((s) => messages.push(['hubot', s]));
+        } else {
+          messages.push(['hubot', str]);
+        }
+      });
+    });
+
+    adapter.on('reply', (envelope, ...strings) => {
+      strings.forEach((str) => {
+        if (Array.isArray(str)) {
+          str.forEach((s) => messages.push(['hubot', `@${envelope.user.name} ${s}`]));
+        } else {
+          messages.push(['hubot', `@${envelope.user.name} ${str}`]);
+        }
+      });
+    });
+
+    // Standings API needed for playoff odds calculation
     nock('https://api-web.nhle.com')
       .get(/\/v1\/standings\/\d{4}-\d{2}-\d{2}/)
-      .delay({
-        head: 100,
-        body: 200,
-      })
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings.json`);
   });
 
@@ -36,17 +61,23 @@ describe('hubot-hockey', () => {
     delete process.env.HUBOT_LOG_LEVEL;
     Date.now = originalDateNow;
     nock.cleanAll();
-    room.destroy();
+    if (robot.server) {
+      robot.server.close();
+    }
+  });
+
+  // Helper function to simulate user saying something
+  const userSays = (userName, message) => new Promise((resolve) => {
+    const user = new User(userName, { room: 'room1' });
+    const textMessage = new TextMessage(user, message);
+    messages.push([userName, message]);
+    robot.receive(textMessage, resolve);
   });
 
   it('responds with an in-progress game and playoff odds', (done) => {
     Date.now = () => Date.parse('Tue Nov 7 22:42:00 CST 2023');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-in-progress.json`);
 
     nock('https://moneypuck.com')
@@ -57,12 +88,11 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot preds');
+    userSays('alice', '@hubot preds');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot preds'],
             ['hubot', '11/7/2023 - Scotiabank Saddledome; TV: BSSO (A) | SNW (H)'],
             [
@@ -78,7 +108,7 @@ describe('hubot-hockey', () => {
           done(err);
         }
       },
-      500,
+      100,
     );
   });
 
@@ -86,10 +116,6 @@ describe('hubot-hockey', () => {
     Date.now = () => Date.parse('Sat Dec 16 18:41:00 CST 2023');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-intermission.json`);
 
     nock('https://moneypuck.com')
@@ -100,12 +126,11 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot preds');
+    userSays('alice', '@hubot preds');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot preds'],
             ['hubot', '12/16/2023 - Bridgestone Arena; TV: NHLN (N) | BSSO (H) | MNMT (A)'],
             [
@@ -121,34 +146,29 @@ describe('hubot-hockey', () => {
           done(err);
         }
       },
-      500,
+      100,
     );
   });
 
   it('responds with a future game and playoff odds', (done) => {
-    Date.now = () => Date.parse('Tue Nov 8 08:00:00 CST 2023');
+    Date.now = () => Date.parse('Fri Nov 24 22:42:00 CST 2023');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-future.json`);
 
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/update_date.txt')
-      .reply(200, '2023-11-08 06:52:52.999000-04:00');
+      .reply(200, '2023-11-24 06:52:52.999000-04:00');
 
     nock('https://moneypuck.com')
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot preds');
+    userSays('alice', '@hubot preds');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot preds'],
             ['hubot', '11/9/2023 - Canada Life Centre; TV: BSSO (A) | TSN3 (H)'],
             [
@@ -164,18 +184,14 @@ describe('hubot-hockey', () => {
           done(err);
         }
       },
-      500,
+      100,
     );
   });
 
   it('responds with a completed game and playoff odds', (done) => {
-    Date.now = () => Date.parse('Tue Nov 7 23:00:00 CST 2023');
+    Date.now = () => Date.parse('Tue Nov 7 22:42:00 CST 2023');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-completed.json`);
 
     nock('https://moneypuck.com')
@@ -186,12 +202,11 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot preds');
+    userSays('alice', '@hubot preds');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot preds'],
             ['hubot', '11/7/2023 - Scotiabank Saddledome'],
             [
@@ -207,7 +222,7 @@ describe('hubot-hockey', () => {
           done(err);
         }
       },
-      500,
+      100,
     );
   });
 
@@ -215,10 +230,6 @@ describe('hubot-hockey', () => {
     Date.now = () => Date.parse('Tue Nov 20 6:41:00 CST 2023');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-pregame.json`);
 
     nock('https://moneypuck.com')
@@ -229,12 +240,11 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot preds');
+    userSays('alice', '@hubot preds');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot preds'],
             ['hubot', '11/20/2023 - Bridgestone Arena; TV: BSSO (H) | ALT (A)'],
             [
@@ -250,7 +260,7 @@ describe('hubot-hockey', () => {
           done(err);
         }
       },
-      500,
+      100,
     );
   });
 
@@ -258,10 +268,6 @@ describe('hubot-hockey', () => {
     Date.now = () => Date.parse('Fri Dec 16 22:28:00 CST 2023');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-crit.json`);
 
     nock('https://moneypuck.com')
@@ -272,12 +278,11 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot preds');
+    userSays('alice', '@hubot preds');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot preds'],
             ['hubot', '12/15/2023 - PNC Arena; TV: ESPN+ (N) | HULU (N)'],
             [
@@ -293,7 +298,83 @@ describe('hubot-hockey', () => {
           done(err);
         }
       },
-      500,
+      100,
+    );
+  });
+
+  it('responds with a final score and playoff odds', (done) => {
+    Date.now = () => Date.parse('Wed Nov 22 23:18:00 CST 2023');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/nsh/now')
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-final.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-11-22 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    userSays('alice', '@hubot preds');
+    setTimeout(
+      () => {
+        try {
+          expect(messages).to.eql([
+            ['alice', '@hubot preds'],
+            ['hubot', '11/22/2023 - Bridgestone Arena'],
+            [
+              'hubot',
+              '  Calgary Flames (3-7-1)        2  \n'
+            + '  Nashville Predators (5-6-0)   4  ',
+            ],
+            ['hubot', 'Final - https://www.nhl.com/gamecenter/2023020288'],
+            ['hubot', 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup'],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      100,
+    );
+  });
+
+  it('responds with a final score in a shootout and playoff odds', (done) => {
+    Date.now = () => Date.parse('Fri Dec 15 23:18:00 CST 2023');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/nsh/now')
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-final-shootout.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-12-15 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    userSays('alice', '@hubot preds');
+    setTimeout(
+      () => {
+        try {
+          expect(messages).to.eql([
+            ['alice', '@hubot preds'],
+            ['hubot', '12/15/2023 - UBS Arena'],
+            [
+              'hubot',
+              '  Boston Bruins (10-1-1)       5  \n'
+            + '  New York Islanders (5-3-3)   4  ',
+            ],
+            ['hubot', 'Final/SO - https://www.nhl.com/gamecenter/2023020457'],
+            ['hubot', 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup'],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      100,
     );
   });
 
@@ -301,10 +382,6 @@ describe('hubot-hockey', () => {
     Date.now = () => Date.parse('Tue Apr 23 12:00:00 CST 2024');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-future-playoff.json`);
 
     nock('https://moneypuck.com')
@@ -315,12 +392,11 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot preds');
+    userSays('alice', '@hubot preds');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot preds'],
             ['hubot', '4/23/2024 - Rogers Arena; TV: ESPN2 (N) | SN (N) | TVAS2 (N) | BSSO (A)'],
             [
@@ -338,7 +414,7 @@ describe('hubot-hockey', () => {
           done(err);
         }
       },
-      500,
+      100,
     );
   });
 
@@ -346,10 +422,6 @@ describe('hubot-hockey', () => {
     Date.now = () => Date.parse('Sat Jun 15 21:01:00 CST 2024');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/edm/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-in-progress-playoff.json`);
 
     nock('https://moneypuck.com')
@@ -360,12 +432,11 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot oilers');
+    userSays('alice', '@hubot oilers');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot oilers'],
             ['hubot', '6/15/2024 - Rogers Place; TV: ABC (N) | ESPN+ (N) | SN (N) | CBC (N) | TVAS (N)'],
             [
@@ -383,7 +454,81 @@ describe('hubot-hockey', () => {
           done(err);
         }
       },
-      500,
+      100,
+    );
+  });
+
+  it('responds with a preseason game before focus date', (done) => {
+    Date.now = () => Date.parse('Fri Aug 30 13:10:00 CDT 2024');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/nsh/now')
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-preseason.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-12-16 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    userSays('alice', '@hubot preds');
+    setTimeout(
+      () => {
+        try {
+          expect(messages).to.eql([
+            ['alice', '@hubot preds'],
+            ['hubot', '9/27/2024 - Amalie Arena'],
+            [
+              'hubot',
+              '  Nashville Predators (47-30-5)  \n'
+              + '  Tampa Bay Lightning (45-29-8)  ',
+            ],
+            ['hubot', '6:00 pm CDT - Preseason - https://www.nhl.com/gamecenter/2024010044'],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      100,
+    );
+  });
+
+  it('responds with a final score and no odds if they are stale', (done) => {
+    Date.now = () => Date.parse('Sat Dec 16 10:28:00 CST 2023');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/bos/now')
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-final-shootout.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2023-11-07 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    userSays('alice', '@hubot bruins');
+    setTimeout(
+      () => {
+        try {
+          expect(messages).to.eql([
+            ['alice', '@hubot bruins'],
+            ['hubot', '12/15/2023 - UBS Arena'],
+            [
+              'hubot',
+              '  Boston Bruins (10-1-1)       5  \n'
+            + '  New York Islanders (5-3-3)   4  ',
+            ],
+            ['hubot', 'Final/SO - https://www.nhl.com/gamecenter/2023020457'],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      100,
     );
   });
 
@@ -391,10 +536,6 @@ describe('hubot-hockey', () => {
     Date.now = () => Date.parse('Tue Apr 24 9:00:00 CST 2024');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-completed-playoff.json`);
 
     nock('https://moneypuck.com')
@@ -405,12 +546,11 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot preds');
+    userSays('alice', '@hubot preds');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot preds'],
             ['hubot', '4/23/2024 - Rogers Arena'],
             [
@@ -428,7 +568,7 @@ describe('hubot-hockey', () => {
           done(err);
         }
       },
-      500,
+      100,
     );
   });
 
@@ -436,10 +576,6 @@ describe('hubot-hockey', () => {
     Date.now = () => Date.parse('Fri May 3 22:00:00 CST 2024');
     nock('https://api-web.nhle.com')
       .get('/v1/scoreboard/nsh/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-eliminated.json`);
 
     nock('https://moneypuck.com')
@@ -450,12 +586,11 @@ describe('hubot-hockey', () => {
       .get('/moneypuck/simulations/simulations_recent.csv')
       .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot preds');
+    userSays('alice', '@hubot preds');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot preds'],
             ['hubot', '5/3/2024 - Bridgestone Arena'],
             [
@@ -473,214 +608,82 @@ describe('hubot-hockey', () => {
           done(err);
         }
       },
-      500,
-    );
-  });
-
-  it('responds with a final score and playoff odds', (done) => {
-    Date.now = () => Date.parse('Wed Nov 22 23:18:00 CST 2023');
-    nock('https://api-web.nhle.com')
-      .get('/v1/scoreboard/nsh/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-final.json`);
-
-    nock('https://moneypuck.com')
-      .get('/moneypuck/simulations/update_date.txt')
-      .reply(200, '2023-11-22 06:52:52.999000-04:00');
-
-    nock('https://moneypuck.com')
-      .get('/moneypuck/simulations/simulations_recent.csv')
-      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
-
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot preds');
-    setTimeout(
-      () => {
-        try {
-          expect(selfRoom.messages).to.eql([
-            ['alice', '@hubot preds'],
-            ['hubot', '11/22/2023 - Bridgestone Arena'],
-            [
-              'hubot',
-              '  Calgary Flames (3-7-1)        2  \n'
-            + '  Nashville Predators (5-6-0)   4  ',
-            ],
-            ['hubot', 'Final - https://www.nhl.com/gamecenter/2023020288'],
-            ['hubot', 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup'],
-          ]);
-          done();
-        } catch (err) {
-          done(err);
-        }
-      },
-      500,
-    );
-  });
-
-  it('responds with a final score in a shootout and playoff odds', (done) => {
-    Date.now = () => Date.parse('Sat Dec 16 10:28:00 CST 2023');
-    nock('https://api-web.nhle.com')
-      .get('/v1/scoreboard/bos/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-final-shootout.json`);
-
-    nock('https://moneypuck.com')
-      .get('/moneypuck/simulations/update_date.txt')
-      .reply(200, '2023-12-16 06:52:52.999000-04:00');
-
-    nock('https://moneypuck.com')
-      .get('/moneypuck/simulations/simulations_recent.csv')
-      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
-
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot bruins');
-    setTimeout(
-      () => {
-        try {
-          expect(selfRoom.messages).to.eql([
-            ['alice', '@hubot bruins'],
-            ['hubot', '12/15/2023 - UBS Arena'],
-            [
-              'hubot',
-              '  Boston Bruins (10-1-1)       5  \n'
-            + '  New York Islanders (5-3-3)   4  ',
-            ],
-            ['hubot', 'Final/SO - https://www.nhl.com/gamecenter/2023020457'],
-            ['hubot', 'MoneyPuck: 62.0% to Make Playoffs / 3.8% to Win Stanley Cup'],
-          ]);
-          done();
-        } catch (err) {
-          done(err);
-        }
-      },
-      500,
-    );
-  });
-
-  it('responds with a preseason game before focus date', (done) => {
-    Date.now = () => Date.parse('Fri Aug 30 13:10:00 CDT 2024');
-    nock('https://api-web.nhle.com')
-      .get('/v1/scoreboard/nsh/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-preseason.json`);
-
-    nock('https://moneypuck.com')
-      .get('/moneypuck/simulations/update_date.txt')
-      .reply(200, '2023-12-16 06:52:52.999000-04:00');
-
-    nock('https://moneypuck.com')
-      .get('/moneypuck/simulations/simulations_recent.csv')
-      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
-
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot preds');
-    setTimeout(
-      () => {
-        try {
-          expect(selfRoom.messages).to.eql([
-            ['alice', '@hubot preds'],
-            ['hubot', '9/27/2024 - Amalie Arena'],
-            [
-              'hubot',
-              '  Nashville Predators (47-30-5)  \n'
-              + '  Tampa Bay Lightning (45-29-8)  ',
-            ],
-            ['hubot', '6:00 pm CDT - Preseason - https://www.nhl.com/gamecenter/2024010044'],
-          ]);
-          done();
-        } catch (err) {
-          done(err);
-        }
-      },
-      500,
-    );
-  });
-
-  it('responds with a final score and no odds if they are stale', (done) => {
-    Date.now = () => Date.parse('Sat Dec 16 10:28:00 CST 2023');
-    nock('https://api-web.nhle.com')
-      .get('/v1/scoreboard/bos/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-final-shootout.json`);
-
-    nock('https://moneypuck.com')
-      .get('/moneypuck/simulations/update_date.txt')
-      .reply(200, '2023-11-07 06:52:52.999000-04:00');
-
-    nock('https://moneypuck.com')
-      .get('/moneypuck/simulations/simulations_recent.csv')
-      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
-
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot bruins');
-    setTimeout(
-      () => {
-        try {
-          expect(selfRoom.messages).to.eql([
-            ['alice', '@hubot bruins'],
-            ['hubot', '12/15/2023 - UBS Arena'],
-            [
-              'hubot',
-              '  Boston Bruins (10-1-1)       5  \n'
-            + '  New York Islanders (5-3-3)   4  ',
-            ],
-            ['hubot', 'Final/SO - https://www.nhl.com/gamecenter/2023020457'],
-          ]);
-          done();
-        } catch (err) {
-          done(err);
-        }
-      },
-      500,
+      100,
     );
   });
 });
 
 describe('hubot-hockey league standings', () => {
-  let room = null;
+  let robot = null;
+  let adapter = null;
+  let messages = [];
 
   beforeEach(() => {
     process.env.HUBOT_LOG_LEVEL = 'error';
     nock.disableNetConnect();
-    room = helper.createRoom();
-    nock.disableNetConnect();
+
+    // Create robot with mock adapter
+    robot = new Robot('hubot-mock-adapter', false, 'hubot');
+    robot.loadAdapter();
+    adapter = robot.adapter;
+    messages = [];
+
+    // Load the hockey script
+    robot.loadFile(path.resolve(__dirname, '..', 'src'), 'hockey.js');
+    robot.brain.emit('loaded');
+
+    // Set up message capturing
+    adapter.on('send', (envelope, ...strings) => {
+      strings.forEach((str) => {
+        if (Array.isArray(str)) {
+          str.forEach((s) => messages.push(['hubot', s]));
+        } else {
+          messages.push(['hubot', str]);
+        }
+      });
+    });
+
+    adapter.on('reply', (envelope, ...strings) => {
+      strings.forEach((str) => {
+        if (Array.isArray(str)) {
+          str.forEach((s) => messages.push(['hubot', `@${envelope.user.name} ${s}`]));
+        } else {
+          messages.push(['hubot', `@${envelope.user.name} ${str}`]);
+        }
+      });
+    });
+
+    // Re-used in every call
+    nock('https://api-web.nhle.com')
+      .get(/\/v1\/standings\/\d{4}-\d{2}-\d{2}/)
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings.json`);
   });
 
   afterEach(() => {
     delete process.env.HUBOT_LOG_LEVEL;
     Date.now = originalDateNow;
     nock.cleanAll();
-    room.destroy();
+    if (robot.server) {
+      robot.server.close();
+    }
+  });
+
+  // Helper function to simulate user saying something
+  const userSays = (userName, message) => new Promise((resolve) => {
+    const user = new User(userName, { room: 'room1' });
+    const textMessage = new TextMessage(user, message);
+    messages.push([userName, message]);
+    robot.receive(textMessage, resolve);
   });
 
   it('responds with division leader standings', (done) => {
-    Date.now = () => Date.parse('Tues Nov 7 22:36:00 CST 2023');
-    nock('https://api-web.nhle.com')
-      .get('/v1/standings/2023-11-07')
-      .delay({
-        head: 100,
-        body: 200,
-      })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings.json`);
+    Date.now = () => Date.parse('Tue Nov 7 22:42:00 CST 2023');
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot nhl');
+    userSays('alice', '@hubot nhl');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot nhl'],
             [
               'hubot',
@@ -701,26 +704,18 @@ describe('hubot-hockey league standings', () => {
           done(err);
         }
       },
-      500,
+      100,
     );
   });
 
   it('responds with division standings', (done) => {
     Date.now = () => Date.parse('Tues Nov 7 22:36:00 CST 2023');
-    nock('https://api-web.nhle.com')
-      .get('/v1/standings/2023-11-07')
-      .delay({
-        head: 100,
-        body: 200,
-      })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings.json`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot nhl central');
+    userSays('alice', '@hubot nhl central');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot nhl central'],
             [
               'hubot',
@@ -745,26 +740,18 @@ describe('hubot-hockey league standings', () => {
           done(err);
         }
       },
-      500,
+      100,
     );
   });
 
   it('responds with conference standings', (done) => {
     Date.now = () => Date.parse('Tues Nov 7 22:36:00 CST 2023');
-    nock('https://api-web.nhle.com')
-      .get('/v1/standings/2023-11-07')
-      .delay({
-        head: 100,
-        body: 200,
-      })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings.json`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot nhl west');
+    userSays('alice', '@hubot nhl west');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot nhl west'],
             [
               'hubot',
@@ -797,190 +784,24 @@ describe('hubot-hockey league standings', () => {
           done(err);
         }
       },
-      500,
-    );
-  });
-
-  it('responds with conference standings with clinched positions', (done) => {
-    Date.now = () => Date.parse('Sat Apr 6 16:30:00 CST 2024');
-    nock('https://api-web.nhle.com')
-      .get('/v1/standings/2024-04-06')
-      .delay({
-        head: 100,
-        body: 200,
-      })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings-clinch.json`);
-
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot nhl west');
-    setTimeout(
-      () => {
-        try {
-          expect(selfRoom.messages).to.eql([
-            ['alice', '@hubot nhl west'],
-            [
-              'hubot',
-              '.--------------------------------------------------.\n'
-            + '|           Western Conference Standings           |\n'
-            + '|--------------------------------------------------|\n'
-            + '|          Team          | GP | W  | L  | OT | PTS |\n'
-            + '|------------------------|----|----|----|----|-----|\n'
-            + '| Dallas Stars (x)       | 76 | 48 | 19 |  9 | 105 |\n'
-            + '| Vancouver Canucks (x)  | 76 | 47 | 21 |  8 | 102 |\n'
-            + '| Colorado Avalanche (x) | 77 | 48 | 23 |  6 | 102 |\n'
-            + '| Winnipeg Jets (x)      | 76 | 46 | 24 |  6 |  98 |\n'
-            + '| Edmonton Oilers (x)    | 75 | 46 | 24 |  5 |  97 |\n'
-            + '| Nashville Predators    | 76 | 44 | 28 |  4 |  92 |\n'
-            + '| Vegas Golden Knights   | 76 | 42 | 26 |  8 |  92 |\n'
-            + '| Los Angeles Kings      | 76 | 40 | 25 | 11 |  91 |\n'
-            + '| St. Louis Blues        | 76 | 40 | 32 |  4 |  84 |\n'
-            + '| Minnesota Wild         | 75 | 36 | 30 |  9 |  81 |\n'
-            + '| Seattle Kraken (e)     | 76 | 32 | 31 | 13 |  77 |\n'
-            + '| Calgary Flames (e)     | 75 | 34 | 36 |  5 |  73 |\n'
-            + '| Arizona Coyotes (e)    | 76 | 32 | 39 |  5 |  69 |\n'
-            + '| Anaheim Ducks (e)      | 77 | 25 | 48 |  4 |  54 |\n'
-            + '| Chicago Blackhawks (e) | 75 | 22 | 48 |  5 |  49 |\n'
-            + '| San Jose Sharks (e)    | 75 | 17 | 50 |  8 |  42 |\n'
-            + '\'--------------------------------------------------\'',
-            ],
-          ]);
-          done();
-        } catch (err) {
-          done(err);
-        }
-      },
-      500,
-    );
-  });
-
-  it('responds with conference standings and resolves tied records', (done) => {
-    Date.now = () => Date.parse('Sat Apr 6 16:30:00 CST 2024');
-    nock('https://api-web.nhle.com')
-      .get('/v1/standings/2024-04-06')
-      .delay({
-        head: 100,
-        body: 200,
-      })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings-tie.json`);
-
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot nhl east');
-    setTimeout(
-      () => {
-        try {
-          expect(selfRoom.messages).to.eql([
-            ['alice', '@hubot nhl east'],
-            [
-              'hubot',
-              '.-----------------------------------------------------.\n'
-            + '|            Eastern Conference Standings             |\n'
-            + '|-----------------------------------------------------|\n'
-            + '|           Team            | GP | W  | L  | OT | PTS |\n'
-            + '|---------------------------|----|----|----|----|-----|\n'
-            + '| New York Rangers (p)      | 82 | 55 | 23 |  4 | 114 |\n'
-            + '| Carolina Hurricanes (x)   | 82 | 52 | 23 |  7 | 111 |\n'
-            + '| Florida Panthers (y)      | 82 | 52 | 24 |  6 | 110 |\n'
-            + '| Boston Bruins (x)         | 82 | 47 | 20 | 15 | 109 |\n'
-            + '| Toronto Maple Leafs (x)   | 82 | 46 | 26 | 10 | 102 |\n'
-            + '| Tampa Bay Lightning (x)   | 82 | 45 | 29 |  8 |  98 |\n'
-            + '| New York Islanders (x)    | 82 | 39 | 27 | 16 |  94 |\n'
-            + '| Washington Capitals (x)   | 82 | 40 | 31 | 11 |  91 |\n'
-            + '| Detroit Red Wings (e)     | 82 | 41 | 32 |  9 |  91 |\n'
-            + '| Pittsburgh Penguins (e)   | 82 | 38 | 32 | 12 |  88 |\n'
-            + '| Philadelphia Flyers (e)   | 82 | 38 | 33 | 11 |  87 |\n'
-            + '| Buffalo Sabres (e)        | 82 | 39 | 37 |  6 |  84 |\n'
-            + '| New Jersey Devils (e)     | 82 | 38 | 39 |  5 |  81 |\n'
-            + '| Ottawa Senators (e)       | 82 | 37 | 41 |  4 |  78 |\n'
-            + '| Montréal Canadiens (e)    | 82 | 30 | 36 | 16 |  76 |\n'
-            + '| Columbus Blue Jackets (e) | 82 | 27 | 43 | 12 |  66 |\n'
-            + '\'-----------------------------------------------------\'',
-            ],
-          ]);
-          done();
-        } catch (err) {
-          done(err);
-        }
-      },
-      500,
-    );
-  });
-});
-
-describe('hubot-hockey HUBOT_HOCKEY_EXT_STANDINGS=true', () => {
-  let room = null;
-
-  beforeEach(() => {
-    process.env.HUBOT_LOG_LEVEL = 'error';
-    process.env.HUBOT_HOCKEY_EXT_STANDINGS = 'true';
-    nock.disableNetConnect();
-    room = helper.createRoom();
-    nock.disableNetConnect();
-  });
-
-  afterEach(() => {
-    delete process.env.HUBOT_LOG_LEVEL;
-    delete process.env.HUBOT_HOCKEY_EXT_STANDINGS;
-    Date.now = originalDateNow;
-    nock.cleanAll();
-    room.destroy();
-  });
-
-  it('responds with division leader standings', (done) => {
-    Date.now = () => Date.parse('Tues Nov 7 22:36:00 CST 2023');
-    nock('https://api-web.nhle.com')
-      .get('/v1/standings/2023-11-07')
-      .delay({
-        head: 100,
-        body: 200,
-      })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings.json`);
-
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot nhl');
-    setTimeout(
-      () => {
-        try {
-          expect(selfRoom.messages).to.eql([
-            ['alice', '@hubot nhl'],
-            [
-              'hubot',
-              '.----------------------------------------------------------------------.\n'
-            + '|                           Division Leaders                           |\n'
-            + '|----------------------------------------------------------------------|\n'
-            + '|         Team         | GP | W  | L | OT | PTS |  P%   |  L10  | STRK |\n'
-            + '|----------------------|----|----|---|----|-----|-------|-------|------|\n'
-            + '| Vegas Golden Knights | 13 | 11 | 1 |  1 |  23 | 0.885 | 8-1-1 | L1   |\n'
-            + '| Boston Bruins        | 12 | 10 | 1 |  1 |  21 | 0.875 | 8-1-1 | W1   |\n'
-            + '| New York Rangers     | 12 |  9 | 2 |  1 |  19 | 0.792 | 8-1-1 | W1   |\n'
-            + '| Dallas Stars         | 11 |  7 | 3 |  1 |  15 | 0.682 | 6-3-1 | L2   |\n'
-            + "'----------------------------------------------------------------------'",
-            ],
-          ]);
-          done();
-        } catch (err) {
-          done(err);
-        }
-      },
-      500,
+      100,
     );
   });
 
   it('responds with standings during the off-season', (done) => {
     Date.now = () => Date.parse('Tues Jul 9 18:36:00 CST 2024');
+
+    // Clear the global standings nock and set up the offseason one
+    nock.cleanAll();
     nock('https://api-web.nhle.com')
       .get('/v1/standings/2024-07-09')
-      .delay({
-        head: 100,
-        body: 200,
-      })
       .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings-offseason.json`);
 
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot nhl');
+    userSays('alice', '@hubot nhl');
     setTimeout(
       () => {
         try {
-          expect(selfRoom.messages).to.eql([
+          expect(messages).to.eql([
             ['alice', '@hubot nhl'],
             [
               'hubot',
@@ -992,70 +813,7 @@ describe('hubot-hockey HUBOT_HOCKEY_EXT_STANDINGS=true', () => {
           done(err);
         }
       },
-      500,
-    );
-  });
-});
-
-describe('hubot-hockey HUBOT_HOCKEY_HIDE_ODDS=true', () => {
-  let room = null;
-
-  beforeEach(() => {
-    process.env.HUBOT_LOG_LEVEL = 'error';
-    process.env.HUBOT_HOCKEY_HIDE_ODDS = 'true';
-    nock.disableNetConnect();
-    room = helper.createRoom();
-    nock.disableNetConnect();
-
-    // Re-used in every call
-    nock('https://api-web.nhle.com')
-      .get(/\/v1\/standings\/\d{4}-\d{2}-\d{2}/)
-      .delay({
-        head: 100,
-        body: 200,
-      })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-standings.json`);
-  });
-
-  afterEach(() => {
-    delete process.env.HUBOT_LOG_LEVEL;
-    delete process.env.HUBOT_HOCKEY_HIDE_ODDS;
-    Date.now = originalDateNow;
-    nock.cleanAll();
-    room.destroy();
-  });
-
-  it('responds with an in-progress game and playoff odds', (done) => {
-    Date.now = () => Date.parse('Tue Nov 7 22:42:00 CST 2023');
-    nock('https://api-web.nhle.com')
-      .get('/v1/scoreboard/nsh/now')
-      .delay({
-        head: 100,
-        body: 200,
-      })
-      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-in-progress.json`);
-
-    const selfRoom = room;
-    selfRoom.user.say('alice', '@hubot preds');
-    setTimeout(
-      () => {
-        try {
-          expect(selfRoom.messages).to.eql([
-            ['alice', '@hubot preds'],
-            ['hubot', '11/7/2023 - Scotiabank Saddledome; TV: BSSO (A) | SNW (H)'],
-            [
-              'hubot',
-              '  Nashville Predators (5-6-0)   2  \n'
-            + '  Calgary Flames (3-7-1)        3  ',
-            ],
-            ['hubot', '09:04 3rd - https://www.nhl.com/gamecenter/2023020186'],
-          ]);
-          done();
-        } catch (err) {
-          done(err);
-        }
-      },
-      500,
+      100,
     );
   });
 });

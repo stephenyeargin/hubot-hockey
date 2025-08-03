@@ -189,8 +189,8 @@
     "time_zone": "America/New_York"
   },
   {
-    "name": "Utah Hockey Club",
-    "regex": "(utah hockey club|utah|uhc|uta|slc|salt lake city)",
+    "name": "Utah Mammoth",
+    "regex": "(utah mammoth|mammoth|utah hockey club|utah|uhc|uta|slc|salt lake city)",
     "abbreviation": "UTA",
     "primary_color": "#6CACE4",
     "time_zone": "America/Denver"
