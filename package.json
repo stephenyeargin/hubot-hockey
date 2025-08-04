@@ -21,32 +21,32 @@
   },
   "dependencies": {
     "ascii-table": "0.0.9",
-    "csv-parse": "^5.5.2",
-    "moment-timezone": "^0.5.43"
+    "csv-parse": "^6.1.0",
+    "moment-timezone": "^0.6.0"
   },
   "peerDependencies": {
-    "hubot": ">=3 || 0.0.0-development"
+    "hubot": "^9.1.1"
   },
   "devDependencies": {
     "chai": "^4.3.10",
     "eslint": "^8.54.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-n": "^16.3.1",
     "eslint-plugin-promise": "^6.1.1",
-    "hubot-test-helper": "^1.9.0",
-    "husky": "^8.0.3",
+    "hubot-mock-adapter": "^2.3.0",
+    "husky": "^9.1.7",
     "mocha": "^10.2.0",
-    "nock": "^13.3.8",
+    "nock": "^14.0.8",
     "sinon": "^17.0.1",
     "sinon-chai": "^3.7.0"
   },
   "main": "index.js",
   "scripts": {
     "test": "script/test",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "volta": {
-    "node": "18.19.0"
+    "node": "24.5.0"
   }
 }
