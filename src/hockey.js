@@ -477,14 +477,11 @@ module.exports = (robot) => {
               divisions.push(t.divisionName);
               return true;
             }
-            return false;
-          });
-        } else {
-          // eslint-disable-next-line max-len
-          standings = json.standings.filter((t) => t.divisionName === filter || t.conferenceName === filter);
-        }
-
-        if (standings.length === 0) {
+          return false;
+        });
+      } else {
+        standings = json.standings.filter((t) => t.divisionName === filter || t.conferenceName === filter);
+      }        if (standings.length === 0) {
           msg.send('Standings available when season starts.');
           return;
         }
