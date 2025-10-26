@@ -347,11 +347,11 @@ module.exports = (robot) => {
                   msg.send({
                     attachments: [
                       {
-                        author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
+                        author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                         author_link: 'https://moneypuck.com',
                         author_name: 'MoneyPuck.com',
                         fallback,
-                        thumb_url: `http://peter-tanner.com/moneypuck/logos/${team.abbreviation}.png`,
+                        thumb_url: `https://peter-tanner.com/moneypuck/logos/${team.abbreviation}.png`,
                         title: team.name,
                         color: team.primary_color,
                         fields: slackFields,
@@ -477,14 +477,11 @@ module.exports = (robot) => {
               divisions.push(t.divisionName);
               return true;
             }
-            return false;
-          });
-        } else {
-          // eslint-disable-next-line max-len
-          standings = json.standings.filter((t) => t.divisionName === filter || t.conferenceName === filter);
-        }
-
-        if (standings.length === 0) {
+          return false;
+        });
+      } else {
+        standings = json.standings.filter((t) => t.divisionName === filter || t.conferenceName === filter);
+      }        if (standings.length === 0) {
           msg.send('Standings available when season starts.');
           return;
         }
