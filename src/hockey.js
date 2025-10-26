@@ -347,11 +347,11 @@ module.exports = (robot) => {
                   msg.send({
                     attachments: [
                       {
-                        author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
+                        author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                         author_link: 'https://moneypuck.com',
                         author_name: 'MoneyPuck.com',
                         fallback,
-                        thumb_url: `http://peter-tanner.com/moneypuck/logos/${team.abbreviation}.png`,
+                        thumb_url: `https://peter-tanner.com/moneypuck/logos/${team.abbreviation}.png`,
                         title: team.name,
                         color: team.primary_color,
                         fields: slackFields,

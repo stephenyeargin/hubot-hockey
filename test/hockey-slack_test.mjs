@@ -129,7 +129,7 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
-                    author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
+                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
@@ -146,7 +146,7 @@ describe('hubot-hockey for slack', () => {
                         value: '4.2%',
                       },
                     ],
-                    thumb_url: 'http://peter-tanner.com/moneypuck/logos/NSH.png',
+                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
                     title: 'Nashville Predators',
                   },
                 ],
@@ -211,7 +211,7 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
-                    author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
+                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
@@ -228,7 +228,7 @@ describe('hubot-hockey for slack', () => {
                         value: '4.2%',
                       },
                     ],
-                    thumb_url: 'http://peter-tanner.com/moneypuck/logos/NSH.png',
+                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
                     title: 'Nashville Predators',
                   },
                 ],
@@ -296,7 +296,7 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
-                    author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
+                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
@@ -313,7 +313,7 @@ describe('hubot-hockey for slack', () => {
                         value: '4.2%',
                       },
                     ],
-                    thumb_url: 'http://peter-tanner.com/moneypuck/logos/NSH.png',
+                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
                     title: 'Nashville Predators',
                   },
                 ],
@@ -381,7 +381,7 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
-                    author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
+                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
@@ -398,7 +398,7 @@ describe('hubot-hockey for slack', () => {
                         value: '4.2%',
                       },
                     ],
-                    thumb_url: 'http://peter-tanner.com/moneypuck/logos/NSH.png',
+                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
                     title: 'Nashville Predators',
                   },
                 ],
@@ -466,7 +466,7 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
-                    author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
+                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
@@ -483,7 +483,7 @@ describe('hubot-hockey for slack', () => {
                         value: '4.2%',
                       },
                     ],
-                    thumb_url: 'http://peter-tanner.com/moneypuck/logos/NSH.png',
+                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
                     title: 'Nashville Predators',
                   },
                 ],
@@ -631,7 +631,7 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
-                    author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
+                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
@@ -648,7 +648,7 @@ describe('hubot-hockey for slack', () => {
                         value: '4.2%',
                       },
                     ],
-                    thumb_url: 'http://peter-tanner.com/moneypuck/logos/NSH.png',
+                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
                     title: 'Nashville Predators',
                   },
                 ],
@@ -716,7 +716,7 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
-                    author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
+                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
@@ -733,7 +733,7 @@ describe('hubot-hockey for slack', () => {
                         value: '4.2%',
                       },
                     ],
-                    thumb_url: 'http://peter-tanner.com/moneypuck/logos/NSH.png',
+                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
                     title: 'Nashville Predators',
                   },
                 ],
@@ -801,7 +801,7 @@ describe('hubot-hockey for slack', () => {
               {
                 attachments: [
                   {
-                    author_icon: 'http://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
+                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
                     author_link: 'https://moneypuck.com',
                     author_name: 'MoneyPuck.com',
                     color: '#FFB81C',
@@ -818,7 +818,7 @@ describe('hubot-hockey for slack', () => {
                         value: '4.2%',
                       },
                     ],
-                    thumb_url: 'http://peter-tanner.com/moneypuck/logos/NSH.png',
+                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
                     title: 'Nashville Predators',
                   },
                 ],
