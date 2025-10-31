@@ -34,6 +34,9 @@ const AFTER_GAME_STATES = [
 ];
 
 module.exports = (robot) => {
+  // Cache adapter name to avoid issues with it being reset in newer Hubot versions
+  const adapterName = robot.adapterName || robot.adapter?.name || '';
+
   const periodFormat = (periodDescriptor) => {
     if (periodDescriptor.type === 'SO') {
       return 'SO';
@@ -214,7 +217,7 @@ module.exports = (robot) => {
 
       // Say it
       switch (true) {
-        case /slack/.test(robot.adapterName):
+        case /slack/.test(adapterName):
           msg.send({
             attachments: [
               {
@@ -232,7 +235,7 @@ module.exports = (robot) => {
             ],
           });
           break;
-        case /discord/.test(robot.adapterName):
+        case /discord/.test(adapterName):
           output.push(`${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${howToWatch}`);
           output.push(`\`\`\`\n${table.toString()}\n\`\`\``);
           output.push(`${gameStatus} - https://www.nhl.com/gamecenter/${game.id}`);
@@ -343,7 +346,7 @@ module.exports = (robot) => {
 
               // Say it
               switch (true) {
-                case /slack/.test(robot.adapterName):
+                case /slack/.test(adapterName):
                   msg.send({
                     attachments: [
                       {
@@ -359,7 +362,7 @@ module.exports = (robot) => {
                     ],
                   });
                   break;
-                case /discord/.test(robot.adapterName):
+                case /discord/.test(adapterName):
                   msg.send(`__**MoneyPuck.com**__\n${discordFields.join('\n')}`);
                   break;
                 default:
@@ -506,7 +509,7 @@ module.exports = (robot) => {
         });
 
         // Format based on adapter
-        if (/(slack|discord)/.test(robot.adapterName)) {
+        if (/(slack|discord)/.test(adapterName)) {
           msg.send(`\`\`\`\n${table.toString()}\n\`\`\``);
         } else {
           msg.send(table.toString());
