@@ -217,7 +217,7 @@ module.exports = (robot) => {
 
       // Say it
       switch (true) {
-        case /slack/.test(adapterName):
+        case /slack/i.test(adapterName):
           msg.send({
             attachments: [
               {
@@ -235,7 +235,7 @@ module.exports = (robot) => {
             ],
           });
           break;
-        case /discord/.test(adapterName):
+        case /discord/i.test(adapterName):
           output.push(`${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${howToWatch}`);
           output.push(`\`\`\`\n${table.toString()}\n\`\`\``);
           output.push(`${gameStatus} - https://www.nhl.com/gamecenter/${game.id}`);
@@ -346,7 +346,7 @@ module.exports = (robot) => {
 
               // Say it
               switch (true) {
-                case /slack/.test(adapterName):
+                case /slack/i.test(adapterName):
                   msg.send({
                     attachments: [
                       {
@@ -362,7 +362,7 @@ module.exports = (robot) => {
                     ],
                   });
                   break;
-                case /discord/.test(adapterName):
+                case /discord/i.test(adapterName):
                   msg.send(`__**MoneyPuck.com**__\n${discordFields.join('\n')}`);
                   break;
                 default:
@@ -509,7 +509,7 @@ module.exports = (robot) => {
         });
 
         // Format based on adapter
-        if (/(slack|discord)/.test(adapterName)) {
+        if (/(slack|discord)/i.test(adapterName)) {
           msg.send(`\`\`\`\n${table.toString()}\n\`\`\``);
         } else {
           msg.send(table.toString());
