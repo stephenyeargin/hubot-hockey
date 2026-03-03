@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # bootstrap environment
-# Commented out to avoid peer dependency errors during test runs
-# source script/bootstrap
+source script/bootstrap
 
 mocha "test/**/*_test.mjs" --reporter spec --forbid-pending --exit
