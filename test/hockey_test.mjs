@@ -422,6 +422,47 @@ describe('hubot-hockey', () => {
     );
   });
 
+  it('ignores placeholder playoff games with TBD opponent before focused date', (done) => {
+    Date.now = () => Date.parse('Sat May 16 20:00:00 EDT 2026');
+    nock('https://api-web.nhle.com')
+      .get('/v1/scoreboard/buf/now')
+      .replyWithFile(200, `${__dirname}/fixtures/api-web-nhle-schedule-future-playoff-tbd-opponent.json`);
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/update_date.txt')
+      .reply(200, '2026-05-16 06:52:52.999000-04:00');
+
+    nock('https://moneypuck.com')
+      .get('/moneypuck/simulations/simulations_recent.csv')
+      .replyWithFile(200, `${__dirname}/fixtures/moneypuck-simulations_recent.csv`);
+
+    userSays('alice', '@hubot sabres');
+    setTimeout(
+      () => {
+        try {
+          expect(messages).to.eql([
+            ['alice', '@hubot sabres'],
+            ['hubot', '5/16/2026 - Centre Bell; TV: ABC (N) | CBC (N)'],
+            [
+              'hubot',
+              '  Buffalo Sabres      \n'
+            + '  Montréal Canadiens  ',
+            ],
+            [
+              'hubot',
+              '8:00 pm EDT - R2 Game 6 (Tied 3-3) - https://www.nhl.com/gamecenter/2025030216',
+            ],
+            ['hubot', 'MoneyPuck: 41.0% to Make Playoffs / 2.3% to Win Stanley Cup'],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      100,
+    );
+  });
+
   it('responds with an in-progress playoff game and series status', (done) => {
     Date.now = () => Date.parse('Sat Jun 15 21:01:00 CST 2024');
     nock('https://api-web.nhle.com')
