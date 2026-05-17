@@ -1,0 +1,156 @@
+{
+  "focusedDate": "2026-05-16",
+  "focusedDateCount": 2,
+  "clubTimeZone": "America/New_York",
+  "clubUTCOffset": "-04:00",
+  "clubScheduleLink": "/sabres/schedule",
+  "gamesByDate": [
+    {
+      "date": "2026-05-06",
+      "games": [
+        {
+          "id": 2025030211,
+          "season": 20252026,
+          "gameType": 3,
+          "gameDate": "2026-05-06",
+          "venue": {
+            "default": "KeyBank Center"
+          },
+          "startTimeUTC": "2026-05-06T23:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-04:00",
+          "tvBroadcasts": [
+            {
+              "id": 385,
+              "market": "N",
+              "countryCode": "US",
+              "network": "TNT",
+              "sequenceNumber": 11
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": -1,
+            "name": {
+              "default": "TBD"
+            },
+            "commonName": {
+              "default": "TBD"
+            },
+            "placeNameWithPreposition": {
+              "default": "TBD"
+            },
+            "abbrev": "TBD",
+            "record": "",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/team-tbd-light.svg"
+          },
+          "homeTeam": {
+            "id": 7,
+            "name": {
+              "default": "Buffalo Sabres",
+              "fr": "Sabres de Buffalo"
+            },
+            "commonName": {
+              "default": "Sabres"
+            },
+            "placeNameWithPreposition": {
+              "default": "Buffalo",
+              "fr": "de Buffalo"
+            },
+            "abbrev": "BUF",
+            "record": "",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg"
+          },
+          "seriesStatus": {
+            "round": 2,
+            "seriesAbbrev": "R2",
+            "game": 1,
+            "topSeedTeamAbbrev": "BUF",
+            "topSeedWins": 3,
+            "bottomSeedWins": 3
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-05-16",
+      "games": [
+        {
+          "id": 2025030216,
+          "season": 20252026,
+          "gameType": 3,
+          "gameDate": "2026-05-16",
+          "gameCenterLink": "/gamecenter/buf-vs-mtl/2026/05/16/2025030216",
+          "venue": {
+            "default": "Centre Bell"
+          },
+          "startTimeUTC": "2026-05-17T00:00:00Z",
+          "easternUTCOffset": "-04:00",
+          "venueUTCOffset": "-04:00",
+          "tvBroadcasts": [
+            {
+              "id": 384,
+              "market": "N",
+              "countryCode": "US",
+              "network": "ABC",
+              "sequenceNumber": 1
+            },
+            {
+              "id": 4,
+              "market": "N",
+              "countryCode": "CA",
+              "network": "CBC",
+              "sequenceNumber": 101
+            }
+          ],
+          "gameState": "FUT",
+          "gameScheduleState": "OK",
+          "awayTeam": {
+            "id": 7,
+            "name": {
+              "default": "Buffalo Sabres",
+              "fr": "Sabres de Buffalo"
+            },
+            "commonName": {
+              "default": "Sabres"
+            },
+            "placeNameWithPreposition": {
+              "default": "Buffalo",
+              "fr": "de Buffalo"
+            },
+            "abbrev": "BUF",
+            "record": "",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg"
+          },
+          "homeTeam": {
+            "id": 8,
+            "name": {
+              "default": "Montréal Canadiens",
+              "fr": "Canadiens de Montréal"
+            },
+            "commonName": {
+              "default": "Canadiens"
+            },
+            "placeNameWithPreposition": {
+              "default": "Montréal",
+              "fr": "de Montréal"
+            },
+            "abbrev": "MTL",
+            "record": "",
+            "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg"
+          },
+          "seriesStatus": {
+            "round": 2,
+            "seriesAbbrev": "R2",
+            "game": 6,
+            "topSeedTeamAbbrev": "BUF",
+            "topSeedWins": 3,
+            "bottomSeedTeamAbbrev": "MTL",
+            "bottomSeedWins": 3
+          }
+        }
+      ]
+    }
+  ]
+}

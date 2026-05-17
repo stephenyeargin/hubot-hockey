@@ -95,6 +95,13 @@ module.exports = (robot) => {
     .then((results) => {
       const [standings, scoreboard] = results;
 
+      const isPlaceholderTeam = (teamInfo) => teamInfo?.id === -1
+        || teamInfo?.abbrev === 'TBD'
+        || teamInfo?.name?.default === 'TBD';
+
+      const hasKnownMatchup = (game) => !isPlaceholderTeam(game.awayTeam)
+        && !isPlaceholderTeam(game.homeTeam);
+
       let gameStatus;
       const json = scoreboard;
       if (!json || (
@@ -113,12 +120,12 @@ module.exports = (robot) => {
       if (
         json.gamesByDate.find(
           (d) => moment(d.date) <= focusedDate && d.games.find(
-            (g) => BEFORE_GAME_STATES.includes(g.gameState),
+            (g) => BEFORE_GAME_STATES.includes(g.gameState) && hasKnownMatchup(g),
           ),
         )) {
         games = json.gamesByDate.find(
           (d) => moment(d.date) <= focusedDate && d.games.find(
-            (g) => BEFORE_GAME_STATES.includes(g.gameState),
+            (g) => BEFORE_GAME_STATES.includes(g.gameState) && hasKnownMatchup(g),
           ),
         );
       } else {
