@@ -1,10 +1,12 @@
 import hubot from 'hubot';
+import { afterEach, beforeEach, describe, it } from './node-test-compat.mjs';
 import { expect } from 'chai';
 import nock from 'nock';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createTestRobot } from './test-robot.mjs';
 
-const { Robot, User, TextMessage } = hubot;
+const { User, TextMessage } = hubot;
 
 // ESM-friendly __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -18,19 +20,18 @@ describe('hubot-hockey for slack', () => {
   let adapter = null;
   let messages = [];
 
-  beforeEach(() => {
+  beforeEach(async () => {
     process.env.HUBOT_LOG_LEVEL = 'error';
     nock.disableNetConnect();
 
     // Create robot with mock adapter
-    robot = new Robot('hubot-mock-adapter', false, 'hubot');
-    robot.loadAdapter();
+    robot = createTestRobot('hubot');
     adapter = robot.adapter;
     messages = [];
 
     // Load the slack adapter and hockey script
-    robot.loadFile(path.resolve(__dirname, 'adapters'), 'slack.js');
-    robot.loadFile(path.resolve(__dirname, '..', 'src'), 'hockey.js');
+    await robot.loadFile(path.resolve(__dirname, 'adapters'), 'slack.js');
+    await robot.loadFile(path.resolve(__dirname, '..', 'src'), 'hockey.js');
     robot.brain.emit('loaded');
 
     // Set up message capturing

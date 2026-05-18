@@ -28,7 +28,6 @@ export default [
       },
     },
     rules: {
-      // Airbnb-base style rules
       'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'prefer-const': 'error',
       'no-var': 'error',

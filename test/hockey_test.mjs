@@ -1,11 +1,13 @@
 import hubot from 'hubot';
+import { afterEach, beforeEach, describe, it } from './node-test-compat.mjs';
 import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
 import nock from 'nock';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createTestRobot } from './test-robot.mjs';
 
-const { Robot, User, TextMessage } = hubot;
+const { User, TextMessage } = hubot;
 use(sinonChai);
 
 // ESM-friendly __dirname
@@ -20,18 +22,17 @@ describe('hubot-hockey', () => {
   let adapter = null;
   let messages = [];
 
-  beforeEach(() => {
+  beforeEach(async () => {
     process.env.HUBOT_LOG_LEVEL = 'error';
     nock.disableNetConnect();
 
     // Create robot with mock adapter
-    robot = new Robot('hubot-mock-adapter', false, 'hubot');
-    robot.loadAdapter(); // Load the adapter
+    robot = createTestRobot('hubot');
     adapter = robot.adapter;
     messages = [];
 
     // Load the hockey script
-    robot.loadFile(path.resolve(__dirname, '..', 'src'), 'hockey.js');
+    await robot.loadFile(path.resolve(__dirname, '..', 'src'), 'hockey.js');
     robot.brain.emit('loaded');
 
     // Set up message capturing
@@ -663,18 +664,17 @@ describe('hubot-hockey league standings', () => {
   let adapter = null;
   let messages = [];
 
-  beforeEach(() => {
+  beforeEach(async () => {
     process.env.HUBOT_LOG_LEVEL = 'error';
     nock.disableNetConnect();
 
     // Create robot with mock adapter
-    robot = new Robot('hubot-mock-adapter', false, 'hubot');
-    robot.loadAdapter();
+    robot = createTestRobot('hubot');
     adapter = robot.adapter;
     messages = [];
 
     // Load the hockey script
-    robot.loadFile(path.resolve(__dirname, '..', 'src'), 'hockey.js');
+    await robot.loadFile(path.resolve(__dirname, '..', 'src'), 'hockey.js');
     robot.brain.emit('loaded');
 
     // Set up message capturing

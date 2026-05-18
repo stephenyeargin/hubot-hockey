@@ -30,9 +30,8 @@
   "devDependencies": {
     "chai": "^6.2.0",
     "eslint": "^9.38.0",
-    "hubot-mock-adapter": "^2.3.0",
+    "hubot": "^14.1.0",
     "husky": "^9.1.7",
-    "mocha": "^11.7.4",
     "nock": "^14.0.10",
     "sinon": "^21.0.0",
     "sinon-chai": "^4.0.1"
@@ -40,6 +39,8 @@
   "main": "index.js",
   "scripts": {
     "test": "script/test",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "prepare": "husky"
   },
   "volta": {

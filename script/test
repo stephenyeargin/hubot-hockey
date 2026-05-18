@@ -3,4 +3,4 @@
 # bootstrap environment
 source script/bootstrap
 
-mocha "test/**/*_test.mjs" --reporter spec --forbid-pending --exit
+node --test "test/**/*_test.mjs"
