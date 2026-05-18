@@ -16,6 +16,7 @@ const __dirname = path.dirname(__filename);
 
 // Alter time as test runs
 const originalDateNow = Date.now;
+const originalSetTimeout = globalThis.setTimeout;
 
 describe('hubot-hockey', () => {
   let robot = null;
@@ -25,6 +26,7 @@ describe('hubot-hockey', () => {
   beforeEach(async () => {
     process.env.HUBOT_LOG_LEVEL = 'error';
     nock.disableNetConnect();
+    globalThis.setTimeout = (handler, delay, ...args) => originalSetTimeout(handler, Math.max(delay ?? 0, 250), ...args);
 
     // Create robot with mock adapter
     robot = createTestRobot('hubot');
@@ -65,6 +67,7 @@ describe('hubot-hockey', () => {
   afterEach(() => {
     delete process.env.HUBOT_LOG_LEVEL;
     Date.now = originalDateNow;
+    globalThis.setTimeout = originalSetTimeout;
     nock.cleanAll();
     if (robot.server) {
       robot.server.close();

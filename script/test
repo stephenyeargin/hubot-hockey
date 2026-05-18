@@ -3,4 +3,6 @@
 # bootstrap environment
 source script/bootstrap
 
-node --test "test/**/*_test.mjs"
+while IFS= read -r test_file; do
+	node --test "$test_file"
+done < <(find test -name '*_test.mjs' | sort)
