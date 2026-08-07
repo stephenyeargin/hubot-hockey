@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "ascii-table": "0.0.9",
-    "csv-parse": "^6.1.0",
+    "csv-parse": "^7.0.2",
     "moment-timezone": "^0.6.0"
   },
   "peerDependencies": {
