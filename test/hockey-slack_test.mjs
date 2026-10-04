@@ -16,6 +16,49 @@ const __dirname = path.dirname(__filename);
 const originalDateNow = Date.now;
 const originalSetTimeout = globalThis.setTimeout;
 
+const slackTable = (rows) => ({
+  type: 'table',
+  rows: rows.map((row) => row.map((cell) => ({ type: 'raw_text', text: cell }))),
+});
+
+const gameBlocks = (fallback, heading, rows, howToWatch, gameId) => ({
+  text: fallback,
+  unfurl_links: false,
+  unfurl_media: false,
+  blocks: [
+    { type: 'header', text: { type: 'plain_text', text: heading, emoji: true } },
+    slackTable(rows),
+    {
+      type: 'context',
+      elements: [{ type: 'mrkdwn', text: `${howToWatch} · <https://www.nhl.com/gamecenter/${gameId}|Gamecenter>` }],
+    },
+  ],
+});
+
+const oddsBlocks = (fallback, teamName, rows) => ({
+  text: fallback,
+  unfurl_links: false,
+  unfurl_media: false,
+  blocks: [
+    {
+      type: 'context',
+      elements: [
+        { type: 'image', image_url: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png', alt_text: 'MoneyPuck.com' },
+        { type: 'mrkdwn', text: `<https://moneypuck.com|*MoneyPuck.com*> · ${teamName}` },
+      ],
+    },
+    slackTable(rows),
+  ],
+});
+
+const standingsBlocks = (title, rows) => ({
+  text: title,
+  blocks: [
+    { type: 'header', text: { type: 'plain_text', text: title, emoji: true } },
+    slackTable(rows),
+  ],
+});
+
 describe('hubot-hockey for slack', () => {
   let robot = null;
   let adapter = null;
@@ -104,57 +147,29 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot preds'],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://github.com/nhl.png',
-                    author_link: 'https://nhl.com',
-                    author_name: 'NHL.com',
-                    color: '#FFB81C',
-                    fallback: '11/7/2023 - Nashville Predators (5-6-0) 2, Calgary Flames (3-7-1) 3 (09:04 3rd)',
-                    footer: 'Scotiabank Saddledome; TV: BSSO (A) | SNW (H)',
-                    mrkdwn_in: [
-                      'text',
-                      'pretext',
-                    ],
-                    text:
-                    '```\n'
-                     + '  Nashville Predators (5-6-0)   2  \n'
-                     + '  Calgary Flames (3-7-1)        3  \n'
-                     + '```',
-                    title: '11/7/2023 - 09:04 3rd',
-                    title_link: 'https://www.nhl.com/gamecenter/2023020186',
-                  },
+              gameBlocks(
+                '11/7/2023 - Nashville Predators (5-6-0) 2, Calgary Flames (3-7-1) 3 (09:04 3rd)',
+                '11/7/2023 - 09:04 3rd',
+                [
+                  ['Team', 'Score'],
+                  ['Nashville Predators (5-6-0)', '2'],
+                  ['Calgary Flames (3-7-1)', '3'],
                 ],
-              },
+                'Scotiabank Saddledome; TV: BSSO (A) | SNW (H)',
+                '2023020186',
+              ),
             ],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
-                    author_link: 'https://moneypuck.com',
-                    author_name: 'MoneyPuck.com',
-                    color: '#FFB81C',
-                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
-                    fields: [
-                      {
-                        short: false,
-                        title: 'Make Playoffs',
-                        value: '67.5%',
-                      },
-                      {
-                        short: false,
-                        title: 'Win Stanley Cup',
-                        value: '4.2%',
-                      },
-                    ],
-                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
-                    title: 'Nashville Predators',
-                  },
+              oddsBlocks(
+                'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
+                'Nashville Predators',
+                [
+                  ['Outcome', 'Odds'],
+                  ['Make Playoffs', '67.5%'],
+                  ['Win Stanley Cup', '4.2%'],
                 ],
-              },
+              ),
             ],
           ]);
           done();
@@ -187,56 +202,31 @@ describe('hubot-hockey for slack', () => {
         try {
           expect(messages).to.eql([
             ['alice', '@hubot preds'],
-            ['hubot', {
-              attachments: [
-                {
-                  author_icon: 'https://github.com/nhl.png',
-                  author_link: 'https://nhl.com',
-                  author_name: 'NHL.com',
-                  color: '#FFB81C',
-                  fallback: '12/16/2023 - Washington Capitals (5-4-1) 0, Nashville Predators (5-6-0) 1 (07:21 1st Intermission)',
-                  footer: 'Bridgestone Arena; TV: NHLN (N) | BSSO (H) | MNMT (A)',
-                  mrkdwn_in: [
-                    'text',
-                    'pretext',
-                  ],
-                  text:
-                    '```\n'
-                    + '  Washington Capitals (5-4-1)   0  \n'
-                    + '  Nashville Predators (5-6-0)   1  \n'
-                    + '```',
-                  title: '12/16/2023 - 07:21 1st Intermission',
-                  title_link: 'https://www.nhl.com/gamecenter/2023020468',
-                },
-              ],
-            }],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
-                    author_link: 'https://moneypuck.com',
-                    author_name: 'MoneyPuck.com',
-                    color: '#FFB81C',
-                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
-                    fields: [
-                      {
-                        short: false,
-                        title: 'Make Playoffs',
-                        value: '67.5%',
-                      },
-                      {
-                        short: false,
-                        title: 'Win Stanley Cup',
-                        value: '4.2%',
-                      },
-                    ],
-                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
-                    title: 'Nashville Predators',
-                  },
+              gameBlocks(
+                '12/16/2023 - Washington Capitals (5-4-1) 0, Nashville Predators (5-6-0) 1 (07:21 1st Intermission)',
+                '12/16/2023 - 07:21 1st Intermission',
+                [
+                  ['Team', 'Score'],
+                  ['Washington Capitals (5-4-1)', '0'],
+                  ['Nashville Predators (5-6-0)', '1'],
                 ],
-              },
+                'Bridgestone Arena; TV: NHLN (N) | BSSO (H) | MNMT (A)',
+                '2023020468',
+              ),
+            ],
+            [
+              'hubot',
+              oddsBlocks(
+                'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
+                'Nashville Predators',
+                [
+                  ['Outcome', 'Odds'],
+                  ['Make Playoffs', '67.5%'],
+                  ['Win Stanley Cup', '4.2%'],
+                ],
+              ),
             ],
           ]);
           done();
@@ -271,57 +261,29 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot preds'],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://github.com/nhl.png',
-                    author_link: 'https://nhl.com',
-                    author_name: 'NHL.com',
-                    color: '#FFB81C',
-                    fallback: '11/9/2023 - Nashville Predators (5-7-0), Winnipeg Jets (6-4-2) (7:00 pm CST)',
-                    footer: 'Canada Life Centre; TV: BSSO (A) | TSN3 (H)',
-                    mrkdwn_in: [
-                      'text',
-                      'pretext',
-                    ],
-                    text:
-                      '```\n'
-                       + '  Nashville Predators (5-7-0)  \n'
-                       + '  Winnipeg Jets (6-4-2)        \n'
-                       + '```',
-                    title: '11/9/2023 - 7:00 pm CST',
-                    title_link: 'https://www.nhl.com/gamecenter/2023020200',
-                  },
+              gameBlocks(
+                '11/9/2023 - Nashville Predators (5-7-0), Winnipeg Jets (6-4-2) (7:00 pm CST)',
+                '11/9/2023 - 7:00 pm CST',
+                [
+                  ['Team'],
+                  ['Nashville Predators (5-7-0)'],
+                  ['Winnipeg Jets (6-4-2)'],
                 ],
-              },
+                'Canada Life Centre; TV: BSSO (A) | TSN3 (H)',
+                '2023020200',
+              ),
             ],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
-                    author_link: 'https://moneypuck.com',
-                    author_name: 'MoneyPuck.com',
-                    color: '#FFB81C',
-                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
-                    fields: [
-                      {
-                        short: false,
-                        title: 'Make Playoffs',
-                        value: '67.5%',
-                      },
-                      {
-                        short: false,
-                        title: 'Win Stanley Cup',
-                        value: '4.2%',
-                      },
-                    ],
-                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
-                    title: 'Nashville Predators',
-                  },
+              oddsBlocks(
+                'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
+                'Nashville Predators',
+                [
+                  ['Outcome', 'Odds'],
+                  ['Make Playoffs', '67.5%'],
+                  ['Win Stanley Cup', '4.2%'],
                 ],
-              },
+              ),
             ],
           ]);
           done();
@@ -356,57 +318,29 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot preds'],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://github.com/nhl.png',
-                    author_link: 'https://nhl.com',
-                    author_name: 'NHL.com',
-                    color: '#FFB81C',
-                    fallback: '11/7/2023 - Nashville Predators (5-6-0) 2, Calgary Flames (3-7-1) 4 (Final)',
-                    footer: 'Scotiabank Saddledome',
-                    mrkdwn_in: [
-                      'text',
-                      'pretext',
-                    ],
-                    text:
-                    '```\n'
-                     + '  Nashville Predators (5-6-0)   2  \n'
-                     + '  Calgary Flames (3-7-1)        4  \n'
-                     + '```',
-                    title: '11/7/2023 - Final',
-                    title_link: 'https://www.nhl.com/gamecenter/2023020186',
-                  },
+              gameBlocks(
+                '11/7/2023 - Nashville Predators (5-6-0) 2, Calgary Flames (3-7-1) 4 (Final)',
+                '11/7/2023 - Final',
+                [
+                  ['Team', 'Score'],
+                  ['Nashville Predators (5-6-0)', '2'],
+                  ['Calgary Flames (3-7-1)', '4'],
                 ],
-              },
+                'Scotiabank Saddledome',
+                '2023020186',
+              ),
             ],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
-                    author_link: 'https://moneypuck.com',
-                    author_name: 'MoneyPuck.com',
-                    color: '#FFB81C',
-                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
-                    fields: [
-                      {
-                        short: false,
-                        title: 'Make Playoffs',
-                        value: '67.5%',
-                      },
-                      {
-                        short: false,
-                        title: 'Win Stanley Cup',
-                        value: '4.2%',
-                      },
-                    ],
-                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
-                    title: 'Nashville Predators',
-                  },
+              oddsBlocks(
+                'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
+                'Nashville Predators',
+                [
+                  ['Outcome', 'Odds'],
+                  ['Make Playoffs', '67.5%'],
+                  ['Win Stanley Cup', '4.2%'],
                 ],
-              },
+              ),
             ],
           ]);
           done();
@@ -441,57 +375,29 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot preds'],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://github.com/nhl.png',
-                    author_link: 'https://nhl.com',
-                    author_name: 'NHL.com',
-                    color: '#FFB81C',
-                    fallback: '11/20/2023 - Colorado Avalanche (11-5-0), Nashville Predators (6-10-0) (7:00 pm CST)',
-                    footer: 'Bridgestone Arena; TV: BSSO (H) | ALT (A)',
-                    mrkdwn_in: [
-                      'text',
-                      'pretext',
-                    ],
-                    text:
-                      '```\n'
-                       + '  Colorado Avalanche (11-5-0)   \n'
-                       + '  Nashville Predators (6-10-0)  \n'
-                       + '```',
-                    title: '11/20/2023 - 7:00 pm CST',
-                    title_link: 'https://www.nhl.com/gamecenter/2023020275',
-                  },
+              gameBlocks(
+                '11/20/2023 - Colorado Avalanche (11-5-0), Nashville Predators (6-10-0) (7:00 pm CST)',
+                '11/20/2023 - 7:00 pm CST',
+                [
+                  ['Team'],
+                  ['Colorado Avalanche (11-5-0)'],
+                  ['Nashville Predators (6-10-0)'],
                 ],
-              },
+                'Bridgestone Arena; TV: BSSO (H) | ALT (A)',
+                '2023020275',
+              ),
             ],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
-                    author_link: 'https://moneypuck.com',
-                    author_name: 'MoneyPuck.com',
-                    color: '#FFB81C',
-                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
-                    fields: [
-                      {
-                        short: false,
-                        title: 'Make Playoffs',
-                        value: '67.5%',
-                      },
-                      {
-                        short: false,
-                        title: 'Win Stanley Cup',
-                        value: '4.2%',
-                      },
-                    ],
-                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
-                    title: 'Nashville Predators',
-                  },
+              oddsBlocks(
+                'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
+                'Nashville Predators',
+                [
+                  ['Outcome', 'Odds'],
+                  ['Make Playoffs', '67.5%'],
+                  ['Win Stanley Cup', '4.2%'],
                 ],
-              },
+              ),
             ],
           ]);
           done();
@@ -518,18 +424,16 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot nhl'],
             [
               'hubot',
-              '```\n'
-              + '.-----------------------------------------------.\n'
-              + '|               Division Leaders                |\n'
-              + '|-----------------------------------------------|\n'
-              + '|         Team         | GP | W  | L | OT | PTS |\n'
-              + '|----------------------|----|----|---|----|-----|\n'
-              + '| Vegas Golden Knights | 13 | 11 | 1 |  1 |  23 |\n'
-              + '| Boston Bruins        | 12 | 10 | 1 |  1 |  21 |\n'
-              + '| New York Rangers     | 12 |  9 | 2 |  1 |  19 |\n'
-              + '| Dallas Stars         | 11 |  7 | 3 |  1 |  15 |\n'
-              + "'-----------------------------------------------'\n"
-              + '```',
+              standingsBlocks(
+                'Division Leaders',
+                [
+                  ['Team', 'GP', 'W', 'L', 'OT', 'PTS'],
+                  ['Vegas Golden Knights', '13', '11', '1', '1', '23'],
+                  ['Boston Bruins', '12', '10', '1', '1', '21'],
+                  ['New York Rangers', '12', '9', '2', '1', '19'],
+                  ['Dallas Stars', '11', '7', '3', '1', '15'],
+                ],
+              ),
             ],
           ]);
           done();
@@ -556,22 +460,20 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot nhl central'],
             [
               'hubot',
-              '```\n'
-              + '.---------------------------------------------.\n'
-              + '|         Central Division Standings          |\n'
-              + '|---------------------------------------------|\n'
-              + '|        Team         | GP | W | L | OT | PTS |\n'
-              + '|---------------------|----|---|---|----|-----|\n'
-              + '| Dallas Stars        | 11 | 7 | 3 |  1 |  15 |\n'
-              + '| Colorado Avalanche  | 10 | 7 | 3 |  0 |  14 |\n'
-              + '| Winnipeg Jets       | 12 | 6 | 4 |  2 |  14 |\n'
-              + '| Minnesota Wild      | 12 | 5 | 5 |  2 |  12 |\n'
-              + '| Arizona Coyotes     | 11 | 5 | 5 |  1 |  11 |\n'
-              + '| St. Louis Blues     | 11 | 5 | 5 |  1 |  11 |\n'
-              + '| Nashville Predators | 11 | 5 | 6 |  0 |  10 |\n'
-              + '| Chicago Blackhawks  | 11 | 4 | 7 |  0 |   8 |\n'
-              + "'---------------------------------------------'\n"
-              + '```',
+              standingsBlocks(
+                'Central Division Standings',
+                [
+                  ['Team', 'GP', 'W', 'L', 'OT', 'PTS'],
+                  ['Dallas Stars', '11', '7', '3', '1', '15'],
+                  ['Colorado Avalanche', '10', '7', '3', '0', '14'],
+                  ['Winnipeg Jets', '12', '6', '4', '2', '14'],
+                  ['Minnesota Wild', '12', '5', '5', '2', '12'],
+                  ['Arizona Coyotes', '11', '5', '5', '1', '11'],
+                  ['St. Louis Blues', '11', '5', '5', '1', '11'],
+                  ['Nashville Predators', '11', '5', '6', '0', '10'],
+                  ['Chicago Blackhawks', '11', '4', '7', '0', '8'],
+                ],
+              ),
             ],
           ]);
           done();
@@ -606,57 +508,29 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot preds'],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://github.com/nhl.png',
-                    author_link: 'https://nhl.com',
-                    author_name: 'NHL.com',
-                    color: '#FFB81C',
-                    fallback: '12/15/2023 - Nashville Predators (5-6-0) 6, Carolina Hurricanes (8-5-0) 5 (04:25 OT)',
-                    footer: 'PNC Arena; TV: ESPN+ (N) | HULU (N)',
-                    mrkdwn_in: [
-                      'text',
-                      'pretext',
-                    ],
-                    text:
-                      '```\n'
-                       + '  Nashville Predators (5-6-0)   6  \n'
-                       + '  Carolina Hurricanes (8-5-0)   5  \n'
-                       + '```',
-                    title: '12/15/2023 - 04:25 OT',
-                    title_link: 'https://www.nhl.com/gamecenter/2023020455',
-                  },
+              gameBlocks(
+                '12/15/2023 - Nashville Predators (5-6-0) 6, Carolina Hurricanes (8-5-0) 5 (04:25 OT)',
+                '12/15/2023 - 04:25 OT',
+                [
+                  ['Team', 'Score'],
+                  ['Nashville Predators (5-6-0)', '6'],
+                  ['Carolina Hurricanes (8-5-0)', '5'],
                 ],
-              },
+                'PNC Arena; TV: ESPN+ (N) | HULU (N)',
+                '2023020455',
+              ),
             ],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
-                    author_link: 'https://moneypuck.com',
-                    author_name: 'MoneyPuck.com',
-                    color: '#FFB81C',
-                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
-                    fields: [
-                      {
-                        short: false,
-                        title: 'Make Playoffs',
-                        value: '67.5%',
-                      },
-                      {
-                        short: false,
-                        title: 'Win Stanley Cup',
-                        value: '4.2%',
-                      },
-                    ],
-                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
-                    title: 'Nashville Predators',
-                  },
+              oddsBlocks(
+                'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
+                'Nashville Predators',
+                [
+                  ['Outcome', 'Odds'],
+                  ['Make Playoffs', '67.5%'],
+                  ['Win Stanley Cup', '4.2%'],
                 ],
-              },
+              ),
             ],
           ]);
           done();
@@ -691,57 +565,29 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot preds'],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://github.com/nhl.png',
-                    author_link: 'https://nhl.com',
-                    author_name: 'NHL.com',
-                    color: '#FFB81C',
-                    fallback: '11/22/2023 - Calgary Flames (3-7-1) 2, Nashville Predators (5-6-0) 4 (Final)',
-                    footer: 'Bridgestone Arena',
-                    mrkdwn_in: [
-                      'text',
-                      'pretext',
-                    ],
-                    text:
-                      '```\n'
-                       + '  Calgary Flames (3-7-1)        2  \n'
-                       + '  Nashville Predators (5-6-0)   4  \n'
-                       + '```',
-                    title: '11/22/2023 - Final',
-                    title_link: 'https://www.nhl.com/gamecenter/2023020288',
-                  },
+              gameBlocks(
+                '11/22/2023 - Calgary Flames (3-7-1) 2, Nashville Predators (5-6-0) 4 (Final)',
+                '11/22/2023 - Final',
+                [
+                  ['Team', 'Score'],
+                  ['Calgary Flames (3-7-1)', '2'],
+                  ['Nashville Predators (5-6-0)', '4'],
                 ],
-              },
+                'Bridgestone Arena',
+                '2023020288',
+              ),
             ],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
-                    author_link: 'https://moneypuck.com',
-                    author_name: 'MoneyPuck.com',
-                    color: '#FFB81C',
-                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
-                    fields: [
-                      {
-                        short: false,
-                        title: 'Make Playoffs',
-                        value: '67.5%',
-                      },
-                      {
-                        short: false,
-                        title: 'Win Stanley Cup',
-                        value: '4.2%',
-                      },
-                    ],
-                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
-                    title: 'Nashville Predators',
-                  },
+              oddsBlocks(
+                'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
+                'Nashville Predators',
+                [
+                  ['Outcome', 'Odds'],
+                  ['Make Playoffs', '67.5%'],
+                  ['Win Stanley Cup', '4.2%'],
                 ],
-              },
+              ),
             ],
           ]);
           done();
@@ -776,57 +622,29 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot preds'],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://github.com/nhl.png',
-                    author_link: 'https://nhl.com',
-                    author_name: 'NHL.com',
-                    color: '#FFB81C',
-                    fallback: '12/15/2023 - Boston Bruins (10-1-1) 5, New York Islanders (5-3-3) 4 (Final/SO)',
-                    footer: 'UBS Arena',
-                    mrkdwn_in: [
-                      'text',
-                      'pretext',
-                    ],
-                    text:
-                      '```\n'
-                       + '  Boston Bruins (10-1-1)       5  \n'
-                       + '  New York Islanders (5-3-3)   4  \n'
-                       + '```',
-                    title: '12/15/2023 - Final/SO',
-                    title_link: 'https://www.nhl.com/gamecenter/2023020457',
-                  },
+              gameBlocks(
+                '12/15/2023 - Boston Bruins (10-1-1) 5, New York Islanders (5-3-3) 4 (Final/SO)',
+                '12/15/2023 - Final/SO',
+                [
+                  ['Team', 'Score'],
+                  ['Boston Bruins (10-1-1)', '5'],
+                  ['New York Islanders (5-3-3)', '4'],
                 ],
-              },
+                'UBS Arena',
+                '2023020457',
+              ),
             ],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
-                    author_link: 'https://moneypuck.com',
-                    author_name: 'MoneyPuck.com',
-                    color: '#FFB81C',
-                    fallback: 'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
-                    fields: [
-                      {
-                        short: false,
-                        title: 'Make Playoffs',
-                        value: '67.5%',
-                      },
-                      {
-                        short: false,
-                        title: 'Win Stanley Cup',
-                        value: '4.2%',
-                      },
-                    ],
-                    thumb_url: 'https://peter-tanner.com/moneypuck/logos/NSH.png',
-                    title: 'Nashville Predators',
-                  },
+              oddsBlocks(
+                'MoneyPuck: 67.5% to Make Playoffs / 4.2% to Win Stanley Cup',
+                'Nashville Predators',
+                [
+                  ['Outcome', 'Odds'],
+                  ['Make Playoffs', '67.5%'],
+                  ['Win Stanley Cup', '4.2%'],
                 ],
-              },
+              ),
             ],
           ]);
           done();
@@ -861,29 +679,17 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot preds'],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://github.com/nhl.png',
-                    author_link: 'https://nhl.com',
-                    author_name: 'NHL.com',
-                    color: '#FFB81C',
-                    fallback: '4/23/2024 - Nashville Predators, Vancouver Canucks (9:00 pm CDT - R1 Game 2 (VAN leads 1-0))',
-                    footer: 'Rogers Arena; TV: ESPN2 (N) | SN (N) | TVAS2 (N) | BSSO (A)',
-                    mrkdwn_in: [
-                      'text',
-                      'pretext',
-                    ],
-                    text:
-                      '```\n'
-                       + '  Nashville Predators  \n'
-                       + '  Vancouver Canucks    \n'
-                       + '```',
-                    title: '4/23/2024 - 9:00 pm CDT - R1 Game 2 (VAN leads 1-0)',
-                    title_link: 'https://www.nhl.com/gamecenter/2023030172',
-                  },
+              gameBlocks(
+                '4/23/2024 - Nashville Predators, Vancouver Canucks (9:00 pm CDT - R1 Game 2 (VAN leads 1-0))',
+                '4/23/2024 - 9:00 pm CDT - R1 Game 2 (VAN leads 1-0)',
+                [
+                  ['Team'],
+                  ['Nashville Predators'],
+                  ['Vancouver Canucks'],
                 ],
-              },
+                'Rogers Arena; TV: ESPN2 (N) | SN (N) | TVAS2 (N) | BSSO (A)',
+                '2023030172',
+              ),
             ],
           ]);
           done();
@@ -918,29 +724,17 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot oilers'],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://github.com/nhl.png',
-                    author_link: 'https://nhl.com',
-                    author_name: 'NHL.com',
-                    color: '#041E42',
-                    fallback: '6/15/2024 - Florida Panthers (6-4-1) 1, Edmonton Oilers (2-8-1) 6 (02:36 2nd - SCF Game 4 (FLA leads 3-0))',
-                    footer: 'Rogers Place; TV: ABC (N) | ESPN+ (N) | SN (N) | CBC (N) | TVAS (N)',
-                    mrkdwn_in: [
-                      'text',
-                      'pretext',
-                    ],
-                    text:
-                      '```\n'
-                       + '  Florida Panthers (6-4-1)   1  \n'
-                       + '  Edmonton Oilers (2-8-1)    6  \n'
-                       + '```',
-                    title: '6/15/2024 - 02:36 2nd - SCF Game 4 (FLA leads 3-0)',
-                    title_link: 'https://www.nhl.com/gamecenter/2023030414',
-                  },
+              gameBlocks(
+                '6/15/2024 - Florida Panthers (6-4-1) 1, Edmonton Oilers (2-8-1) 6 (02:36 2nd - SCF Game 4 (FLA leads 3-0))',
+                '6/15/2024 - 02:36 2nd - SCF Game 4 (FLA leads 3-0)',
+                [
+                  ['Team', 'Score'],
+                  ['Florida Panthers (6-4-1)', '1'],
+                  ['Edmonton Oilers (2-8-1)', '6'],
                 ],
-              },
+                'Rogers Place; TV: ABC (N) | ESPN+ (N) | SN (N) | CBC (N) | TVAS (N)',
+                '2023030414',
+              ),
             ],
           ]);
           done();
@@ -975,29 +769,17 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot preds'],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://github.com/nhl.png',
-                    author_link: 'https://nhl.com',
-                    author_name: 'NHL.com',
-                    color: '#FFB81C',
-                    fallback: '9/27/2024 - Nashville Predators (47-30-5), Tampa Bay Lightning (45-29-8) (6:00 pm CDT - Preseason)',
-                    footer: 'Amalie Arena',
-                    mrkdwn_in: [
-                      'text',
-                      'pretext',
-                    ],
-                    text:
-                      '```\n'
-                       + '  Nashville Predators (47-30-5)  \n'
-                       + '  Tampa Bay Lightning (45-29-8)  \n'
-                       + '```',
-                    title: '9/27/2024 - 6:00 pm CDT - Preseason',
-                    title_link: 'https://www.nhl.com/gamecenter/2024010044',
-                  },
+              gameBlocks(
+                '9/27/2024 - Nashville Predators (47-30-5), Tampa Bay Lightning (45-29-8) (6:00 pm CDT - Preseason)',
+                '9/27/2024 - 6:00 pm CDT - Preseason',
+                [
+                  ['Team'],
+                  ['Nashville Predators (47-30-5)'],
+                  ['Tampa Bay Lightning (45-29-8)'],
                 ],
-              },
+                'Amalie Arena',
+                '2024010044',
+              ),
             ],
           ]);
           done();
@@ -1032,29 +814,17 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot bruins'],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://github.com/nhl.png',
-                    author_link: 'https://nhl.com',
-                    author_name: 'NHL.com',
-                    color: '#FFB81C',
-                    fallback: '12/15/2023 - Boston Bruins (10-1-1) 5, New York Islanders (5-3-3) 4 (Final/SO)',
-                    footer: 'UBS Arena',
-                    mrkdwn_in: [
-                      'text',
-                      'pretext',
-                    ],
-                    text:
-                      '```\n'
-                       + '  Boston Bruins (10-1-1)       5  \n'
-                       + '  New York Islanders (5-3-3)   4  \n'
-                       + '```',
-                    title: '12/15/2023 - Final/SO',
-                    title_link: 'https://www.nhl.com/gamecenter/2023020457',
-                  },
+              gameBlocks(
+                '12/15/2023 - Boston Bruins (10-1-1) 5, New York Islanders (5-3-3) 4 (Final/SO)',
+                '12/15/2023 - Final/SO',
+                [
+                  ['Team', 'Score'],
+                  ['Boston Bruins (10-1-1)', '5'],
+                  ['New York Islanders (5-3-3)', '4'],
                 ],
-              },
+                'UBS Arena',
+                '2023020457',
+              ),
             ],
           ]);
           done();
@@ -1089,29 +859,17 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot preds'],
             [
               'hubot',
-              {
-                attachments: [
-                  {
-                    author_icon: 'https://github.com/nhl.png',
-                    author_link: 'https://nhl.com',
-                    author_name: 'NHL.com',
-                    color: '#FFB81C',
-                    fallback: '4/23/2024 - Nashville Predators (5-6-0) 4, Vancouver Canucks (9-2-1) 1 (Final - R1 Game 2 (Tied 1-1))',
-                    footer: 'Rogers Arena',
-                    mrkdwn_in: [
-                      'text',
-                      'pretext',
-                    ],
-                    text:
-                      '```\n'
-                       + '  Nashville Predators (5-6-0)   4  \n'
-                       + '  Vancouver Canucks (9-2-1)     1  \n'
-                       + '```',
-                    title: '4/23/2024 - Final - R1 Game 2 (Tied 1-1)',
-                    title_link: 'https://www.nhl.com/gamecenter/2023030172',
-                  },
+              gameBlocks(
+                '4/23/2024 - Nashville Predators (5-6-0) 4, Vancouver Canucks (9-2-1) 1 (Final - R1 Game 2 (Tied 1-1))',
+                '4/23/2024 - Final - R1 Game 2 (Tied 1-1)',
+                [
+                  ['Team', 'Score'],
+                  ['Nashville Predators (5-6-0)', '4'],
+                  ['Vancouver Canucks (9-2-1)', '1'],
                 ],
-              },
+                'Rogers Arena',
+                '2023030172',
+              ),
             ],
           ]);
           done();
@@ -1138,30 +896,28 @@ describe('hubot-hockey for slack', () => {
             ['alice', '@hubot nhl west'],
             [
               'hubot',
-              '```\n'
-              + '.------------------------------------------------.\n'
-              + '|          Western Conference Standings          |\n'
-              + '|------------------------------------------------|\n'
-              + '|         Team         | GP | W  | L  | OT | PTS |\n'
-              + '|----------------------|----|----|----|----|-----|\n'
-              + '| Vegas Golden Knights | 13 | 11 |  1 |  1 |  23 |\n'
-              + '| Vancouver Canucks    | 12 |  9 |  2 |  1 |  19 |\n'
-              + '| Los Angeles Kings    | 11 |  7 |  2 |  2 |  16 |\n'
-              + '| Dallas Stars         | 11 |  7 |  3 |  1 |  15 |\n'
-              + '| Colorado Avalanche   | 10 |  7 |  3 |  0 |  14 |\n'
-              + '| Anaheim Ducks        | 11 |  7 |  4 |  0 |  14 |\n'
-              + '| Winnipeg Jets        | 12 |  6 |  4 |  2 |  14 |\n'
-              + '| Minnesota Wild       | 12 |  5 |  5 |  2 |  12 |\n'
-              + '| Arizona Coyotes      | 11 |  5 |  5 |  1 |  11 |\n'
-              + '| St. Louis Blues      | 11 |  5 |  5 |  1 |  11 |\n'
-              + '| Nashville Predators  | 11 |  5 |  6 |  0 |  10 |\n'
-              + '| Seattle Kraken       | 12 |  4 |  6 |  2 |  10 |\n'
-              + '| Chicago Blackhawks   | 11 |  4 |  7 |  0 |   8 |\n'
-              + '| Calgary Flames       | 11 |  3 |  7 |  1 |   7 |\n'
-              + '| Edmonton Oilers      | 11 |  2 |  8 |  1 |   5 |\n'
-              + '| San Jose Sharks      | 11 |  0 | 10 |  1 |   1 |\n'
-              + "'------------------------------------------------'\n"
-              + '```',
+              standingsBlocks(
+                'Western Conference Standings',
+                [
+                  ['Team', 'GP', 'W', 'L', 'OT', 'PTS'],
+                  ['Vegas Golden Knights', '13', '11', '1', '1', '23'],
+                  ['Vancouver Canucks', '12', '9', '2', '1', '19'],
+                  ['Los Angeles Kings', '11', '7', '2', '2', '16'],
+                  ['Dallas Stars', '11', '7', '3', '1', '15'],
+                  ['Colorado Avalanche', '10', '7', '3', '0', '14'],
+                  ['Anaheim Ducks', '11', '7', '4', '0', '14'],
+                  ['Winnipeg Jets', '12', '6', '4', '2', '14'],
+                  ['Minnesota Wild', '12', '5', '5', '2', '12'],
+                  ['Arizona Coyotes', '11', '5', '5', '1', '11'],
+                  ['St. Louis Blues', '11', '5', '5', '1', '11'],
+                  ['Nashville Predators', '11', '5', '6', '0', '10'],
+                  ['Seattle Kraken', '12', '4', '6', '2', '10'],
+                  ['Chicago Blackhawks', '11', '4', '7', '0', '8'],
+                  ['Calgary Flames', '11', '3', '7', '1', '7'],
+                  ['Edmonton Oilers', '11', '2', '8', '1', '5'],
+                  ['San Jose Sharks', '11', '0', '10', '1', '1'],
+                ],
+              ),
             ],
           ]);
           done();

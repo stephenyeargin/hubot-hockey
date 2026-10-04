@@ -35,7 +35,14 @@ const AFTER_GAME_STATES = [
 
 module.exports = (robot) => {
   // Cache adapter name to avoid issues with it being reset in newer Hubot versions
-  const adapterName = robot.adapterName || robot.adapter?.name || '';
+  const adapterName = robot.adapterName ?? robot.adapter?.name ?? '';
+  const isSlack = /slack/i.test(adapterName);
+  const isDiscord = /discord/i.test(adapterName);
+
+  const slackTable = (rows) => ({
+    type: 'table',
+    rows: rows.map((row) => row.map((cell) => ({ type: 'raw_text', text: String(cell ?? '') }))),
+  });
 
   const periodFormat = (periodDescriptor) => {
     if (periodDescriptor.type === 'SO') {
@@ -185,22 +192,32 @@ module.exports = (robot) => {
         gameStatus += ` - ${game.seriesStatus.seriesAbbrev} Game ${game.seriesStatus.game} (${getSeriesStatusString(game.seriesStatus)})`;
       }
 
-      const table = new AsciiTable();
+      let rows;
       if (BEFORE_GAME_STATES.includes(game.gameState)) {
         if (game.gameType !== 3) {
-          table.addRow(`${game.awayTeam.name.default} (${game.awayTeam.record})`);
-          table.addRow(`${game.homeTeam.name.default} (${game.homeTeam.record})`);
+          rows = [
+            [`${game.awayTeam.name.default} (${game.awayTeam.record})`],
+            [`${game.homeTeam.name.default} (${game.homeTeam.record})`],
+          ];
         } else {
-          table.addRow(`${game.awayTeam.name.default}`);
-          table.addRow(`${game.homeTeam.name.default}`);
+          rows = [
+            [`${game.awayTeam.name.default}`],
+            [`${game.homeTeam.name.default}`],
+          ];
         }
       } else if (standings.standings.length === 0) {
-        table.addRow(`${game.awayTeam.name.default}`, `${game.awayTeam.score}`);
-        table.addRow(`${game.homeTeam.name.default}`, `${game.homeTeam.score}`);
+        rows = [
+          [`${game.awayTeam.name.default}`, `${game.awayTeam.score}`],
+          [`${game.homeTeam.name.default}`, `${game.homeTeam.score}`],
+        ];
       } else {
-        table.addRow(`${game.awayTeam.name.default} (${getTeamRecord(game.awayTeam, standings)})`, `${game.awayTeam.score}`);
-        table.addRow(`${game.homeTeam.name.default} (${getTeamRecord(game.homeTeam, standings)})`, `${game.homeTeam.score}`);
+        rows = [
+          [`${game.awayTeam.name.default} (${getTeamRecord(game.awayTeam, standings)})`, `${game.awayTeam.score}`],
+          [`${game.homeTeam.name.default} (${getTeamRecord(game.homeTeam, standings)})`, `${game.homeTeam.score}`],
+        ];
       }
+      const table = new AsciiTable();
+      rows.forEach((row) => table.addRow(row));
       table.removeBorder();
 
       let howToWatch = game.venue.default;
@@ -223,35 +240,32 @@ module.exports = (robot) => {
       };
 
       // Say it
-      switch (true) {
-        case /slack/i.test(adapterName):
-          msg.send({
-            attachments: [
-              {
-                fallback: formatFallback(),
-                title_link: `https://www.nhl.com/gamecenter/${game.id}`,
-                author_name: 'NHL.com',
-                author_link: 'https://nhl.com',
-                author_icon: 'https://github.com/nhl.png',
-                color: team.primary_color,
-                title: `${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${gameStatus}`,
-                text: `\`\`\`\n${table.toString()}\n\`\`\``,
-                footer: `${howToWatch}`,
-                mrkdwn_in: ['text', 'pretext'],
-              },
-            ],
-          });
-          break;
-        case /discord/i.test(adapterName):
-          output.push(`${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${howToWatch}`);
-          output.push(`\`\`\`\n${table.toString()}\n\`\`\``);
-          output.push(`${gameStatus} - https://www.nhl.com/gamecenter/${game.id}`);
-          msg.send(output.join('\n'));
-          break;
-        default:
-          msg.send(`${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${howToWatch}`);
-          msg.send(table.toString());
-          msg.send(`${gameStatus} - https://www.nhl.com/gamecenter/${game.id}`);
+      if (isSlack) {
+        msg.send({
+          text: formatFallback(),
+          unfurl_links: false,
+          unfurl_media: false,
+          blocks: [
+            {
+              type: 'header',
+              text: { type: 'plain_text', text: `${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${gameStatus}`, emoji: true },
+            },
+            slackTable([rows[0].length > 1 ? ['Team', 'Score'] : ['Team'], ...rows]),
+            {
+              type: 'context',
+              elements: [{ type: 'mrkdwn', text: `${howToWatch} · <https://www.nhl.com/gamecenter/${game.id}|Gamecenter>` }],
+            },
+          ],
+        });
+      } else if (isDiscord) {
+        output.push(`${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${howToWatch}`);
+        output.push(`\`\`\`\n${table.toString()}\n\`\`\``);
+        output.push(`${gameStatus} - https://www.nhl.com/gamecenter/${game.id}`);
+        msg.send(output.join('\n'));
+      } else {
+        msg.send(`${moment(game.startTimeUTC).tz(team.time_zone).format('l')} - ${howToWatch}`);
+        msg.send(table.toString());
+        msg.send(`${gameStatus} - https://www.nhl.com/gamecenter/${game.id}`);
       }
       return cb;
     })
@@ -321,25 +335,17 @@ module.exports = (robot) => {
               const winCup = odds[output[0].indexOf('wonCup')] * 100;
 
               const oddsParts = [];
-              const slackFields = [];
+              const slackRows = [];
               const discordFields = [];
               if ((makePlayoffs > 0) && (makePlayoffs < 100)) {
                 oddsParts.push(`${makePlayoffs.toFixed(1)}% to Make Playoffs`);
-                slackFields.push({
-                  title: 'Make Playoffs',
-                  value: `${makePlayoffs.toFixed(1)}%`,
-                  short: false,
-                });
+                slackRows.push(['Make Playoffs', `${makePlayoffs.toFixed(1)}%`]);
                 discordFields.push(`**Make Playoffs:** ${makePlayoffs.toFixed(1)}%`);
               }
 
               if ((winCup > 0) && (winCup < 100)) {
                 oddsParts.push(`${winCup.toFixed(1)}% to Win Stanley Cup`);
-                slackFields.push({
-                  title: 'Win Stanley Cup',
-                  value: `${winCup.toFixed(1)}%`,
-                  short: false,
-                });
+                slackRows.push(['Win Stanley Cup', `${winCup.toFixed(1)}%`]);
                 discordFields.push(`**Win Stanley Cup:** ${winCup.toFixed(1)}%`);
               }
 
@@ -352,28 +358,26 @@ module.exports = (robot) => {
               const fallback = `MoneyPuck: ${oddsParts.join(' / ')}`;
 
               // Say it
-              switch (true) {
-                case /slack/i.test(adapterName):
-                  msg.send({
-                    attachments: [
-                      {
-                        author_icon: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png',
-                        author_link: 'https://moneypuck.com',
-                        author_name: 'MoneyPuck.com',
-                        fallback,
-                        thumb_url: `https://peter-tanner.com/moneypuck/logos/${team.abbreviation}.png`,
-                        title: team.name,
-                        color: team.primary_color,
-                        fields: slackFields,
-                      },
-                    ],
-                  });
-                  break;
-                case /discord/i.test(adapterName):
-                  msg.send(`__**MoneyPuck.com**__\n${discordFields.join('\n')}`);
-                  break;
-                default:
-                  msg.send(fallback);
+              if (isSlack) {
+                msg.send({
+                  text: fallback,
+                  unfurl_links: false,
+                  unfurl_media: false,
+                  blocks: [
+                    {
+                      type: 'context',
+                      elements: [
+                        { type: 'image', image_url: 'https://peter-tanner.com/moneypuck/logos/moneypucklogo.png', alt_text: 'MoneyPuck.com' },
+                        { type: 'mrkdwn', text: `<https://moneypuck.com|*MoneyPuck.com*> · ${team.name}` },
+                      ],
+                    },
+                    slackTable([['Outcome', 'Odds'], ...slackRows]),
+                  ],
+                });
+              } else if (isDiscord) {
+                msg.send(`__**MoneyPuck.com**__\n${discordFields.join('\n')}`);
+              } else {
+                msg.send(fallback);
               }
             });
           });
@@ -487,15 +491,17 @@ module.exports = (robot) => {
               divisions.push(t.divisionName);
               return true;
             }
-          return false;
-        });
-      } else {
-        standings = json.standings.filter((t) => t.divisionName === filter || t.conferenceName === filter);
-      }        if (standings.length === 0) {
+            return false;
+          });
+        } else {
+          standings = json.standings.filter((t) => t.divisionName === filter || t.conferenceName === filter);
+        }
+        if (standings.length === 0) {
           msg.send('Standings available when season starts.');
           return;
         }
 
+        const rows = [];
         standings.forEach((t) => {
           let clinchIndicator = t.clinchIndicator ? ` (${t.clinchIndicator})` : '';
           clinchIndicator = isEliminated(t, json.standings) ? ' (e)' : clinchIndicator;
@@ -513,10 +519,19 @@ module.exports = (robot) => {
             row.push(`${t.streakCode}${t.streakCount}`);
           }
           table.addRow(row);
+          rows.push(row);
         });
 
         // Format based on adapter
-        if (/(slack|discord)/i.test(adapterName)) {
+        if (isSlack) {
+          msg.send({
+            text: tableTitle,
+            blocks: [
+              { type: 'header', text: { type: 'plain_text', text: tableTitle, emoji: true } },
+              slackTable([headingRow, ...rows]),
+            ],
+          });
+        } else if (isDiscord) {
           msg.send(`\`\`\`\n${table.toString()}\n\`\`\``);
         } else {
           msg.send(table.toString());
