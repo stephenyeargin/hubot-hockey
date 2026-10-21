@@ -483,10 +483,15 @@ module.exports = (robot) => {
         const json = JSON.parse(body);
         let standings;
 
+        // Extended standings rank by points percentage (stable sort keeps API order on ties)
+        const sorted = process.env.HUBOT_HOCKEY_EXT_STANDINGS
+          ? [...json.standings].sort((a, b) => b.pointPctg - a.pointPctg)
+          : json.standings;
+
         // No division selected
         if (tableTitle === 'Division Leaders') {
           const divisions = [];
-          standings = json.standings.filter((t) => {
+          standings = sorted.filter((t) => {
             if (!divisions.includes(t.divisionName)) {
               divisions.push(t.divisionName);
               return true;
@@ -494,7 +499,7 @@ module.exports = (robot) => {
             return false;
           });
         } else {
-          standings = json.standings.filter((t) => t.divisionName === filter || t.conferenceName === filter);
+          standings = sorted.filter((t) => t.divisionName === filter || t.conferenceName === filter);
         }
         if (standings.length === 0) {
           msg.send('Standings available when season starts.');

@@ -14,7 +14,7 @@ There is no additional configuration necessary if you simply wish to get the lat
 | `HUBOT_HOCKEY_HIDE_ODDS` | No | Skips show the odds from MoneyPuck |
 
 * By default, the standings table will show Games Played, Wins, Losses, Overtime Losses, and Points.
-* Setting `HUBOT_HOCKEY_EXT_STANDINGS` to any truth-y value will add Points Percentage, Last 10, and Streak.
+* Setting `HUBOT_HOCKEY_EXT_STANDINGS` to any truth-y value will add Points Percentage, Last 10, and Streak, and sort the standings by Points Percentage.
 
 ## Adding to Your Hubot
 
