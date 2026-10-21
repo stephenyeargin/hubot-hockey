@@ -836,6 +836,52 @@ describe('hubot-hockey league standings', () => {
     );
   });
 
+  it('sorts conference standings by points percentage with extended standings', (done) => {
+    Date.now = () => Date.parse('Tues Nov 7 22:36:00 CST 2023');
+    process.env.HUBOT_HOCKEY_EXT_STANDINGS = 'true';
+
+    userSays('alice', '@hubot nhl west');
+    setTimeout(
+      () => {
+        delete process.env.HUBOT_HOCKEY_EXT_STANDINGS;
+        try {
+          expect(messages).to.eql([
+            ['alice', '@hubot nhl west'],
+            [
+              'hubot',
+              '.-----------------------------------------------------------------------.\n'
+            + '|                     Western Conference Standings                      |\n'
+            + '|-----------------------------------------------------------------------|\n'
+            + '|         Team         | GP | W  | L  | OT | PTS |  P%   |  L10  | STRK |\n'
+            + '|----------------------|----|----|----|----|-----|-------|-------|------|\n'
+            + '| Vegas Golden Knights | 13 | 11 |  1 |  1 |  23 | 0.885 | 8-1-1 | L1   |\n'
+            + '| Vancouver Canucks    | 12 |  9 |  2 |  1 |  19 | 0.792 | 7-2-1 | W4   |\n'
+            + '| Los Angeles Kings    | 11 |  7 |  2 |  2 |  16 | 0.727 | 7-1-2 | W3   |\n'
+            + '| Colorado Avalanche   | 10 |  7 |  3 |  0 |  14 | 0.700 | 7-3-0 | L1   |\n'
+            + '| Dallas Stars         | 11 |  7 |  3 |  1 |  15 | 0.682 | 6-3-1 | L2   |\n'
+            + '| Anaheim Ducks        | 11 |  7 |  4 |  0 |  14 | 0.636 | 7-3-0 | W6   |\n'
+            + '| Winnipeg Jets        | 12 |  6 |  4 |  2 |  14 | 0.583 | 5-3-2 | W2   |\n'
+            + '| Minnesota Wild       | 12 |  5 |  5 |  2 |  12 | 0.500 | 4-4-2 | W2   |\n'
+            + '| Arizona Coyotes      | 11 |  5 |  5 |  1 |  11 | 0.500 | 4-5-1 | L1   |\n'
+            + '| St. Louis Blues      | 11 |  5 |  5 |  1 |  11 | 0.500 | 5-5-0 | L1   |\n'
+            + '| Nashville Predators  | 11 |  5 |  6 |  0 |  10 | 0.455 | 5-5-0 | W1   |\n'
+            + '| Seattle Kraken       | 12 |  4 |  6 |  2 |  10 | 0.417 | 4-4-2 | L1   |\n'
+            + '| Chicago Blackhawks   | 11 |  4 |  7 |  0 |   8 | 0.364 | 3-7-0 | L1   |\n'
+            + '| Calgary Flames       | 11 |  3 |  7 |  1 |   7 | 0.318 | 2-7-1 | W1   |\n'
+            + '| Edmonton Oilers      | 11 |  2 |  8 |  1 |   5 | 0.227 | 2-7-1 | L3   |\n'
+            + '| San Jose Sharks      | 11 |  0 | 10 |  1 |   1 | 0.045 | 0-9-1 | L9   |\n'
+            + "'-----------------------------------------------------------------------'",
+            ],
+          ]);
+          done();
+        } catch (err) {
+          done(err);
+        }
+      },
+      100,
+    );
+  });
+
   it('responds with standings during the off-season', (done) => {
     Date.now = () => Date.parse('Tues Jul 9 18:36:00 CST 2024');
 
